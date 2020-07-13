@@ -1,0 +1,7 @@
+Verified+1: LF Jenkins CI <releng+lf-jobbuilder@linuxfoundation.org>
+Code-Review+2: LF Jenkins CI <releng+lf-jobbuilder@linuxfoundation.org>
+Submitted-by: Aric Gardner <agardner@linuxfoundation.org>
+Submitted-at: Mon, 13 Jul 2020 17:25:55 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/c/kuberef/+/70384
+Project: kuberef
+Branch: refs/heads/master
