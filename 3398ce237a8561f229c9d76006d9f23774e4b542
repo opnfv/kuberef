@@ -1,0 +1,283 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9938003f_ebb9f30b",
+        "filename": ".gitreview",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-21T16:41:54Z",
+      "side": 1,
+      "message": "trailing space",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d32f092_765e3171",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-21T16:41:54Z",
+      "side": 1,
+      "message": "I suggest to follow the best practices for commit messages published for OpenStack(https://wiki.openstack.org/wiki/GitCommitMessages). So if you can include some content in this message should be awesome.",
+      "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "869d1083_f9db037f",
+        "filename": "create_vm.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-21T16:41:54Z",
+      "side": 1,
+      "message": "I suggest to use the following text as header for bash scripts:\n\n#!/bin/bash\n# SPDX-license-identifier: Apache-2.0\n##############################################################################\n# Copyright (c)\n# All rights reserved. This program and the accompanying materials\n# are made available under the terms of the Apache License, Version 2.0\n# which accompanies this distribution, and is available at\n# http://www.apache.org/licenses/LICENSE-2.0\n##############################################################################\n\nset -o pipefail\nset -o xtrace\nset -o errexit\nset -o nounset",
+      "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d48e023b_ee19143c",
+        "filename": "create_vm.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-21T16:41:54Z",
+      "side": 1,
+      "message": "This script assumes some dependencies previously installed, can you include some validations?\n\nif ! command -v qemu-img; then\n    echo \"QEMU wasn\u0027t installed\"\n    exit 1\nfi\n\nThese instructions can be grouped in functions to improve readability of the script\n\nfunction create_image {\n}\n\nfunction start_vm {\n}\n\ncreate_image\nstart_vm",
+      "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4028718b_a14679cc",
+        "filename": "deploy.env",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-21T16:41:54Z",
+      "side": 1,
+      "message": "Could you include comments in the variables to understand better their scope",
+      "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "078418ac_05e6b54a",
+        "filename": "deploy.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-21T16:41:54Z",
+      "side": 1,
+      "message": "trailing space",
+      "range": {
+        "startLine": 19,
+        "startChar": 119,
+        "endLine": 19,
+        "endChar": 120
+      },
+      "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dc8316b_3e2e26d0",
+        "filename": "deploy.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-21T16:41:54Z",
+      "side": 1,
+      "message": "I suggest to limit the number of characters per line to 80, that will facilitate the adoption of linting tools like bashate",
+      "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6fb854f_3353344d",
+        "filename": "deploy.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-21T16:41:54Z",
+      "side": 1,
+      "message": "trailing space",
+      "range": {
+        "startLine": 28,
+        "startChar": 91,
+        "endLine": 28,
+        "endChar": 92
+      },
+      "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90c581f7_f3018821",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-21T16:41:54Z",
+      "side": 1,
+      "message": "Use spaces instead of tabs, this is suggested by bashate tool (E002)",
+      "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c327f46_fe9ceefe",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-21T16:41:54Z",
+      "side": 1,
+      "message": "Clone instructions need to target to specific commit ID and provide destination folder\n\n    git clone https://gerrit.nordix.org/infra/engine.git infra/engine\n    cd infra/engine\n    git checkout b42db84940f3659e97101b8828e333d25a25f84f",
+      "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71179c5e_c75892e7",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-21T16:41:54Z",
+      "side": 1,
+      "message": "Docker provides an installer script for most of the distros\n\n    curl -fsSL https://get.docker.com/ | sh",
+      "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65b99ca3_71b6fefa",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-21T16:41:54Z",
+      "side": 1,
+      "message": "Sleep instructions doesn\u0027t guarantee the desire state, I suggest to avoid them:\n\n    printf \"Waiting for docker service...\"\n    until sudo docker info; do\n        printf \".\"\n        sleep 2\n    done",
+      "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d064fa5_41484052",
+        "filename": "hw_config/idf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-21T16:41:54Z",
+      "side": 1,
+      "message": "I suggest to use the following text as header for yaml files\n\n# SPDX-license-identifier: Apache-2.0\n##############################################################################\n# Copyright (c) 2020\n# All rights reserved. This program and the accompanying materials\n# are made available under the terms of the Apache License, Version 2.0\n# which accompanies this distribution, and is available at\n# http://www.apache.org/licenses/LICENSE-2.0\n##############################################################################",
+      "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad646bdd_5cfb5308",
+        "filename": "setup_network.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-21T16:41:54Z",
+      "side": 1,
+      "message": "trailing space",
+      "range": {
+        "startLine": 8,
+        "startChar": 69,
+        "endLine": 8,
+        "endChar": 70
+      },
+      "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6a6b3e6_8d482d23",
+        "filename": "sw_config/all.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-21T16:41:54Z",
+      "side": 1,
+      "message": "Isn\u0027t the default value for kubespray?",
+      "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
