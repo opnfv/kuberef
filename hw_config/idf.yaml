@@ -1,0 +1,53 @@
+idf:
+  version: 0.1
+  net_config: &net_config
+    oob:
+      interface: 0
+      network: 10.10.190.0
+      gateway: 10.10.190.1
+      vlan: native
+      mask: 24
+      dns:
+        - 8.8.8.8
+    admin:  # admin
+      interface: 1
+      vlan: 191
+      network: 10.10.191.0
+      mask: 24
+      bridge: br-name
+
+  kubespray: &idf_kubespray
+    nodes_roles:
+      node1: [k8s-cluster, kube-node, kube-master, etcd, vault]
+      node2: [k8s-cluster, kube-node]
+    groups:
+      k8s-cluster:
+        - kube-node
+        - kube-master
+    hostnames:
+      node1: pod19-node1
+      node2: pod19-node2
+    network:
+      # network mapping
+      network_mapping:
+        net_admin: admin
+        # Public network
+        net_public: public
+        # Management network used by installer components to communicate
+        net_mgmt: public
+
+engine:
+  pod_name: pod19-jump
+  net_config: *net_config
+
+  # net_config network to be used by the PXE
+  pxe_network: oob
+
+  # net_config network to be used for the internet access
+  public_network: oob
+
+  # interface to be used by the PXE
+  pxe_interface: ens4
+
+  installers:
+    kubespray: *idf_kubespray
