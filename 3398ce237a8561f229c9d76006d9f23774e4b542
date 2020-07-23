@@ -76,6 +76,24 @@
     },
     {
       "key": {
+        "uuid": "584f41bc_5d880705",
+        "filename": "create_vm.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-07-23T09:07:34Z",
+      "side": 1,
+      "message": "Good comments. I haven\u0027t included this yet in the main functions body (functions.sh script) because I am thinking whether VM creation using Jenkins Vagrant/vm plugins would be a good alternative. If we happen to continue with this cloud-init based VM provisioning, then I\u0027ll move this script into functions.sh.",
+      "parentUuid": "d48e023b_ee19143c",
+      "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4028718b_a14679cc",
         "filename": "deploy.env",
         "patchSetId": 1
