@@ -296,6 +296,24 @@
       "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d3c067d_9e3af087",
+        "filename": "sw_config/all.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-07-23T09:10:11Z",
+      "side": 1,
+      "message": "I\u0027ve taken this file from upstream BMRA repo.",
+      "parentUuid": "b6a6b3e6_8d482d23",
+      "revId": "3398ce237a8561f229c9d76006d9f23774e4b542",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
