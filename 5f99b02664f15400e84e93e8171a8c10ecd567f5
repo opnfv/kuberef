@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1413407_825912c5",
+        "filename": "hw_config/idf.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-07-24T11:11:17Z",
+      "side": 1,
+      "message": "this file is specific to one particular Intel pod. Ideally we move those files back to the pharos repo or we keep them here in separate subdirectories. Since they slightly differ from the traditional PDFs (I believe) we can keep them here for the time being.",
+      "revId": "5f99b02664f15400e84e93e8171a8c10ecd567f5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3261a2ef_8fb6fb73",
+        "filename": "hw_config/pdf.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-07-24T11:11:17Z",
+      "side": 1,
+      "message": "this file is specific to one particular Intel pod. Ideally we move those files back to the pharos repo or we keep them here in separate subdirectories. Since they slightly differ from the traditional PDFs (I believe) we can keep them here for the time being.",
+      "revId": "5f99b02664f15400e84e93e8171a8c10ecd567f5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d21f43b_ea11d74e",
+        "filename": "setup_network.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-07-24T11:11:17Z",
+      "side": 1,
+      "message": "this file is also pod specific for the time being -\u003e move to pod specific subdirectory",
+      "revId": "5f99b02664f15400e84e93e8171a8c10ecd567f5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b2fd789_5242e1e4",
+        "filename": "sw_config/all.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-07-24T11:11:17Z",
+      "side": 1,
+      "message": "this is BMRA specific. how about moving this file in a subdirectory",
+      "revId": "5f99b02664f15400e84e93e8171a8c10ecd567f5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7962871d_3acfa4bd",
+        "filename": "sw_config/inventory.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-07-24T11:11:17Z",
+      "side": 1,
+      "message": "this is BMRA specific. how about moving this file in a subdirectory",
+      "revId": "5f99b02664f15400e84e93e8171a8c10ecd567f5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7aa60a69_b1615148",
+        "filename": "sw_config/node1.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-07-24T11:11:17Z",
+      "side": 1,
+      "message": "this is BMRA specific. how about moving this file in a subdirectory",
+      "revId": "5f99b02664f15400e84e93e8171a8c10ecd567f5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
