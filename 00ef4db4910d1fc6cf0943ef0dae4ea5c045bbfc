@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ceafc68_3400c6ab",
+        "filename": "functions.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-07-27T14:51:56Z",
+      "side": 1,
+      "message": "this line fails due to \"set -o errexit\" if no VM of that name exists. Add check around these lines.",
+      "revId": "00ef4db4910d1fc6cf0943ef0dae4ea5c045bbfc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d0a7301_c11c007f",
+        "filename": "functions.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-07-27T14:51:56Z",
+      "side": 1,
+      "message": "httpboot is used here but created in provision_hosts() which is called later.",
+      "revId": "00ef4db4910d1fc6cf0943ef0dae4ea5c045bbfc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
