@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "9f4daa7f_357db982",
+        "filename": "functions.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-07-27T21:08:48Z",
+      "side": 1,
+      "message": "is this necessary? it does not seem to be supported on Ubuntu",
+      "range": {
+        "startLine": 16,
+        "startChar": 49,
+        "endLine": 16,
+        "endChar": 63
+      },
+      "revId": "00ef4db4910d1fc6cf0943ef0dae4ea5c045bbfc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d0a7301_c11c007f",
         "filename": "functions.sh",
         "patchSetId": 3
