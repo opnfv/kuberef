@@ -16,12 +16,12 @@ set -o nounset
 # Please refer to README for detailed information.
 
 # Get path information
-DIRECTORY=$(readlink -f $0)
-CURRENTPATH=$(dirname $DIRECTORY)
+DIRECTORY=$(readlink -f "$0")
+CURRENTPATH=$(dirname "$DIRECTORY")
 
 # Source env variables & functions
-source $CURRENTPATH/deploy.env
-source $CURRENTPATH/functions.sh
+source "$CURRENTPATH/deploy.env"
+source "$CURRENTPATH/functions.sh"
 
 # Clean up leftovers
 clean_up
