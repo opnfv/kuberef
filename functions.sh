@@ -22,15 +22,44 @@ clean_up() {
 
 # Create jumphost VM
 create_jump() {
-    ./create_vm.sh "$VM_NAME"
+# Create VM image
+    sudo mkdir -p "/var/lib/libvirt/images/$VM_NAME"
+    sudo qemu-img create -f qcow2 \
+        -o backing_file=/var/lib/libvirt/images/ubuntu-18.04.qcow2 \
+        "/var/lib/libvirt/images/$VM_NAME/$VM_NAME.qcow2" 10G
+
+# Create VM cloud-init configuration files
+    cat <<EOL > user-data
+    #cloud-config
+    users:
+      - name: $USERNAME
+        ssh-authorized-keys:
+          - $(cat "$HOME/.ssh/id_rsa.pub")
+        sudo: ['ALL=(ALL) NOPASSWD:ALL']
+        groups: sudo
+        shell: /bin/bash
+EOL
+    cat <<EOL > meta-data
+    local-hostname: $VM_NAME
+EOL
+
+# Create VM
+    sudo genisoimage  -output "/var/lib/libvirt/images/$VM_NAME/$VM_NAME-cidata.iso" \
+        -volid cidata -joliet -rock user-data meta-data
+
+    sudo virt-install --connect qemu:///system --name "$VM_NAME" \
+        --ram 4096 --vcpus=4 --os-type linux --os-variant ubuntu16.04 \
+        --disk path="/var/lib/libvirt/images/$VM_NAME/$VM_NAME.qcow2",format=qcow2 \
+        --disk "/var/lib/libvirt/images/$VM_NAME/$VM_NAME-cidata.iso",device=cdrom \
+        --import --network network=default --network bridge="$BRIDGE",model=rtl8139 --noautoconsole
     jumpbox_ip=$(get_vm_ip)
     i=0
-    while [ -z $jumpbox_ip ]; do
+    while [ -z "$jumpbox_ip" ]; do
         sleep $((++i))
         jumpbox_ip=$(get_vm_ip)
     done
     i=0
-    until nc -w5 -z $jumpbox_ip 22; do
+    until nc -w5 -z "$jumpbox_ip" 22; do
         sleep $((++i))
     done
 }
@@ -42,6 +71,21 @@ get_vm_ip() {
 
 # Setup PXE network
 setup_PXE_network() {
+# Extract configuration from PDF/IDF
+    PXE_IF=$(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/idf.yaml engine.pxe_interface)
+    PXE_IF_INDEX=$(yq r "$CURRENTPATH"/hw_config/"${VENDOR}"/idf.yaml idf.net_config.oob.interface)
+    if [[ -z $PXE_IF || -z $PXE_IF_INDEX ]]; then
+        echo 'one or more variables in IDF are undefined'
+        exit 1
+    fi
+    PXE_IF_IP=$(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/pdf.yaml jumphost.interfaces.["$PXE_IF_INDEX"].address)
+    PXE_IF_MAC=$(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/pdf.yaml jumphost.interfaces.["$PXE_IF_INDEX"].mac_address)
+    if [[ -z $PXE_IF_IP || -z $PXE_IF_MAC ]]; then
+        echo 'one or more variables in PDF are incorrect'
+        exit 1
+    fi
+    export NETMASK=255.255.255.0
+# SSH to jumphost
     # shellcheck disable=SC2087
     ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
 sudo ifconfig $PXE_IF up
@@ -77,6 +121,11 @@ EOF
 
 # Setup networking on provisioned hosts (Adapt setup_network.sh according to your network setup)
 setup_network() {
+# Extract IPs of provisioned nodes from PDF/IDF. When running this function standalone, ensure
+# to set $PXE_IF_INDEX
+    MASTER_IP=$(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/pdf.yaml nodes.[0].interfaces.["$PXE_IF_INDEX"].address)
+    WORKER_IP=$(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/pdf.yaml nodes.[1].interfaces.["$PXE_IF_INDEX"].address)
+# SSH to jumphost
     # shellcheck disable=SC2087
     ssh -tT  "$USERNAME"@"$(get_vm_ip)" << EOF
 ssh -o StrictHostKeyChecking=no root@$MASTER_IP \
