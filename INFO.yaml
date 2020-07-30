@@ -49,6 +49,10 @@ committers:
       email: 'michaelx.pedersen@intel.com'
       company: 'Intel'
       id: 'pedersex'
+    - name: 'Victor Morales'
+      email: 'v.morales@samsung.com'
+      company: 'Samsung'
+      id: 'electrocucaracha'
 tsc:
     # yamllint disable rule:line-length
     approval: 'https://lists.opnfv.org/g/opnfv-tsc/message/6210'
