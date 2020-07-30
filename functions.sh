@@ -24,7 +24,36 @@ clean_up() {
 # Create jumphost VM
 
 create_jump() {
-    ./create_vm.sh $VM_NAME
+# Create VM image
+    sudo mkdir -p /var/lib/libvirt/images/$VM_NAME
+    sudo qemu-img create -f qcow2 \
+        -o backing_file=/var/lib/libvirt/images/ubuntu-18.04.qcow2 \
+        /var/lib/libvirt/images/$VM_NAME/$VM_NAME.qcow2 10G
+
+# Create VM cloud-init configuration files
+    cat <<EOL > user-data
+    #cloud-config
+    users:
+      - name: $USERNAME
+        ssh-authorized-keys:
+          - $(cat $HOME/.ssh/id_rsa.pub)
+        sudo: ['ALL=(ALL) NOPASSWD:ALL']
+        groups: sudo
+        shell: /bin/bash
+EOL
+    cat <<EOL > meta-data
+    local-hostname: $VM_NAME
+EOL
+
+# Create VM
+sudo genisoimage  -output /var/lib/libvirt/images/$VM_NAME/$VM_NAME-cidata.iso \
+    -volid cidata -joliet -rock user-data meta-data
+
+sudo virt-install --connect qemu:///system --name $VM_NAME \
+    --ram 4096 --vcpus=4 --os-type linux --os-variant ubuntu16.04 \
+    --disk path=/var/lib/libvirt/images/$VM_NAME/$VM_NAME.qcow2,format=qcow2 \
+    --disk /var/lib/libvirt/images/$VM_NAME/$VM_NAME-cidata.iso,device=cdrom \
+    --import --network network=default --network bridge=$BRIDGE,model=rtl8139 --noautoconsole
     sleep 30
 }
 
@@ -40,6 +69,10 @@ get_vm_ip() {
 
 setup_PXE_network() {
     get_vm_ip
+    export PXE_IF=$(yq r hw_config/intel/idf.yaml engine.pxe_interface)
+    export PXE_IF_IP=$(yq r hw_config/intel/pdf.yaml jumphost.interfaces.[0].address)
+    export PXE_IF_MAC=$(yq r hw_config/intel/pdf.yaml jumphost.interfaces.[0].mac_address)
+    export NETMASK=255.255.255.0
     ssh -o StrictHostKeyChecking=no -tT $USERNAME@$VM_IP << EOF
     sudo ifconfig $PXE_IF up
     sudo ifconfig $PXE_IF $PXE_IF_IP netmask $NETMASK
@@ -74,6 +107,8 @@ EOF
 # Setup networking on provisioned hosts (Adapt setup_network.sh according to your network setup) 
 
 setup_network() {
+    export MASTER_IP=$(yq r hw_config/intel/pdf.yaml nodes.[0].interfaces.[0].address)
+    export WORKER_IP=$(yq r hw_config/intel/pdf.yaml nodes.[1].interfaces.[0].address)
 # SSH to jumphost
     ssh -tT $USERNAME@$VM_IP << EOF
     ssh -o StrictHostKeyChecking=no root@$MASTER_IP 'bash -s' <  ${PROJECT_ROOT}/${VENDOR}/setup_network.sh
