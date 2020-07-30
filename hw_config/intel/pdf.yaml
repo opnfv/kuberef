@@ -18,7 +18,7 @@ details:
   link: http://wiki.opnfv.org/display/pharos/Intel+Hosting
 ##############################################################################
 jumphost:
-  name: pod19-jump
+  name: kuberef-jump
   node: &nodeparas
     type: baremetal
     vendor: Intel
