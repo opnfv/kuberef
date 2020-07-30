@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "015addc6_6b5d7981",
+        "filename": "deploy.env",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-30T20:49:58Z",
+      "side": 1,
+      "message": "This path has a dependency based on the Vendor chosen in line 4",
+      "range": {
+        "startLine": 11,
+        "startChar": 32,
+        "endLine": 11,
+        "endChar": 37
+      },
+      "revId": "7f3c0106eb33f2627553f8047bf6707991f630a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f54730a_ac918d8f",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-30T20:49:58Z",
+      "side": 1,
+      "message": "These lines don\u0027t have a proper indentation",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 93
+      },
+      "revId": "7f3c0106eb33f2627553f8047bf6707991f630a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8a909d6_6ba8e7f8",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-30T20:49:58Z",
+      "side": 1,
+      "message": "Same comment than deploy.env file",
+      "range": {
+        "startLine": 72,
+        "startChar": 35,
+        "endLine": 72,
+        "endChar": 40
+      },
+      "revId": "7f3c0106eb33f2627553f8047bf6707991f630a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17151d83_0dc9d186",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-30T20:49:58Z",
+      "side": 1,
+      "message": "ditto line 72",
+      "range": {
+        "startLine": 73,
+        "startChar": 38,
+        "endLine": 73,
+        "endChar": 43
+      },
+      "revId": "7f3c0106eb33f2627553f8047bf6707991f630a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c529149a_961f03ec",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-30T20:49:58Z",
+      "side": 1,
+      "message": "ditto line 72",
+      "range": {
+        "startLine": 74,
+        "startChar": 39,
+        "endLine": 74,
+        "endChar": 44
+      },
+      "revId": "7f3c0106eb33f2627553f8047bf6707991f630a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce02f854_4063c5f7",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-30T20:49:58Z",
+      "side": 1,
+      "message": "ditto line 72",
+      "range": {
+        "startLine": 110,
+        "startChar": 38,
+        "endLine": 110,
+        "endChar": 43
+      },
+      "revId": "7f3c0106eb33f2627553f8047bf6707991f630a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4c4d9d0_3feb52f0",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-30T20:49:58Z",
+      "side": 1,
+      "message": "ditto line 72",
+      "range": {
+        "startLine": 111,
+        "startChar": 38,
+        "endLine": 111,
+        "endChar": 43
+      },
+      "revId": "7f3c0106eb33f2627553f8047bf6707991f630a1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
