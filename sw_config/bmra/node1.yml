@@ -17,7 +17,7 @@ sriov_nics:
 sriov_cni_enabled: false
 
 # install DPDK
-install_dpdk: false # DPDK installation is required for sriov_enabled:true; default to false
+install_dpdk: false  # DPDK installation is required for sriov_enabled:true; default to false
 
 userspace_cni_enabled: false
 
