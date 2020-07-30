@@ -24,7 +24,36 @@ clean_up() {
 # Create jumphost VM
 
 create_jump() {
-    ./create_vm.sh $VM_NAME
+# Create VM image
+    sudo mkdir -p /var/lib/libvirt/images/$VM_NAME
+    sudo qemu-img create -f qcow2 \
+        -o backing_file=/var/lib/libvirt/images/ubuntu-18.04.qcow2 \
+        /var/lib/libvirt/images/$VM_NAME/$VM_NAME.qcow2 10G
+
+# Create VM cloud-init configuration files
+    cat <<EOL > user-data
+    #cloud-config
+    users:
+      - name: $USERNAME
+        ssh-authorized-keys:
+          - $(cat $HOME/.ssh/id_rsa.pub)
+        sudo: ['ALL=(ALL) NOPASSWD:ALL']
+        groups: sudo
+        shell: /bin/bash
+EOL
+    cat <<EOL > meta-data
+    local-hostname: $VM_NAME
+EOL
+
+# Create VM
+    sudo genisoimage  -output /var/lib/libvirt/images/$VM_NAME/$VM_NAME-cidata.iso \
+        -volid cidata -joliet -rock user-data meta-data
+
+    sudo virt-install --connect qemu:///system --name $VM_NAME \
+        --ram 4096 --vcpus=4 --os-type linux --os-variant ubuntu16.04 \
+        --disk path=/var/lib/libvirt/images/$VM_NAME/$VM_NAME.qcow2,format=qcow2 \
+        --disk /var/lib/libvirt/images/$VM_NAME/$VM_NAME-cidata.iso,device=cdrom \
+        --import --network network=default --network bridge=$BRIDGE,model=rtl8139 --noautoconsole
     sleep 30
 }
 
@@ -61,17 +90,16 @@ provision_hosts() {
     ssh -tT $USERNAME@$VM_IP << EOF
 # Install and run cloud-infra
     if [ ! -d "${PROJECT_ROOT}/engine" ]; then
-      ssh-keygen -t rsa -N "" -f ${PROJECT_ROOT}/.ssh/id_rsa
-      git clone https://gerrit.nordix.org/infra/engine.git
-      cp $PROJECT_ROOT/$VENDOR/{pdf.yaml,idf.yaml} ${PROJECT_ROOT}/engine/engine
-#      sudo mkdir /httpboot && sudo cp -r ${PROJECT_ROOT}/deployment_image.qcow2 /httpboot #will be removed when centos image path will be added in infra-engine
+        ssh-keygen -t rsa -N "" -f ${PROJECT_ROOT}/.ssh/id_rsa
+        git clone https://gerrit.nordix.org/infra/engine.git
+        cp $PROJECT_ROOT/$VENDOR/{pdf.yaml,idf.yaml} ${PROJECT_ROOT}/engine/engine
     fi
-      cd ${PROJECT_ROOT}/engine/engine && ./deploy.sh -s ironic -d centos7 \
-       -p file:///${PROJECT_ROOT}/engine/engine/pdf.yaml -i file:///${PROJECT_ROOT}/engine/engine/idf.yaml
+        cd ${PROJECT_ROOT}/engine/engine && ./deploy.sh -s ironic -d centos7 \
+        -p file:///${PROJECT_ROOT}/engine/engine/pdf.yaml -i file:///${PROJECT_ROOT}/engine/engine/idf.yaml
 EOF
 }
 
-# Setup networking on provisioned hosts (Adapt setup_network.sh according to your network setup) 
+# Setup networking on provisioned hosts (Adapt setup_network.sh according to your network setup)
 
 setup_network() {
 # SSH to jumphost
