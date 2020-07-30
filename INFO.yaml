@@ -1,0 +1,58 @@
+---
+project: 'kuberef'
+project_creation_date: '2020-07-08'
+project_category: ''
+lifecycle_state: 'Incubation'
+project_lead: &opnfv_kuberef_ptl
+    name: 'Rihab Banday'
+    email: 'rihab.banday@ericsson.com'
+    company: 'Ericsson'
+    id: 'rihabbanday'
+primary_contact: *opnfv_kuberef_ptl
+issue_tracking:
+    type: 'jira'
+    url: 'https://jira.opnfv.org/projects/'
+    key: 'kuberef'
+mailing_list:
+    type: 'groups.io'
+    url: 'technical-discuss@lists.opnfv.org'
+    tag: '[]'
+realtime_discussion:
+    type: 'irc'
+    server: 'freenode.net'
+    channel: '#opnfv'
+meetings:
+    - type: 'gotomeeting+irc'
+      agenda: 'https://wiki.opnfv.org/display/'
+      url: ''
+      server: 'freenode.net'
+      channel: '#opnfv'
+      repeats: ''
+      time: ''
+repositories:
+    - kuberef
+committers:
+    - <<: *opnfv_kuberef_ptl
+    - name: 'Trevor Cooper'
+      email: 'trevor.cooper@intel.com'
+      company: 'intel.com'
+      id: 'trev'
+    - name: 'Georg Kunz'
+      email: 'georg.kunz@ericsson.com'
+      company: 'ericsson.com'
+      id: 'georgkunz'
+    - name: 'James Gu'
+      email: 'james.gu@att.com'
+      company: 'ATT'
+      id: 'jamesgu'
+    - name: 'Michael Pedersen'
+      email: 'michaelx.pedersen@intel.com'
+      company: 'Intel'
+      id: 'pedersex'
+tsc:
+    # yamllint disable rule:line-length
+    approval: 'https://lists.opnfv.org/g/opnfv-tsc/message/6210'
+    changes:
+        - type: ''
+          name: ''
+          link: ''
