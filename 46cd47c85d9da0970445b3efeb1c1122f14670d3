@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e5e22cc_3e216890",
+        "filename": "INFO.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-07-30T22:30:56Z",
+      "side": 1,
+      "message": "can you include my corporate email? v.morales@samsung.com",
+      "range": {
+        "startLine": 53,
+        "startChar": 14,
+        "endLine": 53,
+        "endChar": 35
+      },
+      "revId": "46cd47c85d9da0970445b3efeb1c1122f14670d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
