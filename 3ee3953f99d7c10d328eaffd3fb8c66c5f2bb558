@@ -1,0 +1,8 @@
+Code-Review+1: Victor Morales <chipahuac@hotmail.com>
+Code-Review+2: Rihab Banday <rihab.banday@ericsson.com>
+Verified+1: Georg Kunz <georg.kunz@est.tech>
+Submitted-by: Georg Kunz <georg.kunz@est.tech>
+Submitted-at: Fri, 31 Jul 2020 09:36:35 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/c/kuberef/+/70615
+Project: kuberef
+Branch: refs/heads/master
