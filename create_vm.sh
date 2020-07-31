@@ -32,7 +32,8 @@ EOL
 
 sudo genisoimage  -output /var/lib/libvirt/images/$1/"$1"-cidata.iso \
     -volid cidata -joliet -rock user-data meta-data
-
+sudo virt-customize -a /var/lib/libvirt/images/$1/"$1".qcow2 \
+    --root-password password:$ROOT_PASSWORD
 sudo virt-install --connect qemu:///system --name $VM_NAME \
     --ram 4096 --vcpus=4 --os-type linux --os-variant ubuntu16.04 \
     --disk path=/var/lib/libvirt/images/$1/"$1".qcow2,format=qcow2 \
