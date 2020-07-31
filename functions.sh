@@ -31,16 +31,13 @@ create_jump() {
 # Get jumphost VM IP
 
 get_vm_ip() {
-    export VM_IP=$(sudo virsh domifaddr ${VM_NAME} | \
-            sed 3q | sed '$!d' |awk '{print $4}' | cut -d/ -f1)
-    echo "VM IP is ${VM_IP}"
+    sudo virsh domifaddr ${VM_NAME} | awk 'FNR == 3 {gsub(/\/.*/, ""); print $4}'
 }
 
 # Setup PXE network
 
 setup_PXE_network() {
-    get_vm_ip
-    ssh -o StrictHostKeyChecking=no -tT $USERNAME@$VM_IP << EOF
+    ssh -o StrictHostKeyChecking=no -tT $USERNAME@$(get_vm_ip) << EOF
     sudo ifconfig $PXE_IF up
     sudo ifconfig $PXE_IF $PXE_IF_IP netmask $NETMASK
     sudo ifconfig $PXE_IF hw ether $PXE_IF_MAC
@@ -51,14 +48,14 @@ EOF
 
 copy_files_jump() {
     scp -r -o StrictHostKeyChecking=no $CURRENTPATH/{hw_config/$VENDOR/,sw_config/$INSTALLER/} \
-            $USERNAME@$VM_IP:$PROJECT_ROOT
+            $USERNAME@$(get_vm_ip):$PROJECT_ROOT
 }
 
 # Host Provisioning
 
 provision_hosts() {
 # SSH to jumphost
-    ssh -tT $USERNAME@$VM_IP << EOF
+    ssh -tT $USERNAME@$(get_vm_ip) << EOF
 # Install and run cloud-infra
     if [ ! -d "${PROJECT_ROOT}/engine" ]; then
       ssh-keygen -t rsa -N "" -f ${PROJECT_ROOT}/.ssh/id_rsa
@@ -75,7 +72,7 @@ EOF
 
 setup_network() {
 # SSH to jumphost
-    ssh -tT $USERNAME@$VM_IP << EOF
+    ssh -tT $USERNAME@$(get_vm_ip) << EOF
     ssh -o StrictHostKeyChecking=no root@$MASTER_IP 'bash -s' <  ${PROJECT_ROOT}/${VENDOR}/setup_network.sh
     ssh -o StrictHostKeyChecking=no root@$WORKER_IP 'bash -s' <  ${PROJECT_ROOT}/${VENDOR}/setup_network.sh
 EOF
@@ -85,7 +82,7 @@ EOF
 
 provision_k8s() {
 # SSH to jumphost
-    ssh -tT $USERNAME@$VM_IP << EOF
+    ssh -tT $USERNAME@$(get_vm_ip) << EOF
 # Install BMRA
     if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
       curl -fsSL https://get.docker.com/ | sh
