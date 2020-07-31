@@ -23,7 +23,16 @@ clean_up() {
 # Create jumphost VM
 create_jump() {
     ./create_vm.sh "$VM_NAME"
-    sleep 30
+    jumpbox_ip=$(get_vm_ip)
+    i=0
+    while [ -z $jumpbox_ip ]; do
+        sleep $((++i))
+        jumpbox_ip=$(get_vm_ip)
+    done
+    i=0
+    until nc -w5 -z $jumpbox_ip 22; do
+        sleep $((++i))
+    done
 }
 
 # Get jumphost VM IP
