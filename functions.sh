@@ -11,10 +11,10 @@
 # Clean up
 
 clean_up() {
-    if sudo virsh list --all | grep "${VM_NAME}.*running" ; then
+    if sudo virsh list --all | grep " ${VM_NAME} .*running" ; then
         sudo virsh destroy $VM_NAME
     fi
-    if sudo virsh list --all | grep "${VM_NAME}" ; then
+    if sudo virsh list --all | grep " ${VM_NAME} " ; then
         sudo virsh undefine $VM_NAME
     fi
         sudo rm -rf /var/lib/libvirt/images/$VM_NAME
