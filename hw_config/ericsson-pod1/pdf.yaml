@@ -1,0 +1,154 @@
+---
+# ============LICENSE_START=======================================================
+#  Copyright (C) 2019 The Nordix Foundation. All rights reserved.
+# ================================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+# ============LICENSE_END=========================================================
+version: 1.0
+details:
+  pod_owner: Nordix
+  contact: infra@nordix.org
+  lab: Nordix OpenLab
+  location: N/A
+  type: baremetal
+  link: http://wiki.nordix.org/
+##############################################################################
+jumphost:
+  name: jumphost
+  node:
+    type: virtual
+    vendor: vmware
+    model: pc
+    arch: x86_64
+    cpus: 4
+    cpu_cflags: host-passthrough
+    cores: 4
+    memory: 9G
+  disks:
+    - name: disk1
+      disk_capacity: 250G
+      disk_type: hdd
+      disk_interface: sata
+      disk_rotation:
+  os: ubuntu1804
+  interfaces:
+    - name: 'ens4'
+      address: 10.0.20.1
+      mac_address: 52:54:00:4a:e8:2d
+    - name: 'ens3'
+      address: 100.64.200.254
+##############################################################################
+nodes:
+  - name: node1
+    node: &nodeparams
+      type: baremetal
+      vendor: HP
+      model: ProLiant BL460c Gen8
+      arch: x86_64
+      cpus: 2
+      cpu_cflags: ivybridge
+      cores: 10
+      memory: 64G
+    disks: &disks
+      - name: disk1
+        disk_capacity: 745G
+        disk_type: hdd
+        disk_interface: scsi
+        disk_rotation: 15000
+    remote_params: &remoteparas
+      type:
+        - ipmi
+      user: opnfv
+      pass: Winter2017
+    remote_management:
+      <<: *remoteparas
+      address: 172.16.1.19
+      mac_address: "FC:15:B4:12:97:64"
+    interfaces:
+      - name: 'nic1'
+        speed: 1gb
+        features: 'dpdk|sriov'
+        mac_address: "9c:b6:54:8a:95:a0"
+        vlan: native
+        address: 10.0.20.9
+      - name: 'nic2'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "38:ea:a7:8f:52:cc"
+        address: 100.64.200.9
+        vlan: native
+      - name: 'nic3'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "38:ea:a7:8f:1f:d4"
+#        address: 192.168.11.19
+      - name: 'nic4'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "38:ea:a7:8f:1f:d5"
+#        address: 100.64.200.9
+      - name: 'nic5'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "38:ea:a7:8f:52:cd"
+#        address: 100.64.200.9
+      - name: 'nic6'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "00:00:00:00:00:00"
+        address: 10.10.10.15
+        vlan: native
+  ############################################################################
+  - name: node2
+    node: *nodeparams
+    disks: *disks
+    remote_management:
+      <<: *remoteparas
+      address: 172.16.1.20
+      mac_address: "9C:B6:54:8E:C5:74"
+    interfaces:
+      - name: 'nic1'
+        speed: 1gb
+        features: 'dpdk|sriov'
+        address: 10.0.20.10
+        mac_address: "9c:b6:54:8a:10:18"
+        vlan: native
+      - name: 'nic2'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        address: 100.64.200.10
+        mac_address: "38:ea:a7:8f:12:48"
+        vlan: native
+      - name: 'nic3'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "38:ea:a7:8f:07:50"
+#        address: 192.168.11.20
+      - name: 'nic4'
+        speed: 10gb
+        features: 'dpdk|sriov'
+#        address: 10.10.10.12
+        mac_address: "38:ea:a7:8f:07:51"
+      - name: 'nic5'
+        speed: 10gb
+        features: 'dpdk|sriov'
+#        address: 100.64.200.10
+        mac_address: "38:ea:a7:8f:12:49"
+      - name: 'nic6'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "00:00:00:00:00:00"
+#        address: 10.10.10.14
+        vlan: native
