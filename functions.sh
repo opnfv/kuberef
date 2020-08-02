@@ -44,6 +44,7 @@ setup_PXE_network() {
     sudo ifconfig $PXE_IF up
     sudo ifconfig $PXE_IF $PXE_IF_IP netmask $NETMASK
     sudo ifconfig $PXE_IF hw ether $PXE_IF_MAC
+    sudo iptables -t nat -A POSTROUTING -o ens3 -j MASQUERADE
 EOF
 }
 
