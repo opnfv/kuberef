@@ -1,0 +1,65 @@
+##############################################################################
+# Copyright (c) 2018 Ericsson AB, Mirantis Inc., Enea AB and others.
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+### ERICSSON POD 2 installer descriptor file ###
+idf:
+  version: 0.1
+  net_config: &net_config
+    pxe:
+      interface: 0
+      vlan: native
+      network: 10.0.20.0
+      gateway: 10.0.20.1
+      mask: 24
+      dns:
+        - 192.168.1.200
+        - 8.8.8.8
+    public:
+      interface: 1
+      vlan: 80
+      network: 100.64.200.6
+      gateway: 100.64.200.1
+      mask: 24
+      dns:
+        - 192.168.1.200
+        - 8.8.8.8
+  kubespray: &idf_kubespray
+    nodes_roles:
+      node1: [k8s-cluster, kube-node, kube-master, etcd, vault]
+      node2: [k8s-cluster, kube-node]
+    groups:
+      k8s-cluster:
+        - kube-node
+        - kube-master
+    hostnames:
+      node1: master0
+      node2: node0
+    network:
+      # network mapping
+      network_mapping:
+        net_admin: pxe
+        # Public network
+        net_public: public
+        # Management network used by installer components to communicate
+        net_mgmt: public
+
+engine:
+  pod_name: ericsson-pod1
+  net_config: *net_config
+
+  # net_config network to be used by the PXE
+  pxe_network: pxe
+
+  # net_config network to be used for the internet access
+  public_network: public
+
+  # interface to be used by the PXE
+  pxe_interface: ens4
+
+  installers:
+    kubespray: *idf_kubespray
