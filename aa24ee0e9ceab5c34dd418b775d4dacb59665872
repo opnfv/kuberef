@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0c0503f_57525b9e",
+        "filename": "hw_config/ericsson-pod1/pdf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-08-05T19:39:46Z",
+      "side": 1,
+      "message": "This header format is different than the other, should be better to standardize it?",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 82
+      },
+      "revId": "aa24ee0e9ceab5c34dd418b775d4dacb59665872",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
