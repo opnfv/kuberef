@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bbd4d278_470e9144",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-08-05T19:32:18Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be better to have ens3 as a variable?",
+      "range": {
+        "startLine": 47,
+        "startChar": 43,
+        "endLine": 47,
+        "endChar": 47
+      },
+      "revId": "c42bb832fe680ad96155a7f3bae8383d2800272b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
