@@ -22,6 +22,30 @@
       "revId": "c42bb832fe680ad96155a7f3bae8383d2800272b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf7be0ba_3b250be3",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-08-10T08:57:32Z",
+      "side": 1,
+      "message": "I think ens3 should be replaced by $PXE_IF.",
+      "parentUuid": "bbd4d278_470e9144",
+      "range": {
+        "startLine": 47,
+        "startChar": 43,
+        "endLine": 47,
+        "endChar": 47
+      },
+      "revId": "c42bb832fe680ad96155a7f3bae8383d2800272b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
