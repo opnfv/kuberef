@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e18a2caf_3bd4cc61",
+        "filename": "functions.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-08-10T08:57:02Z",
+      "side": 1,
+      "message": "this hardcodes the first NIC to be the PXE interface. The index can instead be queried from the IDF.",
+      "range": {
+        "startLine": 73,
+        "startChar": 89,
+        "endLine": 73,
+        "endChar": 90
+      },
+      "revId": "8814ed9a008afc4172fa8e854cfb13a2f8185b3d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad26c2a0_8f5f8a7d",
+        "filename": "functions.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-08-10T08:57:02Z",
+      "side": 1,
+      "message": "see above",
+      "range": {
+        "startLine": 109,
+        "startChar": 90,
+        "endLine": 109,
+        "endChar": 91
+      },
+      "revId": "8814ed9a008afc4172fa8e854cfb13a2f8185b3d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
