@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ed6db9e9_f6c1ae1e",
+        "filename": "functions.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-08-11T21:16:17Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "5a20b1a4_3099c34c",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 6
+      },
+      "revId": "a56b01a5e0ab5f2b047973b226f2c43f27b9c4af",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3b3304e5_8009bfc9",
         "filename": "functions.sh",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2020-08-11T20:45:05Z",
       "side": 1,
       "message": "These lines require to have previously executed the setup_PXE_network function, maybe putting a comment to mention is good for now.",
+      "range": {
+        "startLine": 114,
+        "startChar": 4,
+        "endLine": 115,
+        "endChar": 113
+      },
+      "revId": "a56b01a5e0ab5f2b047973b226f2c43f27b9c4af",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc917835_3b995451",
+        "filename": "functions.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-08-11T21:16:17Z",
+      "side": 1,
+      "message": "I thought so but then this function will be anyway executed only when setup_PXE_network and host_provisioning functions are successful. I\u0027ve added a comment to make it clear.",
+      "parentUuid": "3b3304e5_8009bfc9",
       "range": {
         "startLine": 114,
         "startChar": 4,
