@@ -141,26 +141,24 @@ provision_k8s() {
     # shellcheck disable=SC2087
     ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
 # Install BMRA
-if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
+if ! command -v docker; then
     curl -fsSL https://get.docker.com/ | sh
     printf "Waiting for docker service..."
     until sudo docker info; do
         printf "."
         sleep 2
     done
-    git clone https://github.com/intel/container-experience-kits.git
-    cd ${PROJECT_ROOT}/container-experience-kits
-    git checkout v1.4.1
-    git submodule update --init
-    cp -r examples/group_vars examples/host_vars .
-    cp ${PROJECT_ROOT}/${INSTALLER}/inventory.ini \
-    ${PROJECT_ROOT}/container-experience-kits/
-    cp ${PROJECT_ROOT}/${INSTALLER}/all.yml \
-    ${PROJECT_ROOT}/container-experience-kits/group_vars/
-    cp ${PROJECT_ROOT}/${INSTALLER}/node1.yml \
-    ${PROJECT_ROOT}/container-experience-kits/host_vars/
 fi
-sudo service docker start
+if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
+    git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v1.4.1 ${PROJECT_ROOT}/container-experience-kits/
+    cp -r ${PROJECT_ROOT}/container-experience-kits/examples/group_vars examples/host_vars ${PROJECT_ROOT}/container-experience-kits/
+fi
+cp ${PROJECT_ROOT}/${INSTALLER}/inventory.ini \
+    ${PROJECT_ROOT}/container-experience-kits/
+cp ${PROJECT_ROOT}/${INSTALLER}/all.yml \
+    ${PROJECT_ROOT}/container-experience-kits/group_vars/
+cp ${PROJECT_ROOT}/${INSTALLER}/node1.yml \
+    ${PROJECT_ROOT}/container-experience-kits/host_vars/
 sudo docker run --rm \
 -v ${PROJECT_ROOT}/container-experience-kits:/bmra \
 -v ~/.ssh/:/root/.ssh/ rihabbanday/bmra-install:centos \
