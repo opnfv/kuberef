@@ -16,7 +16,7 @@ and Kubernetes provisioning.
 This guide describes how to get started with a potential RI-2 deployment
 using Cloud Infra Automation Framework <https://docs.nordix.org/submodules/infra/engine/docs/user-guide.html#framework-user-guide>
 for the Host provisioning stage and Intel's BMRA <https://github.com/intel/container-experience-kits>
-for the Kubernetes provisioning stage.
+for Kubernetes provisioning stage.
 
 Note that this is just an example of a possible RI-2 deployment. Kuberef aims to
 support and include other potential hardware and Kubernetes deployers as well. More
@@ -25,13 +25,12 @@ details can be found in the Kuberef Wiki <https://wiki.opnfv.org/spaces/viewspac
 Infrastructure Prerequisites
 =============================
 
-You need one physical server acting as a jump server along with minimum of two additional
-servers on which RI-2 will be deployed. Please refer to Chapter 3 in CNTT RI-2 Documentation
-for detailed info on the server and network specifications.
+You need one physical server acting as a jump server along with minimum two additional servers on
+which RI-2 will be deployed. Please refer to Chapter 3 in CNTT RI-2 Documentation for detailed info on
+the server and network specifications.
 
 Additionally, please make sure that you have KVM installed and set up on your jump server. This
-is needed because the deployment will spin up a VM which will then carry out the host and
-Kubernetes installation.
+is be
 
 Deployment
 =============================
@@ -53,4 +52,5 @@ Once ready, issue the following command to initiate the deployment
    ./deploy.sh
 
 
-Once the deployment is successful, you will have a fully functional RI-2 setup!
+Once the deployment is successful, you will have fully functional RI-2 setup!
+
