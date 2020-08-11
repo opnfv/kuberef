@@ -69,6 +69,30 @@
       "revId": "005d22cef69cb1aaa5ca8bbc74a06c5d901ac738",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "136050cc_a84cd76a",
+        "filename": "deploy.env",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-08-11T12:26:15Z",
+      "side": 1,
+      "message": "Done. I moved these config extraction steps into main functions body, to keep this .env file simple.",
+      "parentUuid": "9d8fc071_53b2c335",
+      "range": {
+        "startLine": 15,
+        "startChar": 7,
+        "endLine": 15,
+        "endChar": 16
+      },
+      "revId": "005d22cef69cb1aaa5ca8bbc74a06c5d901ac738",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
