@@ -133,10 +133,10 @@ provision_k8s() {
       git checkout v1.4.1
       git submodule update --init
       cp -r examples/group_vars examples/host_vars .
-      cp ${PROJECT_ROOT}/${INSTALLER}/inventory.ini ${PROJECT_ROOT}/container-experience-kits/
-      cp ${PROJECT_ROOT}/${INSTALLER}/all.yml ${PROJECT_ROOT}/container-experience-kits/group_vars/
-      cp ${PROJECT_ROOT}/${INSTALLER}/node1.yml ${PROJECT_ROOT}/container-experience-kits/host_vars/
     fi
+    cp ${PROJECT_ROOT}/${INSTALLER}/inventory.ini ${PROJECT_ROOT}/container-experience-kits/
+    cp ${PROJECT_ROOT}/${INSTALLER}/all.yml ${PROJECT_ROOT}/container-experience-kits/group_vars/
+    cp ${PROJECT_ROOT}/${INSTALLER}/node1.yml ${PROJECT_ROOT}/container-experience-kits/host_vars/
     sudo service docker start
     sudo docker run --rm -v ${PROJECT_ROOT}/container-experience-kits:/bmra -v ~/.ssh/:/root/.ssh/ \
         rihabbanday/bmra-install:centos ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/cluster.yml
