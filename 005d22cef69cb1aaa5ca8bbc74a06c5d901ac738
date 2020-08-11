@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0772cf16_9d0503e7",
+        "filename": "deploy.env",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-08-11T09:36:49Z",
+      "side": 1,
+      "message": "In Chapter 3 in CNTT, the name of this network is called Out-of-Band hardware management. So may be we should pick up a common name (for eg. oob)?",
+      "parentUuid": "2fb37db6_78ba446c",
+      "range": {
+        "startLine": 14,
+        "startChar": 84,
+        "endLine": 14,
+        "endChar": 87
+      },
+      "revId": "005d22cef69cb1aaa5ca8bbc74a06c5d901ac738",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d8fc071_53b2c335",
         "filename": "deploy.env",
         "patchSetId": 5
