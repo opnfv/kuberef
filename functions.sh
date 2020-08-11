@@ -55,7 +55,7 @@ copy_files_jump() {
 
 provision_hosts() {
 # SSH to jumphost
-    ssh -tT $USERNAME@$(get_vm_ip) << EOF
+    ssh -o StrictHostKeyChecking=no -tT $USERNAME@$(get_vm_ip) << EOF
 # Install and run cloud-infra
     if [ ! -d "${PROJECT_ROOT}/engine" ]; then
       ssh-keygen -t rsa -N "" -f ${PROJECT_ROOT}/.ssh/id_rsa
@@ -72,7 +72,7 @@ EOF
 
 setup_network() {
 # SSH to jumphost
-    ssh -tT $USERNAME@$(get_vm_ip) << EOF
+    ssh -o StrictHostKeyChecking=no -tT $USERNAME@$(get_vm_ip) << EOF
     ssh -o StrictHostKeyChecking=no root@$MASTER_IP 'bash -s' <  ${PROJECT_ROOT}/${VENDOR}/setup_network.sh
     ssh -o StrictHostKeyChecking=no root@$WORKER_IP 'bash -s' <  ${PROJECT_ROOT}/${VENDOR}/setup_network.sh
 EOF
@@ -82,7 +82,7 @@ EOF
 
 provision_k8s() {
 # SSH to jumphost
-    ssh -tT $USERNAME@$(get_vm_ip) << EOF
+    ssh -o StrictHostKeyChecking=no -tT $USERNAME@$(get_vm_ip) << EOF
 # Install BMRA
     if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
       curl -fsSL https://get.docker.com/ | sh
