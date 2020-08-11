@@ -33,9 +33,6 @@ clean_up
 create_jump
 setup_PXE_network
 
-# Get IP of the jumphost VM
-get_vm_ip
-
 # Copy files needed by Infra engine & BMRA in the jumphost VM
 copy_files_jump
 
