@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a20b1a4_3099c34c",
+        "filename": "functions.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-08-11T20:45:05Z",
+      "side": 1,
+      "message": "This validation should be moved before line 72 given PXE_IF_IP and PXE_IF_MAC depend on PXE_IF_INDEX value",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 6
+      },
+      "revId": "a56b01a5e0ab5f2b047973b226f2c43f27b9c4af",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b3304e5_8009bfc9",
+        "filename": "functions.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-08-11T20:45:05Z",
+      "side": 1,
+      "message": "These lines require to have previously executed the setup_PXE_network function, maybe putting a comment to mention is good for now.",
+      "range": {
+        "startLine": 114,
+        "startChar": 4,
+        "endLine": 115,
+        "endChar": 113
+      },
+      "revId": "a56b01a5e0ab5f2b047973b226f2c43f27b9c4af",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
