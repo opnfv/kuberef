@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "910aaf76_2a5580a7",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-08-11T21:16:35Z",
+      "side": 1,
+      "message": "I think that this block of code needs to be refactored as well. It is mixing the existence of the project with the docker installation\n\n    if ! command -v docker; then\n        curl -fsSL https://get.docker.com/ | sh\n        printf \"Waiting for docker service...\"\n        until sudo docker info; do\n            printf \".\"\n            sleep 2\n        done\n     fi\n     if [ ! -d \"${PROJECT_ROOT}/container-experience-kits\" ]; then\n         git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v1.4.1 ${PROJECT_ROOT}/container-experience-kits/\n         cp -r ${PROJECT_ROOT}/container-experience-kits/examples/group_vars examples/host_vars ${PROJECT_ROOT}/container-experience-kits/\n     fi",
+      "range": {
+        "startLine": 124,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 6
+      },
+      "revId": "5f3e8e6b4ab5dddaed5e4cbb6dab05c7993a75bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
