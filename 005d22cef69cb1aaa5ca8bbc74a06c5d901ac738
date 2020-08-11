@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2fb37db6_78ba446c",
+        "filename": "deploy.env",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-08-11T09:25:57Z",
+      "side": 1,
+      "message": "actually, this is also a variable name. In the Intel IDF this network is called oob, in the Ericsson IDF, it is called pxe. So, either we fix the names (by convention) or have another layer of indirection.",
+      "range": {
+        "startLine": 14,
+        "startChar": 84,
+        "endLine": 14,
+        "endChar": 87
+      },
+      "revId": "005d22cef69cb1aaa5ca8bbc74a06c5d901ac738",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d8fc071_53b2c335",
+        "filename": "deploy.env",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-08-11T09:25:57Z",
+      "side": 1,
+      "message": "it would be good to check for empty values here to catch misconfigurations early",
+      "range": {
+        "startLine": 15,
+        "startChar": 7,
+        "endLine": 15,
+        "endChar": 16
+      },
+      "revId": "005d22cef69cb1aaa5ca8bbc74a06c5d901ac738",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
