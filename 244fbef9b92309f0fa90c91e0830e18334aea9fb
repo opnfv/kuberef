@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "449c2612_9a9a4978",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-08-12T19:22:39Z",
+      "side": 1,
+      "message": "s/foler/folder",
+      "range": {
+        "startLine": 9,
+        "startChar": 28,
+        "endLine": 9,
+        "endChar": 33
+      },
+      "revId": "244fbef9b92309f0fa90c91e0830e18334aea9fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
