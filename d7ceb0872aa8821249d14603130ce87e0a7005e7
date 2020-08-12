@@ -22,6 +22,30 @@
       "revId": "d7ceb0872aa8821249d14603130ce87e0a7005e7",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09faa45a_6445d585",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-08-12T07:40:37Z",
+      "side": 1,
+      "message": "The jump VM gets new keys during every deployment. So this is to avoid having to remove old keys.",
+      "parentUuid": "8d40e452_a11c7c89",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 54
+      },
+      "revId": "d7ceb0872aa8821249d14603130ce87e0a7005e7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
