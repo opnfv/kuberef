@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "103d74ff_d174abd6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-08-12T14:59:26Z",
+      "side": 1,
+      "message": "It should be nice to include the link of the change which fixes this.",
+      "revId": "071ca1b382994166546193be5d051aae35d1ba5a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
