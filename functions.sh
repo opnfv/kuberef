@@ -58,17 +58,16 @@ provision_hosts() {
     ssh -tT $USERNAME@$(get_vm_ip) << EOF
 # Install and run cloud-infra
     if [ ! -d "${PROJECT_ROOT}/engine" ]; then
-      ssh-keygen -t rsa -N "" -f ${PROJECT_ROOT}/.ssh/id_rsa
-      git clone https://gerrit.nordix.org/infra/engine.git
-      cp $PROJECT_ROOT/$VENDOR/{pdf.yaml,idf.yaml} ${PROJECT_ROOT}/engine/engine
-#      sudo mkdir /httpboot && sudo cp -r ${PROJECT_ROOT}/deployment_image.qcow2 /httpboot #will be removed when centos image path will be added in infra-engine
+        ssh-keygen -t rsa -N "" -f ${PROJECT_ROOT}/.ssh/id_rsa
+        git clone https://gerrit.nordix.org/infra/engine.git
+        cp $PROJECT_ROOT/$VENDOR/{pdf.yaml,idf.yaml} ${PROJECT_ROOT}/engine/engine
     fi
-      cd ${PROJECT_ROOT}/engine/engine && ./deploy.sh -s ironic -d centos7 \
-       -p file:///${PROJECT_ROOT}/engine/engine/pdf.yaml -i file:///${PROJECT_ROOT}/engine/engine/idf.yaml
+        cd ${PROJECT_ROOT}/engine/engine && ./deploy.sh -s ironic -d centos7 \
+        -p file:///${PROJECT_ROOT}/engine/engine/pdf.yaml -i file:///${PROJECT_ROOT}/engine/engine/idf.yaml
 EOF
 }
 
-# Setup networking on provisioned hosts (Adapt setup_network.sh according to your network setup) 
+# Setup networking on provisioned hosts (Adapt setup_network.sh according to your network setup)
 
 setup_network() {
 # SSH to jumphost
