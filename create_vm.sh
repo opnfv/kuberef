@@ -10,10 +10,10 @@
 
 # TODO This will be merged in main functions.sh
 
-sudo mkdir -p /var/lib/libvirt/images/$1
+sudo mkdir -p "/var/lib/libvirt/images/$1"
 sudo qemu-img create -f qcow2 \
     -o backing_file=/var/lib/libvirt/images/ubuntu-18.04.qcow2 \
-    /var/lib/libvirt/images/$1/"$1".qcow2 10G
+    "/var/lib/libvirt/images/$1/${1}.qcow2" 10G
 
 # Create cloud-init configuration files
 cat <<EOL > user-data
@@ -21,7 +21,7 @@ cat <<EOL > user-data
 users:
   - name: ubuntu
     ssh-authorized-keys:
-      - $(cat $HOME/.ssh/id_rsa.pub)
+      - $(cat "$HOME/.ssh/id_rsa.pub")
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     groups: sudo
     shell: /bin/bash
@@ -30,11 +30,12 @@ cat <<EOL > meta-data
 local-hostname: $VM_NAME
 EOL
 
-sudo genisoimage  -output /var/lib/libvirt/images/$1/"$1"-cidata.iso \
+sudo genisoimage  -output "/var/lib/libvirt/images/$1/$1-cidata.iso" \
     -volid cidata -joliet -rock user-data meta-data
 
-sudo virt-install --connect qemu:///system --name $VM_NAME \
+sudo virt-install --connect qemu:///system --name "$VM_NAME" \
     --ram 4096 --vcpus=4 --os-type linux --os-variant ubuntu16.04 \
-    --disk path=/var/lib/libvirt/images/$1/"$1".qcow2,format=qcow2 \
-    --disk /var/lib/libvirt/images/$1/"$1"-cidata.iso,device=cdrom \
-    --import --network network=default --network bridge=$BRIDGE,model=rtl8139 --noautoconsole
+    --disk path="/var/lib/libvirt/images/$1/${1}.qcow2",format=qcow2 \
+    --disk "/var/lib/libvirt/images/$1/${1}-cidata.iso",device=cdrom \
+    --import --network network=default \
+    --network bridge="$BRIDGE",model=rtl8139 --noautoconsole

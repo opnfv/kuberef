@@ -1,3 +1,4 @@
+---
 # SPDX-license-identifier: Apache-2.0
 ##############################################################################
 # Copyright (c) 2020
@@ -6,7 +7,6 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-### POD descriptor file ###
 
 version: 1.0
 details:
@@ -16,7 +16,6 @@ details:
   location: somewhere
   type: baremetal
   link: http://wiki.opnfv.org/display/pharos/Intel+Hosting
-##############################################################################
 jumphost:
   name: pod19-jump
   node: &nodeparas
@@ -56,7 +55,6 @@ jumphost:
       address: 10.10.192.1
       mac_address: "3c:fd:fe:aa:be:24"
       vlan: native
-##############################################################################
 nodes:
   - name: node1
     node: *nodeparas
@@ -96,7 +94,6 @@ nodes:
         address: 10.10.195.2
         mac_address: "00:00:00:00:00:00"
         vlan: native
-########################################################################
   - name: node2
     node: *nodeparas
     disks: *disks
