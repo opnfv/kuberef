@@ -16,6 +16,24 @@
       "revId": "331cc15272e5a8319e3e1a8ea07e1fc945f65be5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4df51a41_2fb4d58d",
+        "filename": "create_vm.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-08-14T14:45:05Z",
+      "side": 1,
+      "message": "The idea of this change is to use the password only during troubleshooting.",
+      "parentUuid": "301335cd_fda502a0",
+      "revId": "331cc15272e5a8319e3e1a8ea07e1fc945f65be5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
