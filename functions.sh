@@ -42,7 +42,8 @@ get_vm_ip() {
 
 # Setup PXE network
 setup_PXE_network() {
-    ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << "EOF"
+    # shellcheck disable=SC2087
+    ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
 sudo ifconfig $PXE_IF up
 sudo ifconfig $PXE_IF $PXE_IF_IP netmask $NETMASK
 sudo ifconfig $PXE_IF hw ether $PXE_IF_MAC
@@ -52,13 +53,14 @@ EOF
 # Copy files needed by Infra engine & BMRA in the jumphost VM
 copy_files_jump() {
     scp -r -o StrictHostKeyChecking=no \
-    "$CURRENTPATH/{hw_config/$VENDOR/,sw_config/$INSTALLER/}" \
+    "$CURRENTPATH"/{hw_config/"$VENDOR"/,sw_config/"$INSTALLER"/} \
     "$USERNAME@$(get_vm_ip):$PROJECT_ROOT"
 }
 
 # Host Provisioning
 provision_hosts() {
-    ssh -tT "$USERNAME"@"$(get_vm_ip)" << "EOF"
+    # shellcheck disable=SC2087
+    ssh -tT "$USERNAME"@"$(get_vm_ip)" << EOF
 # Install and run cloud-infra
 if [ ! -d "${PROJECT_ROOT}/engine" ]; then
     ssh-keygen -t rsa -N "" -f ${PROJECT_ROOT}/.ssh/id_rsa
@@ -78,7 +80,8 @@ EOF
 
 # Setup networking on provisioned hosts (Adapt setup_network.sh according to your network setup)
 setup_network() {
-    ssh -tT  "$USERNAME"@"$(get_vm_ip)" << "EOF"
+    # shellcheck disable=SC2087
+    ssh -tT  "$USERNAME"@"$(get_vm_ip)" << EOF
 ssh -o StrictHostKeyChecking=no root@$MASTER_IP \
     'bash -s' <  ${PROJECT_ROOT}/${VENDOR}/setup_network.sh
 ssh -o StrictHostKeyChecking=no root@$WORKER_IP \
@@ -88,7 +91,8 @@ EOF
 
 # k8s Provisioning (currently BMRA)
 provision_k8s() {
-    ssh -tT  "$USERNAME"@"$(get_vm_ip)" << "EOF"
+    # shellcheck disable=SC2087
+    ssh -tT  "$USERNAME"@"$(get_vm_ip)" << EOF
 # Install BMRA
 if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
     curl -fsSL https://get.docker.com/ | sh
