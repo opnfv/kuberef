@@ -67,9 +67,6 @@ if [ ! -d "${PROJECT_ROOT}/engine" ]; then
     git clone https://gerrit.nordix.org/infra/engine.git
     cp $PROJECT_ROOT/$VENDOR/{pdf.yaml,idf.yaml} \
     ${PROJECT_ROOT}/engine/engine
-# NOTE: will be removed when centos image path will be added in infra-engine
-sudo mkdir /httpboot
-# sudo cp -r ${PROJECT_ROOT}/deployment_image.qcow2 /httpboot
 fi
 cd ${PROJECT_ROOT}/engine/engine
 ./deploy.sh -s ironic -d centos7 \
