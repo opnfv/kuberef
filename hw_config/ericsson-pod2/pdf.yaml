@@ -9,12 +9,12 @@
 ##############################################################################
 version: 1.0
 details:
-  pod_owner: Nordix
-  contact: infra@nordix.org
-  lab: Nordix OpenLab
-  location: N/A
+  pod_owner: Ericsson
+  contact: georg.kunz@ericsson.com
+  lab: Ericsson OPNFV CI pod 2
+  location: Sweden
   type: baremetal
-  link: http://wiki.nordix.org/
+  link: https://wiki.opnfv.org/display/pharos/Ericsson+Hosting
 ##############################################################################
 jumphost:
   name: kuberef-jump
@@ -29,7 +29,7 @@ jumphost:
     memory: 9G
   disks:
     - name: disk1
-      disk_capacity: 250G
+      disk_capacity: 1200G
       disk_type: hdd
       disk_interface: sata
       disk_rotation:
@@ -39,22 +39,22 @@ jumphost:
       address: 10.0.20.1
       mac_address: 52:54:00:4a:e8:2d
     - name: 'ens3'
-      address: 100.64.200.254
+      address: 100.64.201.254
 ##############################################################################
 nodes:
   - name: node1
     node: &nodeparams
       type: baremetal
       vendor: HP
-      model: ProLiant BL460c Gen8
+      model: ProLiant BL460c Gen9
       arch: x86_64
       cpus: 2
       cpu_cflags: ivybridge
-      cores: 10
-      memory: 64G
+      cores: 12
+      memory: 128G
     disks: &disks
       - name: disk1
-        disk_capacity: 745G
+        disk_capacity: 1117G
         disk_type: hdd
         disk_interface: scsi
         disk_rotation: 15000
@@ -65,74 +65,63 @@ nodes:
       pass: Winter2017
     remote_management:
       <<: *remoteparas
-      address: 172.16.1.19
-      mac_address: "FC:15:B4:12:97:64"
+      address: 172.16.2.12
+      mac_address: "58:20:B1:01:8B:F0"
     interfaces:
       - name: 'nic1'
         speed: 1gb
         features: 'dpdk|sriov'
-        mac_address: "9c:b6:54:8a:95:a0"
+        mac_address: "5c:b9:01:8b:a6:95"
         vlan: native
-        address: 10.0.20.9
+        address: 10.0.20.11
       - name: 'nic2'
         speed: 10gb
         features: 'dpdk|sriov'
-        mac_address: "38:ea:a7:8f:52:cc"
-        address: 100.64.200.9
+        mac_address: "5c:b9:01:8b:a6:80"
+        address: 100.64.201.11
         vlan: native
       - name: 'nic3'
         speed: 10gb
         features: 'dpdk|sriov'
-        mac_address: "38:ea:a7:8f:1f:d4"
+        mac_address: "5c:b9:01:8b:a6:94"
       - name: 'nic4'
         speed: 10gb
         features: 'dpdk|sriov'
-        mac_address: "38:ea:a7:8f:1f:d5"
+        mac_address: "ec:b1:d7:a2:44:a0"
       - name: 'nic5'
         speed: 10gb
         features: 'dpdk|sriov'
-        mac_address: "38:ea:a7:8f:52:cd"
-      - name: 'nic6'
-        speed: 10gb
-        features: 'dpdk|sriov'
-        mac_address: "00:00:00:00:00:00"
-        address: 10.10.10.15
-        vlan: native
+        mac_address: "5c:b9:01:8b:a6:81"
   ############################################################################
   - name: node2
     node: *nodeparams
     disks: *disks
     remote_management:
       <<: *remoteparas
-      address: 172.16.1.20
-      mac_address: "9C:B6:54:8E:C5:74"
+      address: 172.16.2.13
+      mac_address: "58:20:B1:01:8E:FC"
     interfaces:
       - name: 'nic1'
         speed: 1gb
         features: 'dpdk|sriov'
-        address: 10.0.20.10
-        mac_address: "9c:b6:54:8a:10:18"
+        address: 10.0.20.12
+        mac_address: "5c:b9:01:8b:a6:31"
         vlan: native
       - name: 'nic2'
         speed: 10gb
         features: 'dpdk|sriov'
-        address: 100.64.200.10
-        mac_address: "38:ea:a7:8f:12:48"
+        address: 100.64.200.12
+        mac_address: "5c:b9:01:8b:99:64"
         vlan: native
       - name: 'nic3'
         speed: 10gb
         features: 'dpdk|sriov'
-        mac_address: "38:ea:a7:8f:07:50"
+        mac_address: "5c:b9:01:8b:a6:30"
       - name: 'nic4'
         speed: 10gb
         features: 'dpdk|sriov'
-        mac_address: "38:ea:a7:8f:07:51"
+        mac_address: "ec:b1:d7:a2:44:80"
       - name: 'nic5'
         speed: 10gb
         features: 'dpdk|sriov'
-        mac_address: "38:ea:a7:8f:12:49"
-      - name: 'nic6'
-        speed: 10gb
-        features: 'dpdk|sriov'
-        mac_address: "00:00:00:00:00:00"
-        vlan: native
+        mac_address: "5c:b9:01:8b:99:65"

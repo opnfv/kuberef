@@ -7,7 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 ---
-### ERICSSON POD 1 installer descriptor file ###
+### ERICSSON POD 2 installer descriptor file ###
 idf:
   version: 0.1
   net_config: &net_config
@@ -23,8 +23,8 @@ idf:
     public:
       interface: 1
       vlan: 80
-      network: 100.64.200.6
-      gateway: 100.64.200.1
+      network: 100.64.201.6
+      gateway: 100.64.201.1
       mask: 24
       dns:
         - 192.168.1.200
