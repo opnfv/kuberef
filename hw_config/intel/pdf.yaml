@@ -75,7 +75,7 @@ nodes:
         features:
         address: 192.168.11.211
         mac_address: "a4:bf:01:4b:55:f5"
-        vlan: 191
+        vlan: native
       - name: 'nic3'
         speed: 10gb
         features: 'dpdk|sriov'
@@ -131,4 +131,4 @@ nodes:
         features: 'dpdk|sriov'
         address: 10.10.195.3
         mac_address: "00:00:00:00:00:00"
-        vlan: 1193
+        vlan: native

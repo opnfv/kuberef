@@ -19,10 +19,10 @@ idf:
       mask: 24
       dns:
         - 8.8.8.8
-    admin:  # admin
+    public:
       interface: 1
-      vlan: 191
       network: 10.10.191.0
+      vlan: native
       mask: 24
       bridge: br-name
   kubespray: &idf_kubespray
