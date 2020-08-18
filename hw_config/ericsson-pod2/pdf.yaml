@@ -1,0 +1,133 @@
+---
+# SPDX-license-identifier: Apache-2.0
+##############################################################################
+# Copyright (c) 2020 Ericsson AB and others
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+version: 1.0
+details:
+  pod_owner: Ericsson
+  contact: georg.kunz@ericsson.com
+  lab: Ericsson OPNFV CI pod 2
+  location: Sweden
+  type: baremetal
+  link: https://wiki.opnfv.org/display/pharos/Ericsson+Hosting
+##############################################################################
+jumphost:
+  name: kuberef-jump
+  node:
+    type: virtual
+    vendor: vmware
+    model: pc
+    arch: x86_64
+    cpus: 4
+    cpu_cflags: host-passthrough
+    cores: 4
+    memory: 9G
+  disks:
+    - name: disk1
+      disk_capacity: 1200G
+      disk_type: hdd
+      disk_interface: sata
+      disk_rotation:
+  os: ubuntu1804
+  interfaces:
+    - name: 'ens4'
+      address: 10.0.20.1
+      mac_address: 52:54:00:4a:e8:2d
+    - name: 'ens3'
+      address: 100.64.201.254
+##############################################################################
+nodes:
+  - name: node1
+    node: &nodeparams
+      type: baremetal
+      vendor: HP
+      model: ProLiant BL460c Gen9
+      arch: x86_64
+      cpus: 2
+      cpu_cflags: ivybridge
+      cores: 12
+      memory: 128G
+    disks: &disks
+      - name: disk1
+        disk_capacity: 1117G
+        disk_type: hdd
+        disk_interface: scsi
+        disk_rotation: 15000
+    remote_params: &remoteparas
+      type:
+        - ipmi
+      user: opnfv
+      pass: Winter2017
+    remote_management:
+      <<: *remoteparas
+      address: 172.16.2.12
+      mac_address: "58:20:B1:01:8B:F0"
+    interfaces:
+      - name: 'nic1'
+        speed: 1gb
+        features: 'dpdk|sriov'
+        mac_address: "5c:b9:01:8b:a6:95"
+        vlan: native
+        address: 10.0.20.11
+      - name: 'nic2'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "5c:b9:01:8b:a6:80"
+        address: 100.64.201.11
+        vlan: native
+      - name: 'nic3'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "5c:b9:01:8b:a6:94"
+#        address: 192.168.11.19
+      - name: 'nic4'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "ec:b1:d7:a2:44:a0"
+#        address: 100.64.200.9
+      - name: 'nic5'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "5c:b9:01:8b:a6:81"
+#        address: 100.64.200.9
+  ############################################################################
+  - name: node2
+    node: *nodeparams
+    disks: *disks
+    remote_management:
+      <<: *remoteparas
+      address: 172.16.2.13
+      mac_address: "58:20:B1:01:8E:FC"
+    interfaces:
+      - name: 'nic1'
+        speed: 1gb
+        features: 'dpdk|sriov'
+        address: 10.0.20.12
+        mac_address: "5c:b9:01:8b:a6:31"
+        vlan: native
+      - name: 'nic2'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        address: 100.64.200.12
+        mac_address: "5c:b9:01:8b:99:64"
+        vlan: native
+      - name: 'nic3'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "5c:b9:01:8b:a6:30"
+#        address: 192.168.11.20
+      - name: 'nic4'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "ec:b1:d7:a2:44:80"
+#        address: 10.10.10.12
+      - name: 'nic5'
+        speed: 10gb
+        features: 'dpdk|sriov'
+#        address: 100.64.200.10
+        mac_address: "5c:b9:01:8b:99:65"
