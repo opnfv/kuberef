@@ -38,6 +38,7 @@ create_jump() {
         sudo: ['ALL=(ALL) NOPASSWD:ALL']
         groups: sudo
         shell: /bin/bash
+        plain_text_passwd: 'ubuntu'
 EOL
     cat <<EOL > meta-data
     local-hostname: $VM_NAME
@@ -45,14 +46,14 @@ EOL
 
 # Create VM
     sudo genisoimage  -output "/var/lib/libvirt/images/$VM_NAME/$VM_NAME-cidata.iso" \
-        -volid cidata -joliet -rock user-data meta-data
+        -volid cidata -joliet -rock user-data meta-data network-config
     sudo virt-customize -a "/var/lib/libvirt/images/$VM_NAME/$VM_NAME.qcow2" \
         --root-password password:"$ROOT_PASSWORD"
     sudo virt-install --connect qemu:///system --name "$VM_NAME" \
         --ram 4096 --vcpus=4 --os-type linux --os-variant ubuntu16.04 \
         --disk path="/var/lib/libvirt/images/$VM_NAME/$VM_NAME.qcow2",format=qcow2 \
         --disk "/var/lib/libvirt/images/$VM_NAME/$VM_NAME-cidata.iso",device=cdrom \
-        --import --network network=default --network bridge="$BRIDGE",model=rtl8139 --noautoconsole
+        --import --network bridge="br-external",mac="52:54:00:12:34:00" --network bridge="$BRIDGE",model=rtl8139,mac="52:54:00:4a:e8:2d" --noautoconsole
     jumpbox_ip=$(get_vm_ip)
     i=0
     while [ -z "$jumpbox_ip" ]; do
