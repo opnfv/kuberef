@@ -23,6 +23,11 @@ CURRENTPATH=$(dirname "$DIRECTORY")
 source "$CURRENTPATH/deploy.env"
 source "$CURRENTPATH/functions.sh"
 
+# ---------------------------------------------------------------------
+# check installation and runtime prerequisites
+# ---------------------------------------------------------------------
+check_prerequisites
+
 # Clean up leftovers
 clean_up
 
