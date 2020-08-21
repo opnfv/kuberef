@@ -20,6 +20,50 @@ clean_up() {
     sleep 5
 }
 
+
+check_prerequisites() {
+    echo "Info  : Check prerequisites"
+
+    #-------------------------------------------------------------------------------
+    # We shouldn't be running as root
+    #-------------------------------------------------------------------------------
+    if [[ "$(whoami)" == "root" ]]; then
+        echo "ERROR : This script must not be run as root!"
+        echo "        Please switch to a regular user before running the script."
+        exit 1
+    fi
+
+    #-------------------------------------------------------------------------------
+    # Check if SSH key exists
+    #-------------------------------------------------------------------------------
+    if [[ ! -f "$HOME/.ssh/id_rsa" ]]; then
+        echo "ERROR : You must have SSH keypair in order to run this script!"
+        exit 1
+    fi
+
+    #-------------------------------------------------------------------------------
+    # We are using sudo so we need to make sure that env_reset is not present
+    #-------------------------------------------------------------------------------
+    sudo sed -i "s/^Defaults.*env_reset/#&/" /etc/sudoers
+
+    #-------------------------------------------------------------------------------
+    # Check if Ansible is installed
+    #-------------------------------------------------------------------------------
+    if ! command -v ansible &> /dev/null; then
+        echo "ERROR : Ansible not found. Please install."
+        exit 1
+    fi
+
+    #-------------------------------------------------------------------------------
+    # Check is libvirt is installed
+    #-------------------------------------------------------------------------------
+    if ! command -v virsh; then
+        echo "ERROR : Libvirt not found. Please install."
+        exit 1
+    fi
+}
+
+
 # Create jumphost VM
 create_jump() {
 # Create VM image
