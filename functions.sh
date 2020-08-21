@@ -159,6 +159,10 @@ cp ${PROJECT_ROOT}/${INSTALLER}/all.yml \
     ${PROJECT_ROOT}/container-experience-kits/group_vars/
 cp ${PROJECT_ROOT}/${INSTALLER}/node1.yml \
     ${PROJECT_ROOT}/container-experience-kits/host_vars/
+sed -i '/\openshift/a \    extra_args: --ignore-installed PyYAML' \
+    ${PROJECT_ROOT}/container-experience-kits/roles/net-attach-defs-create/tasks/main.yml
+fi
+sudo service docker start
 sudo docker run --rm \
 -v ${PROJECT_ROOT}/container-experience-kits:/bmra \
 -v ~/.ssh/:/root/.ssh/ rihabbanday/bmra-install:centos \
