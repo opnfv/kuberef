@@ -1,0 +1,24 @@
+---
+# SPDX-license-identifier: Apache-2.0
+##############################################################################
+# Copyright (c) Ericsson AB and others
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+# root directory of kuberef repository
+kuberef_root: "{{ lookup('env', 'CURRENTPATH') }}"
+
+# path to inventory folder where the initial
+inventory_path: "{{ kuberef_root }}/kuberef/inventory"
+
+# workspace where all work-in-progress files get stored
+workspace: "{{ kuberef_root }}/workspace"
+
+# directory for storing base images acting as backing file
+images_path: "{{ kuberef_root }}/images"
+
+# public SSH key for use by kuberef installation
+pub_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
