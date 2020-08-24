@@ -1,0 +1,14 @@
+version: 1
+config:
+  - type: physical
+    name: "{{ jumphost.interfaces[idf.net_config[engine.public_network].interface].name }}"
+    mac_address: "{{ jumphost.interfaces[idf.net_config[engine.public_network].interface].mac_address }}"
+    subnets:
+      - type: dhcp
+  - type: physical
+    name: "{{ jumphost.interfaces[idf.net_config[engine.pxe_network].interface].name }}"
+    mac_address: "{{ jumphost.interfaces[idf.net_config[engine.pxe_network].interface].mac_address }}"
+    subnets:
+      - type: static
+        address: "{{ jumphost.interfaces[idf.net_config[engine.pxe_network].interface].address }}"
+        netmask: "{{ idf.net_config[engine.pxe_network].mask }}"
