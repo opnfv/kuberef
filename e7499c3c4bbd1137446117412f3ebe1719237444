@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27008dcf_5c465e3c",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-08-24T16:05:35Z",
+      "side": 1,
+      "message": "I suggest to include passwordless sudo validation here \n\n    if ! sudo -n \"true\"; then\n        echo \"passwordless sudo is needed for \u0027$(id -nu)\u0027 user.\"\n        exit 1\n    fi",
+      "revId": "e7499c3c4bbd1137446117412f3ebe1719237444",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75142592_53a9a5f8",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-08-24T16:05:35Z",
+      "side": 1,
+      "message": "The line 52 redirects the stdout to /dev/null during the validation but this doesn\u0027t. Can you add the same redirect here?",
+      "revId": "e7499c3c4bbd1137446117412f3ebe1719237444",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
