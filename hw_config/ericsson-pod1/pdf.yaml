@@ -9,12 +9,12 @@
 ##############################################################################
 version: 1.0
 details:
-  pod_owner: Nordix
-  contact: infra@nordix.org
-  lab: Nordix OpenLab
-  location: N/A
+  pod_owner: Ericsson
+  contact: georg.kunz@ericsson.com
+  lab: OPNFV lab
+  location: Sweden
   type: baremetal
-  link: http://wiki.nordix.org/
+  link: N/A
 ##############################################################################
 jumphost:
   name: kuberef-jump
@@ -40,6 +40,7 @@ jumphost:
       mac_address: 52:54:00:4a:e8:2d
     - name: 'ens3'
       address: 100.64.200.254
+      mac_address: 52:54:00:4a:e8:2f
 ##############################################################################
 nodes:
   - name: node1
