@@ -53,7 +53,7 @@ engine:
   pxe_network: oob
 
   # net_config network to be used for the internet access
-  public_network: oob
+  public_network: public
 
   # interface to be used by the PXE
   pxe_interface: ens4
