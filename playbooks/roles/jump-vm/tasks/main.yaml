@@ -1,0 +1,98 @@
+---
+##############################################################################
+# Copyright (c) Ericsson AB and others
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+- name: get all running VMs
+  virt:
+    command: list_vms
+    state: running
+  register: running_vms
+
+- name: shutdown existing jump VM
+  virt:
+    name: "{{ jumphost.name }}"
+    command: destroy
+  when:
+    jumphost.name in running_vms.list_vms
+
+- name: get all shutdown VMs
+  virt:
+    command: list_vms
+    state: shutdown
+  register: shutdown_vms
+
+- name: undefine existing jump VM
+  virt:
+    name: "{{ jumphost.name }}"
+    command: undefine
+  when:
+    jumphost.name in shutdown_vms.list_vms
+
+- name: clean workspace
+  file:
+    path: "{{ workspace }}"
+    state: absent
+
+- name: create workspace if it does not exist
+  file:
+    path: "{{ workspace }}"
+    state: directory
+    mode: '0755'
+
+- name: create directory for base images
+  file:
+    path: "{{ images_path }}"
+    state: directory
+    mode: '0755'
+
+- name: download Ubuntu image for jump VM
+  get_url:
+    url: https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img
+    dest: "{{ images_path }}/bionic-server-cloudimg-amd64.img"
+    force: false
+    mode: '0666'
+
+- name: create new VM image from base image
+  command: "qemu-img create -f qcow2 -o backing_file={{ images_path }}/bionic-server-cloudimg-amd64.img {{ workspace }}/{{ jumphost.name }}.qcow2 10G"
+
+- name: render config files for jump VM from templates
+  template:
+    src: "{{ kuberef_root }}/playbooks/roles/jump-vm/templates/{{ item }}.j2"
+    dest: "{{ workspace }}/{{ item }}"
+    mode: 0644
+  with_items:
+    - network-config
+    - user-data
+    - meta-data
+    - jump-vm.xml
+
+- name: create config drive
+  command: "genisoimage  -output {{ workspace }}/{{ jumphost.name }}-cidata.iso -volid cidata -joliet -rock \
+            {{ workspace }}/user-data {{ workspace }}/meta-data {{ workspace }}/network-config"
+
+- name: setting root password for debugging
+  command: "virt-customize -a {{ workspace }}/{{ jumphost.name }}.qcow2 --root-password password:'root'"
+
+- name: define jump VM
+  command: "virsh define {{ workspace }}/jump-vm.xml"
+  # georg: There seems to be a bug preventing the construct below to work:
+  #        AttributeError: 'NoneType' object has no attribute 'groups'
+  # virt:
+  #   command: define
+  #   xml: "{{ workspace }}/jump-vm.xml"
+  #   autostart: no
+
+- name: start jump VM
+  virt:
+    name: "{{ jumphost.name }}"
+    state: running
+
+- name: wait for VM to be reachable
+  wait_for:
+    host: "{{ jumphost.interfaces[idf.net_config[engine.pxe_network].interface].address }}"
+    port: 22

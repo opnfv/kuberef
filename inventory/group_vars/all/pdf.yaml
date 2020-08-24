@@ -1,0 +1,134 @@
+---
+# SPDX-license-identifier: Apache-2.0
+##############################################################################
+# Copyright (c) 2020
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+version: 1.0
+details:
+  pod_owner: Intel
+  contact: Intel
+  lab: Intel Pharos Lab
+  location: somewhere
+  type: baremetal
+  link: http://wiki.opnfv.org/display/pharos/Intel+Hosting
+jumphost:
+  name: kuberef-jump
+  node: &nodeparas
+    type: baremetal
+    vendor: Intel
+    model: pc
+    arch: x86_64
+    cpus: 80
+    cpu_cflags: broadwell
+    cores: 20
+    memory: 192G
+  disks: &disks
+    - name: 'Intel SSDSC2KB48'
+      disk_capacity: 447G
+      disk_type: hdd
+      disk_interface: scsi
+  os: ubuntu1804
+  remote_params: &remoteparas
+    type:
+      - ipmi
+    user: root
+    pass: root
+  remote_management:
+    <<: *remoteparas
+    address: 10.10.190.10
+    mac_address: "A4:BF:01:00:03:D1"
+  interfaces:
+    - name: 'nic1'
+      address: 10.10.190.211
+      mac_address: "52:54:00:4a:e8:2d"
+      vlan: native
+    - name: 'nic2'
+      address: 192.168.122.113
+      mac_address: "52:54:00:74:b4:66"
+      vlan: native
+    - name: 'nic3'
+      address: 10.10.192.1
+      mac_address: "3c:fd:fe:aa:be:24"
+      vlan: native
+nodes:
+  - name: node1
+    node: *nodeparas
+    disks: *disks
+    remote_management:
+      <<: *remoteparas
+      address: 10.10.190.11
+      mac_address: "A4:BF:01:00:06:15"
+    interfaces:
+      - name: 'nic1'
+        speed: 1gb
+        features:
+        address: 10.10.190.202
+        mac_address: "a4:bf:01:4b:55:f4"
+        vlan: native
+      - name: 'nic2'
+        speed: 1gb
+        features:
+        address: 192.168.11.211
+        mac_address: "a4:bf:01:4b:55:f5"
+        vlan: native
+      - name: 'nic3'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        address: 10.10.192.2
+        mac_address: "3c:fd:fe:aa:b8:f4"
+        vlan: native
+      - name: 'nic4'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        address: 10.10.193.2
+        mac_address: "3c:fd:fe:aa:b8:f5"
+        vlan: native
+      - name: 'nic5'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        address: 10.10.195.2
+        mac_address: "00:00:00:00:00:00"
+        vlan: native
+  - name: node2
+    node: *nodeparas
+    disks: *disks
+    remote_management:
+      <<: *remoteparas
+      address: 10.10.190.12
+      mac_address: "A4:BF:01:00:09:7B"
+    interfaces:
+      - name: 'nic1'
+        speed: 1gb
+        features:
+        address: 10.10.190.203
+        mac_address: "a4:bf:01:4b:4f:9c"
+        vlan: native
+      - name: 'nic2'
+        speed: 1gb
+        features:
+        address: 10.10.190.203
+        mac_address: "a4:bf:01:4b:4f:9d"
+        vlan: 191
+      - name: 'nic3'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        address: 10.10.192.3
+        mac_address: "3c:fd:fe:aa:b7:fc"
+        vlan: native
+      - name: 'nic4'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        address: 10.10.193.3
+        mac_address: "3c:fd:fe:aa:b7:fd"
+        vlan: native
+      - name: 'nic5'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        address: 10.10.195.3
+        mac_address: "00:00:00:00:00:00"
+        vlan: native
