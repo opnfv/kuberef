@@ -1,0 +1,111 @@
+---
+# ============LICENSE_START=======================================================
+#  Copyright (C) 2020 Ericsson AB All rights reserved.
+# ================================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+# ============LICENSE_END=========================================================
+
+- name: get all running VMs
+  virt:
+    command: list_vms
+    state: running
+  register: running_vms
+
+- name: shutdown existing jump VM
+  virt:
+    name: "{{ jumphost.name }}"
+    command: destroy
+  when:
+    jumphost.name in running_vms.list_vms
+
+- name: get all shutdown VMs
+  virt:
+    command: list_vms
+    state: shutdown
+  register: shutdown_vms
+
+- name: undefine existing jump VM
+  virt:
+    name: "{{ jumphost.name }}"
+    command: undefine
+  when:
+    jumphost.name in shutdown_vms.list_vms
+
+- name: clean workspace
+  file:
+    path: "{{ workspace }}"
+    state: absent
+
+- name: create workspace if it does not exist
+  file:
+    path: "{{ workspace }}"
+    state: directory
+    mode: '0755'
+
+- name: create directory for base images
+  file:
+    path: "{{ images_path }}"
+    state: directory
+    mode: '0755'
+
+- name: download Ubuntu image for jump VM
+  get_url:
+    url: https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img
+    dest: "{{ images_path }}/bionic-server-cloudimg-amd64.img"
+    force: false
+    mode: '0666'
+
+- name: create new VM image from base image
+  command: "qemu-img create -f qcow2 -o backing_file={{ images_path }}/bionic-server-cloudimg-amd64.img {{ workspace }}/{{ jumphost.name }}.qcow2 10G"
+
+- name: render config files for jump VM from templates
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0644
+  with_items:
+    - {src: "{{ kuberef_root }}/kuberef/playbooks/roles/jump-vm/templates/network-config.j2", dest: "{{ workspace }}/network-config"}
+    - {src: "{{ kuberef_root }}/kuberef/playbooks/roles/jump-vm/templates/user-data.j2", dest: "{{ workspace }}/user-data"}
+    - {src: "{{ kuberef_root }}/kuberef/playbooks/roles/jump-vm/templates/meta-data.j2", dest: "{{ workspace }}/meta-data"}
+    - {src: "{{ kuberef_root }}/kuberef/playbooks/roles/jump-vm/templates/jump-vm.xml.j2", dest: "{{ workspace }}/jump-vm.xml"}
+
+- name: create config drive
+  command: "genisoimage  -output {{ workspace }}/{{ jumphost.name }}-cidata.iso -volid cidata -joliet -rock \
+            {{ workspace }}/user-data {{ workspace }}/meta-data {{ workspace }}/network-config"
+
+- name: setting root password for debugging
+  become: true
+  command: "virt-customize -a {{ workspace }}/{{ jumphost.name }}.qcow2 --root-password password:'root'"
+
+- name: define jump VM
+  command: "virsh define {{ workspace }}/jump-vm.xml"
+  # georg: There seems to be a bug preventing the construct below to work:
+  #        AttributeError: 'NoneType' object has no attribute 'groups'
+  # virt:
+  #   command: define
+  #   xml: "{{ workspace }}/jump-vm.xml"
+  #   autostart: no
+
+- name: start jump VM
+  virt:
+    name: "{{ jumphost.name }}"
+    state: running
+
+- name: wait for VM to be reachable
+  wait_for:
+    host: "{{ jumphost.interfaces[idf.net_config[engine.pxe_network].interface].address }}"
+    port: 22
+
+# - name: create jump VM definition XML

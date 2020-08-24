@@ -1,99 +1,46 @@
 #!/bin/bash
 # SPDX-license-identifier: Apache-2.0
 ##############################################################################
-# Copyright (c)
+# Copyright (c) Ericsson AB and others
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Apache License, Version 2.0
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Clean up
-clean_up() {
-    if sudo virsh list --all | grep " ${VM_NAME} .*running" ; then
-        sudo virsh destroy "$VM_NAME"
-    fi
-    if sudo virsh list --all | grep " ${VM_NAME} " ; then
-        sudo virsh undefine "$VM_NAME"
-    fi
-    sudo rm -rf "/var/lib/libvirt/images/$VM_NAME"
-    sleep 5
-}
-
-# Create jumphost VM
-create_jump() {
-# Create VM image
-    sudo mkdir -p "/var/lib/libvirt/images/$VM_NAME"
-    sudo qemu-img create -f qcow2 \
-        -o backing_file=/var/lib/libvirt/images/ubuntu-18.04.qcow2 \
-        "/var/lib/libvirt/images/$VM_NAME/$VM_NAME.qcow2" 10G
-
-# Create VM cloud-init configuration files
-    cat <<EOL > user-data
-    #cloud-config
-    users:
-      - name: $USERNAME
-        ssh-authorized-keys:
-          - $(cat "$HOME/.ssh/id_rsa.pub")
-        sudo: ['ALL=(ALL) NOPASSWD:ALL']
-        groups: sudo
-        shell: /bin/bash
-EOL
-    cat <<EOL > meta-data
-    local-hostname: $VM_NAME
-EOL
-
-# Create VM
-    sudo genisoimage  -output "/var/lib/libvirt/images/$VM_NAME/$VM_NAME-cidata.iso" \
-        -volid cidata -joliet -rock user-data meta-data
-    sudo virt-customize -a "/var/lib/libvirt/images/$VM_NAME/$VM_NAME.qcow2" \
-        --root-password password:"$ROOT_PASSWORD"
-    sudo virt-install --connect qemu:///system --name "$VM_NAME" \
-        --ram 4096 --vcpus=4 --os-type linux --os-variant ubuntu16.04 \
-        --disk path="/var/lib/libvirt/images/$VM_NAME/$VM_NAME.qcow2",format=qcow2 \
-        --disk "/var/lib/libvirt/images/$VM_NAME/$VM_NAME-cidata.iso",device=cdrom \
-        --import --network network=default --network bridge="$BRIDGE",model=rtl8139 --noautoconsole
-    jumpbox_ip=$(get_vm_ip)
-    i=0
-    while [ -z "$jumpbox_ip" ]; do
-        sleep $((++i))
-        jumpbox_ip=$(get_vm_ip)
-    done
-    i=0
-    until nc -w5 -z "$jumpbox_ip" 22; do
-        sleep $((++i))
-    done
-}
 
 # Get jumphost VM IP
-get_vm_ip() {
-    sudo virsh domifaddr "$VM_NAME" | awk 'FNR == 3 {gsub(/\/.*/, ""); print $4}'
+get_host_pxe_ip() {
+    host=$1
+    if [[ "$host" == "" ]]; then
+        echo "ERROR : get_ip - host parameter not provided"
+        exit 1
+    fi
+
+    local PXE_NETWORK=$(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/idf.yaml  engine.pxe_network)
+    if [[ "$PXE_NETWORK" == "" ]]; then
+        echo "ERROR : PXE network for jump VM not defined in IDF."
+        exit 1
+    fi
+
+    local PXE_IF_INDEX=$(yq r "$CURRENTPATH"/hw_config/"${VENDOR}"/idf.yaml idf.net_config."$PXE_NETWORK".interface)
+    if [[ "$PXE_IF_INDEX" == "" ]]; then
+        echo "ERROR : Index of PXE interface not found in IDF."
+        exit 1
+    fi
+
+    local PXE_IF_IP=$(yq r "$CURRENTPATH"/hw_config/"${VENDOR}"/pdf.yaml "$host".interfaces[$PXE_IF_INDEX].address)
+    if [[ "$PXE_IF_IP" == "" ]]; then
+        echo "ERROR : IP of PXE interface not found in PDF."
+        exit 1
+    fi
+    echo "$PXE_IF_IP"
 }
 
-# Setup PXE network
-setup_PXE_network() {
-# Extract configuration from PDF/IDF
-    PXE_IF=$(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/idf.yaml engine.pxe_interface)
-    PXE_IF_INDEX=$(yq r "$CURRENTPATH"/hw_config/"${VENDOR}"/idf.yaml idf.net_config.oob.interface)
-    if [[ -z $PXE_IF || -z $PXE_IF_INDEX ]]; then
-        echo 'one or more variables in IDF are undefined'
-        exit 1
-    fi
-    PXE_IF_IP=$(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/pdf.yaml jumphost.interfaces.["$PXE_IF_INDEX"].address)
-    PXE_IF_MAC=$(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/pdf.yaml jumphost.interfaces.["$PXE_IF_INDEX"].mac_address)
-    if [[ -z $PXE_IF_IP || -z $PXE_IF_MAC ]]; then
-        echo 'one or more variables in PDF are incorrect'
-        exit 1
-    fi
-    export NETMASK=255.255.255.0
-# SSH to jumphost
-    # shellcheck disable=SC2087
-    ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
-sudo ifconfig $PXE_IF up
-sudo ifconfig $PXE_IF $PXE_IF_IP netmask $NETMASK
-sudo ifconfig $PXE_IF hw ether $PXE_IF_MAC
-EOF
+get_vm_ip() {
+    echo $(get_host_pxe_ip "jumphost")
 }
+
 
 # Copy files needed by Infra engine & BMRA in the jumphost VM
 copy_files_jump() {
@@ -122,10 +69,8 @@ EOF
 
 # Setup networking on provisioned hosts (Adapt setup_network.sh according to your network setup)
 setup_network() {
-# Extract IPs of provisioned nodes from PDF/IDF. When running this function standalone, ensure
-# to set $PXE_IF_INDEX
-    MASTER_IP=$(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/pdf.yaml nodes.[0].interfaces.["$PXE_IF_INDEX"].address)
-    WORKER_IP=$(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/pdf.yaml nodes.[1].interfaces.["$PXE_IF_INDEX"].address)
+     MASTER_IP=$(get_host_pxe_ip "nodes[0]")
+     WORKER_IP=$(get_host_pxe_ip "nodes[1]")
 # SSH to jumphost
     # shellcheck disable=SC2087
     ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
@@ -159,6 +104,8 @@ if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
     ${PROJECT_ROOT}/container-experience-kits/group_vars/
     cp ${PROJECT_ROOT}/${INSTALLER}/node1.yml \
     ${PROJECT_ROOT}/container-experience-kits/host_vars/
+    sed -i '/\openshift/a \    extra_args: --ignore-installed PyYAML' \
+    ${PROJECT_ROOT}/container-experience-kits/roles/net-attach-defs-create/tasks/main.yml
 fi
 sudo service docker start
 sudo docker run --rm \
