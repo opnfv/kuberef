@@ -1,7 +1,7 @@
 #!/bin/bash
 # SPDX-license-identifier: Apache-2.0
 ##############################################################################
-# Copyright (c)
+# Copyright (c) Ericsson AB and others
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Apache License, Version 2.0
 # which accompanies this distribution, and is available at
@@ -16,31 +16,40 @@ set -o nounset
 # Please refer to README for detailed information.
 
 # Get path information
-DIRECTORY=$(readlink -f "$0")
-CURRENTPATH=$(dirname "$DIRECTORY")
+export CURRENTPATH=$(git rev-parse --show-toplevel)
 
 # Source env variables & functions
 source "$CURRENTPATH/deploy.env"
 source "$CURRENTPATH/functions.sh"
 
-# Clean up leftovers
-clean_up
+# ---------------------------------------------------------------------
+# bootstrap install prerequisites
+# ---------------------------------------------------------------------
+ansible-playbook -i "$CURRENTPATH"/inventory/localhost.ini \
+    "$CURRENTPATH"/playbooks/bootstrap.yaml
 
-# The next two functions require that you know your pxe network configuration
-# and IP of resulting jumphost VM in advance. This IP/MAC info also then needs to
-# be added in PDF & IDF files (not supported yet via this script)
-# Create jumphost VM & setup PXE network
-create_jump
-setup_PXE_network
+# ---------------------------------------------------------------------
+# Create jump VM from which the installation is performed
+# ---------------------------------------------------------------------
+ansible-playbook -i "$CURRENTPATH"/inventory/localhost.ini \
+    "$CURRENTPATH"/playbooks/jump-vm.yaml
 
+# ---------------------------------------------------------------------
 # Copy files needed by Infra engine & BMRA in the jumphost VM
+# ---------------------------------------------------------------------
 copy_files_jump
 
+# ---------------------------------------------------------------------
 # Provision remote hosts
+# ---------------------------------------------------------------------
 provision_hosts
 
+# ---------------------------------------------------------------------
 # Setup networking (Adapt according to your network setup)
+# ---------------------------------------------------------------------
 setup_network
 
+# ---------------------------------------------------------------------
 # Provision k8s cluster (currently BMRA)
+# ---------------------------------------------------------------------
 provision_k8s
