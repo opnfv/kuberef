@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6caeef1c_943a3b82",
+        "filename": "kuberef/playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-08-26T00:11:16Z",
+      "side": 1,
+      "message": "This is not required",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 79,
+        "endChar": 14
+      },
+      "revId": "af4d5212ca8bcc162f780b5cf0c3108ce2ee1d9e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "750bd3a0_797ae899",
+        "filename": "kuberef/playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-08-26T00:11:16Z",
+      "side": 1,
+      "message": "This error is caused by this line[1] and the reason behind is the re.Match object deprecated its groups method[2] so if we want to use it we\u0027ll have to downgrade to use python2\n\n[1] https://github.com/ansible-collections/community.libvirt/blob/1.0.0/plugins/modules/virt.py#L525\n[2] https://docs.python.org/2/library/re.html#re.MatchObject.groups",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 19
+      },
+      "revId": "af4d5212ca8bcc162f780b5cf0c3108ce2ee1d9e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba9137e2_d2dbca92",
+        "filename": "kuberef/playbooks/roles/jump-vm/templates/jump-vm.xml.j2",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-08-26T00:11:16Z",
+      "side": 1,
+      "message": "This binary path can differ among OSes",
+      "range": {
+        "startLine": 34,
+        "startChar": 14,
+        "endLine": 34,
+        "endChar": 32
+      },
+      "revId": "af4d5212ca8bcc162f780b5cf0c3108ce2ee1d9e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5edf660e_b5f0a4ca",
+        "filename": "kuberef/playbooks/roles/jump-vm/templates/jump-vm.xml.j2",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-08-26T00:11:16Z",
+      "side": 1,
+      "message": "This can also be omitted given that is specific to Ubuntu systems",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 13
+      },
+      "revId": "af4d5212ca8bcc162f780b5cf0c3108ce2ee1d9e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
