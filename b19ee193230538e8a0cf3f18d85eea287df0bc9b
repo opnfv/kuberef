@@ -123,6 +123,29 @@
     },
     {
       "key": {
+        "uuid": "4802b245_aa13d95a",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-08-26T13:08:28Z",
+      "side": 1,
+      "message": "maybe it better to resort to virt-install again instead of the XML-based approach to avoid the trouble of determining the qemu binary, CPU flags, etc.",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 82,
+        "endChar": 52
+      },
+      "revId": "b19ee193230538e8a0cf3f18d85eea287df0bc9b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97e9879d_9a6c2cc9",
         "filename": "playbooks/roles/jump-vm/templates/jump-vm.xml.j2",
         "patchSetId": 4
