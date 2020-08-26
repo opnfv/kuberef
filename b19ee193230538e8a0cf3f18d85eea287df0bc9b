@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3ee1c68d_86a0beb0",
+        "filename": "inventory/group_vars/all/global.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-08-26T10:23:53Z",
+      "side": 1,
+      "message": "/usr/libexec is OS dependent (at least not yet used on Ubuntu 16.04). I need to think about a generic solution",
+      "parentUuid": "b0faa688_844a3fc2",
+      "revId": "b19ee193230538e8a0cf3f18d85eea287df0bc9b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "620c1342_b7af7103",
         "filename": "inventory/group_vars/all/global.yaml",
         "patchSetId": 4
@@ -30,6 +48,40 @@
       "writtenOn": "2020-08-26T08:23:22Z",
       "side": 1,
       "message": "Could we define an additional field:\nmachine_type: \nIn my current setup (CentOS7), I had to set it to pc-i440fx-rhel7.0.0 to get the deployment going.",
+      "revId": "b19ee193230538e8a0cf3f18d85eea287df0bc9b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "476b286a_7292d755",
+        "filename": "inventory/group_vars/all/idf.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-08-26T10:23:53Z",
+      "side": 1,
+      "message": "please remove this file. The lab-specific IDF should be copied here at runtime. I assume it slipped into the commit.",
+      "revId": "b19ee193230538e8a0cf3f18d85eea287df0bc9b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e7bb001_c50a297c",
+        "filename": "inventory/group_vars/all/pdf.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-08-26T10:23:53Z",
+      "side": 1,
+      "message": "please remove this file. The lab-specific IDF should be copied here at runtime. I assume it slipped into the commit.",
       "revId": "b19ee193230538e8a0cf3f18d85eea287df0bc9b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
@@ -53,6 +105,24 @@
     },
     {
       "key": {
+        "uuid": "1002b1b3_7c5d4872",
+        "filename": "inventory/localhost.ini",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-08-26T10:23:53Z",
+      "side": 1,
+      "message": "That path is OS specific. We should keep it at auto discovery. What was your problem exactly?",
+      "parentUuid": "2965ceda_a3257ff8",
+      "revId": "b19ee193230538e8a0cf3f18d85eea287df0bc9b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97e9879d_9a6c2cc9",
         "filename": "playbooks/roles/jump-vm/templates/jump-vm.xml.j2",
         "patchSetId": 4
@@ -64,6 +134,29 @@
       "writtenOn": "2020-08-26T08:23:22Z",
       "side": 1,
       "message": "Something like \u003ctype arch\u003d\u0027x86_64\u0027 machine\u003d\u0027{{ machine_type }}\u0027\u003ehvm\u003c/type\u003e to support different infra",
+      "revId": "b19ee193230538e8a0cf3f18d85eea287df0bc9b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6d98290_c79ef0da",
+        "filename": "playbooks/roles/jump-vm/templates/jump-vm.xml.j2",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-08-26T10:23:53Z",
+      "side": 1,
+      "message": "this variable is currently not set in the global inventory.",
+      "range": {
+        "startLine": 34,
+        "startChar": 17,
+        "endLine": 34,
+        "endChar": 34
+      },
       "revId": "b19ee193230538e8a0cf3f18d85eea287df0bc9b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
