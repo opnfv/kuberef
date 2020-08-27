@@ -151,7 +151,7 @@ if ! command -v docker; then
 fi
 if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
     git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v1.4.1 ${PROJECT_ROOT}/container-experience-kits/
-    cp -r ${PROJECT_ROOT}/container-experience-kits/examples/group_vars examples/host_vars ${PROJECT_ROOT}/container-experience-kits/
+    cp -r ${PROJECT_ROOT}/container-experience-kits/examples/{group_vars,host_vars} ${PROJECT_ROOT}/container-experience-kits/
 fi
 cp ${PROJECT_ROOT}/${INSTALLER}/inventory.ini \
     ${PROJECT_ROOT}/container-experience-kits/
