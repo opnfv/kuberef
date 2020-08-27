@@ -20,7 +20,9 @@ DIRECTORY=$(readlink -f "$0")
 CURRENTPATH=$(dirname "$DIRECTORY")
 
 # Source env variables & functions
+# shellcheck source=./deploy.env
 source "$CURRENTPATH/deploy.env"
+# shellcheck source=./functions.sh
 source "$CURRENTPATH/functions.sh"
 
 # Clean up leftovers
