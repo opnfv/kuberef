@@ -3,8 +3,8 @@ user-data
 *.swp
 **/.DS_Store
 **/._.DS_Store
-kuberef/inventory/group_vars/all/idf.yaml
-kuberef/inventory/group_vars/all/pdf.yaml
+inventory/group_vars/all/idf.yaml
+inventory/group_vars/all/pdf.yaml
 images
 workspace
 .tox

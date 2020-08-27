@@ -43,6 +43,12 @@ ansible-playbook -i "$CURRENTPATH"/inventory/localhost.ini \
     "$CURRENTPATH"/playbooks/jump-vm.yaml
 
 # ---------------------------------------------------------------------
+# Create BMRA config based on IDF and PDF
+# ---------------------------------------------------------------------
+ansible-playbook -i "$CURRENTPATH"/inventory/localhost.ini \
+    "$CURRENTPATH"/playbooks/bmra-config.yaml
+
+# ---------------------------------------------------------------------
 # Copy files needed by Infra engine & BMRA in the jumphost VM
 # ---------------------------------------------------------------------
 copy_files_jump
