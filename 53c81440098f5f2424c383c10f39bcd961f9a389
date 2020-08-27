@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c4a08b6_c00419a3",
+        "filename": "functions.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-08-27T19:45:38Z",
+      "side": 1,
+      "message": "actually, this should be moved back into the scope of the conditional statement above. Otherwise, if you re-run the deployment of BMRA, the same modification is done multiple times.",
+      "range": {
+        "startLine": 162,
+        "startChar": 2,
+        "endLine": 164,
+        "endChar": 2
+      },
+      "revId": "53c81440098f5f2424c383c10f39bcd961f9a389",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
