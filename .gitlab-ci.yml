@@ -1,0 +1,22 @@
+# Testing deploy functionality on exsiting dev server
+# TODO add tox jobs
+
+stages:
+  - deploy_platform
+  - run_compliance_tests
+
+deploy:
+  stage: deploy_platform
+  tags:
+    - ericsson-pod2
+  script:
+    - bash deploy.sh
+
+runtestsuite:
+  extends: deploy
+  stage: run_compliance_tests
+  tags:
+    - ericsson-pod2
+  script:
+    - bash run_testsuite.sh
+  when: on_success
