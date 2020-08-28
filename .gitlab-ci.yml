@@ -1,0 +1,23 @@
+# GitLab CI file to deploy & test Kuberef RI2
+# TODO add tox jobs
+
+stages:
+  - build
+  - deploy
+
+buildtest:
+  stage: build
+  tags:
+    - ericsson-pod2
+  script:
+    - bash deploy.sh
+  allow_failure: true
+
+deploytestcases:
+  extends: buildtest
+  stage: deploy
+  tags:
+    - ericsson-pod2
+  script:
+    - bash deploy_testsuite.sh
+  when: on_success
