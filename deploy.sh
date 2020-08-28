@@ -20,7 +20,9 @@ DIRECTORY=$(readlink -f "$0")
 CURRENTPATH=$(dirname "$DIRECTORY")
 
 # Source env variables & functions
+# shellcheck disable=SC1090
 source "$CURRENTPATH/deploy.env"
+# shellcheck disable=SC1090
 source "$CURRENTPATH/functions.sh"
 
 # Clean up leftovers
