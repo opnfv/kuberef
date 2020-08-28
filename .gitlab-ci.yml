@@ -1,0 +1,13 @@
+# Testing deploy functionality on exsiting dev server
+# TODO add tox jobs
+# TODO Remove tag dependency
+
+stages:
+  - build
+
+buildtest:
+  stage: build
+  tags:
+    - intel-pod19
+  script:
+    - bash deploy.sh
