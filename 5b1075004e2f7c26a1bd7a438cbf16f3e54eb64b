@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2853287_52215d7a",
+        "filename": "tox.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2020-08-30T14:50:53Z",
+      "side": 1,
+      "message": "it would be better to list files and to add linters as deps.\nthen whitelist would be useless :)",
+      "revId": "5b1075004e2f7c26a1bd7a438cbf16f3e54eb64b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
