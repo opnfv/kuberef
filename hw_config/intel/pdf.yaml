@@ -94,37 +94,37 @@ nodes:
         address: 10.10.195.2
         mac_address: "00:00:00:00:00:00"
         vlan: native
-  - name: node2
+  - name: node3
     node: *nodeparas
     disks: *disks
     remote_management:
       <<: *remoteparas
-      address: 10.10.190.12
-      mac_address: "A4:BF:01:00:09:7B"
+      address: 10.10.190.13
+      mac_address: "A4:BF:01:00:02:4B"
     interfaces:
       - name: 'nic1'
         speed: 1gb
         features:
-        address: 10.10.190.203
-        mac_address: "a4:bf:01:4b:4f:9c"
+        address: 10.10.190.204
+        mac_address: "a4:bf:01:4b:4f:5d"
         vlan: native
       - name: 'nic2'
         speed: 1gb
         features:
-        address: 10.10.190.203
-        mac_address: "a4:bf:01:4b:4f:9d"
-        vlan: 191
+        address: 10.10.190.204
+        mac_address: "a4:bf:01:4b:4f:5e"
+        vlan: native
       - name: 'nic3'
         speed: 10gb
         features: 'dpdk|sriov'
         address: 10.10.192.3
-        mac_address: "3c:fd:fe:aa:b7:fc"
+        mac_address: "3c:fd:fe:aa:bd:d4"
         vlan: native
       - name: 'nic4'
         speed: 10gb
         features: 'dpdk|sriov'
         address: 10.10.193.3
-        mac_address: "3c:fd:fe:aa:b7:fd"
+        mac_address: "3c:fd:fe:aa:bd:d5"
         vlan: native
       - name: 'nic5'
         speed: 10gb
