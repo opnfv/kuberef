@@ -16,6 +16,24 @@
       "revId": "5b1075004e2f7c26a1bd7a438cbf16f3e54eb64b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73f0d2a7_db598559",
+        "filename": "tox.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-08-31T15:19:50Z",
+      "side": 1,
+      "message": "Cedric, can you share the implementation that you have in mind?",
+      "parentUuid": "f2853287_52215d7a",
+      "revId": "5b1075004e2f7c26a1bd7a438cbf16f3e54eb64b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
