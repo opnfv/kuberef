@@ -34,6 +34,24 @@
       "revId": "5b1075004e2f7c26a1bd7a438cbf16f3e54eb64b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c14db31_7dca2886",
+        "filename": "tox.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2020-09-04T17:19:17Z",
+      "side": 1,
+      "message": "Maybe Functest is a good example (we could have optimized the virtual envs as Neutron)\nhttps://git.opnfv.org/functest/tree/tox.ini\nhttps://git.opnfv.org/functest/tree/test-requirements.txt",
+      "parentUuid": "73f0d2a7_db598559",
+      "revId": "5b1075004e2f7c26a1bd7a438cbf16f3e54eb64b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
