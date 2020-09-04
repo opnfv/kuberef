@@ -52,6 +52,24 @@
       "revId": "5b1075004e2f7c26a1bd7a438cbf16f3e54eb64b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbd0e146_5bba5048",
+        "filename": "tox.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-09-04T18:49:36Z",
+      "side": 1,
+      "message": "Hey Cedric, if I understand correctly what you\u0027re suggesting is to list every single file using the `files` tox directive and use a `test-requirements.txt` file for collecting dependencies used by tox virtual environments, right?\n\nThe reasoning behind using find is to cover any file tracked by the project, even if this file has been recently added to the project. IMHO, having to explicitly list them here may require to constantly update or maintain the list.\n\nRegarding placing test python dependencies on external file can be a good idea, I\u0027ll submit another patchset later.",
+      "parentUuid": "1c14db31_7dca2886",
+      "revId": "5b1075004e2f7c26a1bd7a438cbf16f3e54eb64b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
