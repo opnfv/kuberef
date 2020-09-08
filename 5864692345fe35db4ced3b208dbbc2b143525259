@@ -1,0 +1,7 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Georg Kunz <georg.kunz@est.tech>
+Submitted-by: Rihab Banday <rihab.banday@ericsson.com>
+Submitted-at: Tue, 08 Sep 2020 11:35:11 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/c/kuberef/+/70839
+Project: kuberef
+Branch: refs/heads/master
