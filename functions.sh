@@ -167,7 +167,7 @@ if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
     cp -r ${PROJECT_ROOT}/container-experience-kits/examples/{group_vars,host_vars} ${PROJECT_ROOT}/container-experience-kits/
 #TODO Remove this once the reported issue is fixed in the next BMRA Release
     sed -i '/\openshift/a \    extra_args: --ignore-installed PyYAML' \
-         ${PROJECT_ROOT}/container-experience-kits/roles/net-attach-defs-create/tasks/main.yml
+        ${PROJECT_ROOT}/container-experience-kits/roles/net-attach-defs-create/tasks/main.yml
 fi
 cp ${PROJECT_ROOT}/${INSTALLER}/inventory.ini \
     ${PROJECT_ROOT}/container-experience-kits/

@@ -7,3 +7,4 @@ kuberef/inventory/group_vars/all/idf.yaml
 kuberef/inventory/group_vars/all/pdf.yaml
 images
 workspace
+.tox
