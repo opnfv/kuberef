@@ -33,6 +33,9 @@ idf:
     nodes_roles:
       node1: [k8s-cluster, kube-node, kube-master, etcd, vault]
       node2: [k8s-cluster, kube-node]
+      node3: [k8s-cluster, kube-node]
+      node4: [k8s-cluster, kube-node]
+      node5: [k8s-cluster, kube-node]
     groups:
       k8s-cluster:
         - kube-node
@@ -40,6 +43,9 @@ idf:
     hostnames:
       node1: master0
       node2: node0
+      node3: node1
+      node4: node2
+      node5: node3
     network:
       # network mapping
       network_mapping:
@@ -50,7 +56,7 @@ idf:
         net_mgmt: public
 
 engine:
-  pod_name: ericsson-pod1
+  pod_name: ericsson-pod2
   net_config: *net_config
 
   # net_config network to be used by the PXE

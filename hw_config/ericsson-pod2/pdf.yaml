@@ -40,6 +40,7 @@ jumphost:
       mac_address: 52:54:00:4a:e8:2d
     - name: 'ens3'
       address: 100.64.201.254
+      mac_address: 52:54:00:4a:e8:2f
 ##############################################################################
 nodes:
   - name: node1
@@ -73,12 +74,12 @@ nodes:
         features: 'dpdk|sriov'
         mac_address: "5c:b9:01:8b:a6:95"
         vlan: native
-        address: 10.0.20.11
+        address: 10.0.20.12
       - name: 'nic2'
         speed: 10gb
         features: 'dpdk|sriov'
         mac_address: "5c:b9:01:8b:a6:80"
-        address: 100.64.201.11
+        address: 100.64.201.12
         vlan: native
       - name: 'nic3'
         speed: 10gb
@@ -104,13 +105,13 @@ nodes:
       - name: 'nic1'
         speed: 1gb
         features: 'dpdk|sriov'
-        address: 10.0.20.12
+        address: 10.0.20.13
         mac_address: "5c:b9:01:8b:a6:31"
         vlan: native
       - name: 'nic2'
         speed: 10gb
         features: 'dpdk|sriov'
-        address: 100.64.200.12
+        address: 100.64.200.13
         mac_address: "5c:b9:01:8b:99:64"
         vlan: native
       - name: 'nic3'
@@ -125,3 +126,103 @@ nodes:
         speed: 10gb
         features: 'dpdk|sriov'
         mac_address: "5c:b9:01:8b:99:65"
+  ############################################################################
+  - name: node3
+    node: *nodeparams
+    disks: *disks
+    remote_management:
+      <<: *remoteparas
+      address: 172.16.2.14
+      mac_address: "58:20:B1:01:8D:32"
+    interfaces:
+      - name: 'nic1'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "5c:b9:01:8b:9d:4d"
+        address: 10.0.20.14
+        vlan: native
+      - name: 'nic2'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "5c:b9:01:8b:9d:6c"
+        address: 100.64.200.14
+        vlan: native
+      - name: 'nic3'
+        speed: 1gb
+        features: 'dpdk|sriov'
+        mac_address: "ec:b1:d7:a2:43:c0"
+        vlan: native
+      - name: 'nic4'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "5c:b9:01:8b:9d:4c"
+      - name: 'nic5'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "5c:b9:01:8b:9d:6d"
+  ############################################################################
+  - name: node4
+    node: *nodeparams
+    disks: *disks
+    remote_management:
+      <<: *remoteparas
+      address: 172.16.2.15
+      mac_address: "58:20:B1:01:8B:FC"
+    interfaces:
+      - name: 'nic1'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "5c:b9:01:8b:a5:fd"
+        address: 10.0.20.15
+        vlan: native
+      - name: 'nic2'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "5c:b9:01:8b:a6:08"
+        address: 100.64.200.15
+        vlan: native
+      - name: 'nic3'
+        speed: 1gb
+        features: 'dpdk|sriov'
+        mac_address: "ec:b1:d7:a1:8b:d0"
+      - name: 'nic4'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "5c:b9:01:8b:a5:fc"
+      - name: 'nic5'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "5c:b9:01:8b:a6:09"
+  ############################################################################
+  - name: node5
+    node: *nodeparams
+    disks: *disks
+    remote_management:
+      <<: *remoteparas
+      address: 172.16.2.16
+      mac_address: "58:20:B1:01:8F:EA"
+    interfaces:
+      - name: 'nic1'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "5c:b9:01:8b:a6:e9"
+        address: 10.0.20.16
+        vlan: native
+      - name: 'nic2'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "5c:b9:01:8b:97:14"
+        address: 100.64.200.16
+        vlan: native
+      - name: 'nic3'
+        speed: 1gb
+        features: 'dpdk|sriov'
+        mac_address: "ec:b1:d7:a1:bd:60"
+      - name: 'nic4'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "5c:b9:01:8b:a6:e8"
+      - name: 'nic5'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "5c:b9:01:8b:97:15"
