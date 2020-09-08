@@ -1,3 +1,4 @@
 meta-data
 user-data
 *.swp
+.tox
