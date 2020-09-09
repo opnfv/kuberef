@@ -34,6 +34,24 @@
       "revId": "f59a64bd37d82d5e9a09b9879482a213c68d7d32",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39f0d788_74e7cd89",
+        "filename": "playbooks/jump-vm.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-09-09T18:20:00Z",
+      "side": 1,
+      "message": "I\u0027m going to add a new validation rule to check that the current user belongs to libvirt\u0027s group but I think the error is caused by QEMU.",
+      "parentUuid": "0a3234d9_143de9eb",
+      "revId": "f59a64bd37d82d5e9a09b9879482a213c68d7d32",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
