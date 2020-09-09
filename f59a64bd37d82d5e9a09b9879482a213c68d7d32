@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf47704b_73bbccc1",
+        "filename": "playbooks/jump-vm.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-09-09T11:19:14Z",
+      "side": 1,
+      "message": "I think this should be set to true, otherwise virsh commands will fail when a non-root user tries to run this.",
+      "revId": "f59a64bd37d82d5e9a09b9879482a213c68d7d32",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
