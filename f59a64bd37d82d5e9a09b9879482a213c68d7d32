@@ -16,6 +16,24 @@
       "revId": "f59a64bd37d82d5e9a09b9879482a213c68d7d32",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a3234d9_143de9eb",
+        "filename": "playbooks/jump-vm.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-09-09T11:25:44Z",
+      "side": 1,
+      "message": "I would rather recommend to keep this as false and instead add the user running the playbook to the libvirtd group. This is actually a prerequisite we need to check and document.",
+      "parentUuid": "bf47704b_73bbccc1",
+      "revId": "f59a64bd37d82d5e9a09b9879482a213c68d7d32",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
