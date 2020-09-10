@@ -164,17 +164,15 @@ if ! command -v docker; then
 fi
 if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
     git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v1.4.1 ${PROJECT_ROOT}/container-experience-kits/
-    cp -r ${PROJECT_ROOT}/container-experience-kits/examples/{group_vars,host_vars} ${PROJECT_ROOT}/container-experience-kits/
+    cp -r ${PROJECT_ROOT}/container-experience-kits/examples/group_vars ${PROJECT_ROOT}/container-experience-kits/
 #TODO Remove this once the reported issue is fixed in the next BMRA Release
     sed -i '/\openshift/a \    extra_args: --ignore-installed PyYAML' \
          ${PROJECT_ROOT}/container-experience-kits/roles/net-attach-defs-create/tasks/main.yml
 fi
 cp ${PROJECT_ROOT}/${INSTALLER}/inventory.ini \
     ${PROJECT_ROOT}/container-experience-kits/
-cp ${PROJECT_ROOT}/${INSTALLER}/all.yml \
+cp ${PROJECT_ROOT}/${INSTALLER}/{all.yml,kube-node.yml} \
     ${PROJECT_ROOT}/container-experience-kits/group_vars/
-cp ${PROJECT_ROOT}/${INSTALLER}/node1.yml \
-    ${PROJECT_ROOT}/container-experience-kits/host_vars/
 sudo docker run --rm \
 -v ${PROJECT_ROOT}/container-experience-kits:/bmra \
 -v ~/.ssh/:/root/.ssh/ rihabbanday/bmra-install:centos \
