@@ -174,6 +174,7 @@ cp ${PROJECT_ROOT}/${INSTALLER}/inventory.ini \
 cp ${PROJECT_ROOT}/${INSTALLER}/{all.yml,kube-node.yml} \
     ${PROJECT_ROOT}/container-experience-kits/group_vars/
 sudo docker run --rm \
+-e ANSIBLE_CONFIG=/bmra/ansible.cfg
 -v ${PROJECT_ROOT}/container-experience-kits:/bmra \
 -v ~/.ssh/:/root/.ssh/ rihabbanday/bmra-install:centos \
 ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/cluster.yml
