@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "caf40fa7_ab6464e1",
+        "filename": "functions.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-09-14T10:33:04Z",
+      "side": 1,
+      "message": "I wasn\u0027t able to test this, so I need to ask:\n- does -e work for files as well? According to the docker CLI docs, this should be --env-file [1].\n- does loading environment variables from INSIDE the container actually work? /bmra is a volume mounted inside the container.\n\n[1] https://docs.docker.com/engine/reference/commandline/run/",
+      "range": {
+        "startLine": 177,
+        "startChar": 18,
+        "endLine": 177,
+        "endChar": 35
+      },
+      "revId": "3490738c933ee44d54a1c2893f38b88970461b30",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
