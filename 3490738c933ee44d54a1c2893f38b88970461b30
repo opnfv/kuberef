@@ -22,6 +22,30 @@
       "revId": "3490738c933ee44d54a1c2893f38b88970461b30",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d87e6ab_641f789a",
+        "filename": "functions.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-09-14T11:18:41Z",
+      "side": 1,
+      "message": "This line doesn\u0027t load a file but an env variable ANSIBLE_CONFIG [1] which is set to this file. I think this file is a config file that might include env variables. Loading through --env-file could be an alternative as well.\n[1] https://docs.ansible.com/ansible/latest/reference_appendices/config.html#the-configuration-file",
+      "parentUuid": "caf40fa7_ab6464e1",
+      "range": {
+        "startLine": 177,
+        "startChar": 18,
+        "endLine": 177,
+        "endChar": 35
+      },
+      "revId": "3490738c933ee44d54a1c2893f38b88970461b30",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
