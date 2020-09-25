@@ -180,3 +180,22 @@ sudo docker run --rm \
 ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/cluster.yml
 EOF
 }
+
+# Setup env to run RC2 Functest suite
+setup_env_testsuite() {
+    MASTER_IP=$(get_host_pxe_ip "nodes[0]")
+    # shellcheck disable=SC2087
+    ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
+scp -q root@$MASTER_IP:/root/.kube/config ${PROJECT_ROOT}/kubeconfig
+EOF
+
+# Copy kubeconfig from Jump VM to Jump Host
+# TODO Replace this my mounting shared volume in VM
+scp "$USERNAME"@"$(get_vm_ip)":"${PROJECT_ROOT}"/kubeconfig kubeconfig
+
+# Create env file for RC2 test suite
+cat <<EOL > env
+#set deploy scenario
+DEPLOY_SCENARIO=k8-nosdn-nofeature-noha
+EOL
+}
