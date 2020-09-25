@@ -191,3 +191,18 @@ sudo docker run --rm \
 ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/cluster.yml
 EOF
 }
+
+# Copy kubeconfig to the appropriate location needed by functest containers
+copy_k8s_config() {
+    MASTER_IP=$(get_host_pxe_ip "nodes[0]")
+    # shellcheck disable=SC2087
+    ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
+scp -q root@$MASTER_IP:/root/.kube/config ${PROJECT_ROOT}/kubeconfig
+EOF
+
+# Copy kubeconfig from Jump VM to appropriate location in Jump Host
+# Direct scp to the specified location doesn't work due to permission/ssh-keys
+scp "$USERNAME"@"$(get_vm_ip)":"${PROJECT_ROOT}"/kubeconfig kubeconfig
+sudo cp kubeconfig /home/opnfv/functest-kubernetes/config
+}
+
