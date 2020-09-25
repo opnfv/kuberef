@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b9748f1_373a1d5c",
+        "filename": "deploy_testsuite.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-09-25T13:36:39Z",
+      "side": 1,
+      "message": "how about renaming this file to run_testsuite.sh ?",
+      "revId": "cf57ca8283954d1e66d9252b6ecc6df36d60c68b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2cc56b4_d7207af9",
+        "filename": "functions.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-09-25T13:36:39Z",
+      "side": 1,
+      "message": "this is based on the assumption that the first host is going to be a master.",
+      "range": {
+        "startLine": 186,
+        "startChar": 33,
+        "endLine": 186,
+        "endChar": 41
+      },
+      "revId": "cf57ca8283954d1e66d9252b6ecc6df36d60c68b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
