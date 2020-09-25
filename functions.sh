@@ -180,3 +180,43 @@ sudo docker run --rm \
 ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/cluster.yml
 EOF
 }
+
+# Run RC2 Functest suite
+run_testsuite() {
+    MASTER_IP=$(get_host_pxe_ip "nodes[0]")
+    # shellcheck disable=SC2087
+    ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
+if [[ ! -f "${PROJECT_ROOT}/kubeconfig" ]]; then
+    scp -q root@$MASTER_IP:/root/.kube/config ${PROJECT_ROOT}/kubeconfig
+    fi
+cat <<EOL > env
+#set deploy scenario
+DEPLOY_SCENARIO=k8-nosdn-nofeature-noha
+EOL
+
+# Run healthcheck suite
+sudo docker run --env-file env \
+-v ${PROJECT_ROOT}/kubeconfig:/root/.kube/config \
+opnfv/functest-kubernetes-healthcheck:jerma
+
+# Run smoke suite
+sudo docker run --env-file env \
+-v ${PROJECT_ROOT}/kubeconfig:/root/.kube/config \
+opnfv/functest-kubernetes-smoke:jerma
+
+# Run security suite
+sudo docker run --env-file env \
+-v ${PROJECT_ROOT}/kubeconfig:/root/.kube/config \
+opnfv/functest-kubernetes-security:jerma
+
+# Run benchmarking suite
+sudo docker run --env-file env \
+-v ${PROJECT_ROOT}:/root/.kube/config \
+opnfv/functest-kubernetes-benchmarking:jerma
+
+# Run cnf suite
+sudo docker run --env-file env \
+-v ${PROJECT_ROOT}:/root/.kube/config \
+opnfv/functest-kubernetes-cnf:jerma
+EOF
+}
