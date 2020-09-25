@@ -1,23 +1,260 @@
-# GitLab CI config file to deploy RI2 on baremetal infra
-# and run RC2 compliance tests on the deployed platform.
-# TODO add tox jobs
+variables:
+  S3_ENDPOINT_URL: https://storage.googleapis.com
+  S3_DST_URL: s3://artifacts.opnfv.org/kuberef/${CI_COMMIT_SHORT_SHA}/${CI_JOB_NAME}-${CI_JOB_ID}
+  HTTP_DST_URL: http://artifacts.opnfv.org/kuberef/${CI_COMMIT_SHORT_SHA}/${CI_JOB_NAME}-${CI_JOB_ID}
+  TEST_DB_URL: http://testresults.opnfv.org/test/api/v1/results
+  TEST_DB_EXT_URL: http://testresults.opnfv.org/test/api/v1/results
+  NODE_NAME: ericsson-pod2
+  BUILD_TAG: ${CI_COMMIT_SHORT_SHA}
+  DEPLOY_SCENARIO: k8-nosdn-nofeature-noha
 
 stages:
+  - .pre
   - deploy_platform
-  - run_compliance_tests
+  - functest-kubernetes-healthcheck
+  - functest-kubernetes-smoke
+  - functest-kubernetes-security
+  - functest-kubernetes-benchmarking
+  - functest-kubernetes-cnf
+  - zip
+  - .post
 
 deploy:
-  stage: deploy_platform
   tags:
     - ericsson-pod2
+  stage: deploy_platform
   script:
     - bash deploy.sh
+    #- scp -q root@$MASTER_IP:/root/.kube/config /home/opnfv/functest-kubernetes/config
 
-runtestsuite:
-  extends: deploy
-  stage: run_compliance_tests
+k8s_quick:
   tags:
     - ericsson-pod2
+  stage: functest-kubernetes-healthcheck
   script:
-    - bash run_testsuite.sh
-  when: on_success
+    - sudo docker run \
+        -e DEPLOY_SCENARIO=${DEPLOY_SCENARIO} \
+        -e INSTALLER_TYPE=${INSTALLER_TYPE} \
+        -e S3_ENDPOINT_URL=${S3_ENDPOINT_URL} \
+        -e S3_DST_URL=${S3_DST_URL} \
+        -e HTTP_DST_URL=${HTTP_DST_URL} \
+        -e TEST_DB_URL=${TEST_DB_URL} \
+        -e TEST_DB_EXT_URL=${TEST_DB_URL} \
+        -e NODE_NAME=${NODE_NAME} \
+        -e BUILD_TAG=${BUILD_TAG} \
+        -v /home/opnfv/functest-kubernetes/config:/root/.kube/config \
+        -v /home/opnfv/functest-kubernetes/boto:/root/.boto \
+        opnfv/functest-kubernetes-healthcheck:jerma run_tests -p -r -t functest-kubernetes-healthcheck
+
+k8s_smoke:
+  tags:
+    - ericsson-pod2
+  stage: functest-kubernetes-healthcheck
+  script:
+    - sudo docker run \
+        -e DEPLOY_SCENARIO=${DEPLOY_SCENARIO} \
+        -e INSTALLER_TYPE=${INSTALLER_TYPE} \
+        -e S3_ENDPOINT_URL=${S3_ENDPOINT_URL} \
+        -e S3_DST_URL=${S3_DST_URL} \
+        -e HTTP_DST_URL=${HTTP_DST_URL} \
+        -e TEST_DB_URL=${TEST_DB_URL} \
+        -e TEST_DB_EXT_URL=${TEST_DB_URL} \
+        -e NODE_NAME=${NODE_NAME} \
+        -e BUILD_TAG=${BUILD_TAG} \
+        -v /home/opnfv/functest-kubernetes/config:/root/.kube/config \
+        -v /home/opnfv/functest-kubernetes/boto:/root/.boto \
+        opnfv/functest-kubernetes-healthcheck:jerma run_tests -p -r -t functest-kubernetes-healthcheck
+
+xrally_kubernetes:
+  tags:
+    - ericsson-pod2
+  stage: functest-kubernetes-smoke
+  script:
+    - sudo docker run \
+        -e DEPLOY_SCENARIO=${DEPLOY_SCENARIO} \
+        -e INSTALLER_TYPE=${INSTALLER_TYPE} \
+        -e S3_ENDPOINT_URL=${S3_ENDPOINT_URL} \
+        -e S3_DST_URL=${S3_DST_URL} \
+        -e HTTP_DST_URL=${HTTP_DST_URL} \
+        -e TEST_DB_URL=${TEST_DB_URL} \
+        -e TEST_DB_EXT_URL=${TEST_DB_URL} \
+        -e NODE_NAME=${NODE_NAME} \
+        -e BUILD_TAG=${BUILD_TAG} \
+        -v /home/opnfv/functest-kubernetes/config:/root/.kube/config \
+        -v /home/opnfv/functest-kubernetes/boto:/root/.boto \
+        opnfv/functest-kubernetes-healthcheck:jerma run_tests -p -r -t functest-kubernetes-healthcheck
+
+k8s_conformance:
+  tags:
+    - ericsson-pod2
+  timeout: 3 hours 30 minutes
+  stage: functest-kubernetes-smoke
+  script:
+    - sudo docker run \
+        -e DEPLOY_SCENARIO=${DEPLOY_SCENARIO} \
+        -e INSTALLER_TYPE=${INSTALLER_TYPE} \
+        -e S3_ENDPOINT_URL=${S3_ENDPOINT_URL} \
+        -e S3_DST_URL=${S3_DST_URL} \
+        -e HTTP_DST_URL=${HTTP_DST_URL} \
+        -e TEST_DB_URL=${TEST_DB_URL} \
+        -e TEST_DB_EXT_URL=${TEST_DB_URL} \
+        -e NODE_NAME=${NODE_NAME} \
+        -e BUILD_TAG=${BUILD_TAG} \
+        -v /home/opnfv/functest-kubernetes/config:/root/.kube/config \
+        -v /home/opnfv/functest-kubernetes/boto:/root/.boto \
+        opnfv/functest-kubernetes-healthcheck:jerma run_tests -p -r -t functest-kubernetes-healthcheck
+
+kube_hunter:
+  tags:
+    - ericsson-pod2
+  stage: functest-kubernetes-security
+  script:
+    - sudo docker run \
+        -e DEPLOY_SCENARIO=${DEPLOY_SCENARIO} \
+        -e INSTALLER_TYPE=${INSTALLER_TYPE} \
+        -e S3_ENDPOINT_URL=${S3_ENDPOINT_URL} \
+        -e S3_DST_URL=${S3_DST_URL} \
+        -e HTTP_DST_URL=${HTTP_DST_URL} \
+        -e TEST_DB_URL=${TEST_DB_URL} \
+        -e TEST_DB_EXT_URL=${TEST_DB_URL} \
+        -e NODE_NAME=${NODE_NAME} \
+        -e BUILD_TAG=${BUILD_TAG} \
+        -v /home/opnfv/functest-kubernetes/config:/root/.kube/config \
+        -v /home/opnfv/functest-kubernetes/boto:/root/.boto \
+        opnfv/functest-kubernetes-healthcheck:jerma run_tests -p -r -t functest-kubernetes-healthcheck
+
+kube_bench_master:
+  tags:
+    - ericsson-pod2
+  stage: functest-kubernetes-security
+  script:
+    - sudo docker run \
+        -e DEPLOY_SCENARIO=${DEPLOY_SCENARIO} \
+        -e INSTALLER_TYPE=${INSTALLER_TYPE} \
+        -e S3_ENDPOINT_URL=${S3_ENDPOINT_URL} \
+        -e S3_DST_URL=${S3_DST_URL} \
+        -e HTTP_DST_URL=${HTTP_DST_URL} \
+        -e TEST_DB_URL=${TEST_DB_URL} \
+        -e TEST_DB_EXT_URL=${TEST_DB_URL} \
+        -e NODE_NAME=${NODE_NAME} \
+        -e BUILD_TAG=${BUILD_TAG} \
+        -v /home/opnfv/functest-kubernetes/config:/root/.kube/config \
+        -v /home/opnfv/functest-kubernetes/boto:/root/.boto \
+        opnfv/functest-kubernetes-healthcheck:jerma run_tests -p -r -t functest-kubernetes-healthcheck
+
+kube_bench_node:
+  tags:
+    - ericsson-pod2
+  stage: functest-kubernetes-security
+  script:
+    - sudo docker run \
+        -e DEPLOY_SCENARIO=${DEPLOY_SCENARIO} \
+        -e INSTALLER_TYPE=${INSTALLER_TYPE} \
+        -e S3_ENDPOINT_URL=${S3_ENDPOINT_URL} \
+        -e S3_DST_URL=${S3_DST_URL} \
+        -e HTTP_DST_URL=${HTTP_DST_URL} \
+        -e TEST_DB_URL=${TEST_DB_URL} \
+        -e TEST_DB_EXT_URL=${TEST_DB_URL} \
+        -e NODE_NAME=${NODE_NAME} \
+        -e BUILD_TAG=${BUILD_TAG} \
+        -v /home/opnfv/functest-kubernetes/config:/root/.kube/config \
+        -v /home/opnfv/functest-kubernetes/boto:/root/.boto \
+        opnfv/functest-kubernetes-healthcheck:jerma run_tests -p -r -t functest-kubernetes-healthcheck
+
+xrally_kubernetes_full:
+  tags:
+    - ericsson-pod2
+  stage: functest-kubernetes-benchmarking
+  script:
+    - sudo docker run \
+        -e DEPLOY_SCENARIO=${DEPLOY_SCENARIO} \
+        -e INSTALLER_TYPE=${INSTALLER_TYPE} \
+        -e S3_ENDPOINT_URL=${S3_ENDPOINT_URL} \
+        -e S3_DST_URL=${S3_DST_URL} \
+        -e HTTP_DST_URL=${HTTP_DST_URL} \
+        -e TEST_DB_URL=${TEST_DB_URL} \
+        -e TEST_DB_EXT_URL=${TEST_DB_URL} \
+        -e NODE_NAME=${NODE_NAME} \
+        -e BUILD_TAG=${BUILD_TAG} \
+        -v /home/opnfv/functest-kubernetes/config:/root/.kube/config \
+        -v /home/opnfv/functest-kubernetes/boto:/root/.boto \
+        opnfv/functest-kubernetes-healthcheck:jerma run_tests -p -r -t functest-kubernetes-healthcheck
+
+k8s_vims:
+  tags:
+    - ericsson-pod2
+  stage: functest-kubernetes-cnf
+  script:
+    - sudo docker run \
+        -e DEPLOY_SCENARIO=${DEPLOY_SCENARIO} \
+        -e INSTALLER_TYPE=${INSTALLER_TYPE} \
+        -e S3_ENDPOINT_URL=${S3_ENDPOINT_URL} \
+        -e S3_DST_URL=${S3_DST_URL} \
+        -e HTTP_DST_URL=${HTTP_DST_URL} \
+        -e TEST_DB_URL=${TEST_DB_URL} \
+        -e TEST_DB_EXT_URL=${TEST_DB_URL} \
+        -e NODE_NAME=${NODE_NAME} \
+        -e BUILD_TAG=${BUILD_TAG} \
+        -v /home/opnfv/functest-kubernetes/config:/root/.kube/config \
+        -v /home/opnfv/functest-kubernetes/boto:/root/.boto \
+        opnfv/functest-kubernetes-healthcheck:jerma run_tests -p -r -t functest-kubernetes-healthcheck
+
+helm_vims:
+  tags:
+    - ericsson-pod2
+  stage: functest-kubernetes-cnf
+  script:
+    - sudo docker run \
+        -e DEPLOY_SCENARIO=${DEPLOY_SCENARIO} \
+        -e INSTALLER_TYPE=${INSTALLER_TYPE} \
+        -e S3_ENDPOINT_URL=${S3_ENDPOINT_URL} \
+        -e S3_DST_URL=${S3_DST_URL} \
+        -e HTTP_DST_URL=${HTTP_DST_URL} \
+        -e TEST_DB_URL=${TEST_DB_URL} \
+        -e TEST_DB_EXT_URL=${TEST_DB_URL} \
+        -e NODE_NAME=${NODE_NAME} \
+        -e BUILD_TAG=${BUILD_TAG} \
+        -v /home/opnfv/functest-kubernetes/config:/root/.kube/config \
+        -v /home/opnfv/functest-kubernetes/boto:/root/.boto \
+        opnfv/functest-kubernetes-healthcheck:jerma run_tests -p -r -t functest-kubernetes-healthcheck
+
+cnf_conformance:
+  tags:
+    - ericsson-pod2
+  stage: functest-kubernetes-cnf
+  script:
+    - sudo docker run \
+        -e DEPLOY_SCENARIO=${DEPLOY_SCENARIO} \
+        -e INSTALLER_TYPE=${INSTALLER_TYPE} \
+        -e S3_ENDPOINT_URL=${S3_ENDPOINT_URL} \
+        -e S3_DST_URL=${S3_DST_URL} \
+        -e HTTP_DST_URL=${HTTP_DST_URL} \
+        -e TEST_DB_URL=${TEST_DB_URL} \
+        -e TEST_DB_EXT_URL=${TEST_DB_URL} \
+        -e NODE_NAME=${NODE_NAME} \
+        -e BUILD_TAG=${BUILD_TAG} \
+        -v /home/opnfv/functest-kubernetes/config:/root/.kube/config \
+        -v /home/opnfv/functest-kubernetes/boto:/root/.boto \
+        opnfv/functest-kubernetes-healthcheck:jerma run_tests -p -r -t functest-kubernetes-healthcheck
+
+zip:
+  tags:
+    - ericsson-pod2
+  stage: zip
+  variables:
+    S3_DST_URL: https://storage.googleapis.com
+    HTTP_DST_URL: hhttp://artifacts.opnfv.org/kuberef
+  script:
+    - sudo docker run \
+      -e DEPLOY_SCENARIO=${DEPLOY_SCENARIO} \
+      -e INSTALLER_TYPE=${INSTALLER_TYPE} \
+      -e S3_ENDPOINT_URL=${S3_ENDPOINT_URL} \
+      -e S3_DST_URL=${S3_DST_URL} \
+      -e HTTP_DST_URL=${HTTP_DST_URL} \
+      -e TEST_DB_URL=${TEST_DB_URL} \
+      -e TEST_DB_EXT_URL=${TEST_DB_URL} \
+      -e NODE_NAME=${NODE_NAME} \
+      -e BUILD_TAG=${BUILD_TAG} \
+      -v /home/opnfv/functest-kubernetes/config:/root/.kube/config \
+      -v /home/opnfv/functest-kubernetes/boto:/root/.boto \
+      opnfv/functest-kubernetes-healthcheck:jerma zip_campaign
