@@ -6,18 +6,59 @@ stages:
   - deploy_platform
   - run_compliance_tests
 
-deploy:
-  stage: deploy_platform
+.runner_tags: &runner_tags
   tags:
     - ericsson-pod2
+
+
+deploy:
+  stage: deploy_platform
+  <<: *runner_tags
   script:
     - bash deploy.sh
 
-runtestsuite:
+runhealthchecksuite:
   extends: deploy
   stage: run_compliance_tests
-  tags:
-    - ericsson-pod2
+  <<: *runner_tags
   script:
-    - bash run_testsuite.sh
+    - bash setup_env_testsuite.sh
+    - sudo docker run --env-file env -v $(pwd)/kubeconfig:/root/.kube/config opnfv/functest-kubernetes-healthcheck:jerma
   when: on_success
+
+runsmokesuite:
+  extends: deploy
+  stage: run_compliance_tests
+  <<: *runner_tags
+  script:
+    - bash setup_env_testsuite.sh
+    - sudo docker run --env-file env -v $(pwd)/kubeconfig:/root/.kube/config opnfv/functest-kubernetes-smoke:jerma
+  when: on_success
+
+runsecuritysuite:
+  extends: deploy
+  stage: run_compliance_tests
+  <<: *runner_tags
+  script:
+    - bash setup_env_testsuite.sh
+    - sudo docker run --env-file env -v $(pwd)/kubeconfig:/root/.kube/config opnfv/functest-kubernetes-security:jerma
+  when: on_success
+
+runbenchmarkingsuite:
+  extends: deploy
+  stage: run_compliance_tests
+  <<: *runner_tags
+  script:
+    - bash setup_env_testsuite.sh
+    - sudo docker run --env-file env -v $(pwd)/kubeconfig:/root/.kube/config opnfv/functest-kubernetes-benchmarking:jerma
+  when: on_success
+
+runcnfsuite:
+  extends: deploy
+  stage: run_compliance_tests
+  <<: *runner_tags
+  script:
+    - bash setup_env_testsuite.sh
+    - sudo docker run --env-file env -v $(pwd)/kubeconfig:/root/.kube/config opnfv/functest-kubernetes-cnf:jerma
+  when: on_success
+
