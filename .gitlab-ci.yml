@@ -3,22 +3,151 @@
 # and run RC2 compliance tests on the deployed platform.
 # TODO add tox jobs
 
+variables:
+  S3_ENDPOINT_URL: https://storage.googleapis.com
+  S3_DST_URL: s3://artifacts.opnfv.org/kuberef/${CI_COMMIT_SHORT_SHA}/${CI_JOB_NAME}-${CI_JOB_ID}
+  HTTP_DST_URL: http://artifacts.opnfv.org/kuberef/${CI_COMMIT_SHORT_SHA}/${CI_JOB_NAME}-${CI_JOB_ID}
+  TEST_DB_URL: http://testresults.opnfv.org/test/api/v1/results
+  TEST_DB_EXT_URL: http://testresults.opnfv.org/test/api/v1/results
+  NODE_NAME: ericsson-pod2
+  BUILD_TAG: ${CI_COMMIT_SHORT_SHA}
+  DEPLOY_SCENARIO: k8-nosdn-nofeature-noha
+
 stages:
+  - .pre
   - deploy_platform
-  - run_compliance_tests
+  - functest-kubernetes-healthcheck
+  - functest-kubernetes-smoke
+  - functest-kubernetes-security
+  - functest-kubernetes-benchmarking
+  - functest-kubernetes-cnf
+  - zip
+  - .post
 
 deploy:
-  stage: deploy_platform
   tags:
     - ericsson-pod2
+  stage: deploy_platform
   script:
     - bash deploy.sh
 
-runtestsuite:
-  extends: deploy
-  stage: run_compliance_tests
+k8s_quick:
   tags:
-    - ericsson-pod2
+    - ericsson-pod2-docker
+  stage: functest-kubernetes-healthcheck
+  image: opnfv/functest-kubernetes-healthcheck:jerma
   script:
-    - bash run_testsuite.sh
-  when: on_success
+    - run_tests -t k8s_quick -p -r
+
+k8s_smoke:
+  tags:
+    - ericsson-pod2-docker
+  stage: functest-kubernetes-healthcheck
+  image: opnfv/functest-kubernetes-healthcheck:jerma
+  script:
+    - run_tests -t k8s_smoke -p -r
+
+xrally_kubernetes:
+  only:
+    - schedules
+  tags:
+    - ericsson-pod2-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:jerma
+  timeout: 3 hours 30 minutes
+  script:
+    - run_tests -t xrally_kubernetes -p -r
+
+k8s_conformance:
+  only:
+    - schedules
+  tags:
+    - ericsson-pod2-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:jerma
+  timeout: 3 hours 30 minutes
+  script:
+    - run_tests -t k8s_conformance -p -r
+
+kube_hunter:
+  only:
+    - schedules
+  tags:
+    - ericsson-pod2-docker
+  stage: functest-kubernetes-security
+  image: opnfv/functest-kubernetes-security:jerma
+  script:
+    - run_tests -t kube_hunter -p -r
+
+kube_bench_master:
+  only:
+    - schedules
+  tags:
+    - ericsson-pod2-docker
+  stage: functest-kubernetes-security
+  image: opnfv/functest-kubernetes-security:jerma
+  script:
+    - run_tests -t kube_bench_master -p -r
+
+kube_bench_node:
+  only:
+    - schedules
+  tags:
+    - ericsson-pod2-docker
+  stage: functest-kubernetes-security
+  image: opnfv/functest-kubernetes-security:jerma
+  script:
+    - run_tests -t kube_bench_node -p -r
+
+xrally_kubernetes_full:
+  only:
+    - schedules
+  tags:
+    - ericsson-pod2-docker
+  stage: functest-kubernetes-benchmarking
+  image: opnfv/functest-kubernetes-benchmarking:jerma
+  script:
+    - run_tests -t xrally_kubernetes_full -p -r
+
+k8s_vims:
+  only:
+    - schedules
+  tags:
+    - ericsson-pod2-docker
+  stage: functest-kubernetes-cnf
+  image: opnfv/functest-kubernetes-cnf:jerma
+  script:
+    - run_tests -t k8s_vims -p -r
+
+helm_vims:
+  only:
+    - schedules
+  tags:
+    - ericsson-pod2-docker
+  stage: functest-kubernetes-cnf
+  image: opnfv/functest-kubernetes-cnf:jerma
+  script:
+    - run_tests -t helm_vims -p -r
+
+cnf_conformance:
+  only:
+    - schedules
+  tags:
+    - ericsson-pod2-docker
+  stage: functest-kubernetes-cnf
+  image: opnfv/functest-kubernetes-cnf:jerma
+  script:
+    - run_tests -t cnf_conformance -p -r
+
+zip:
+  only:
+    - schedules
+  tags:
+    - ericsson-pod2-docker
+  stage: zip
+  variables:
+    S3_DST_URL: s3://xtesting
+    HTTP_DST_URL: http://artifacts.opnfv.org/kuberef/
+  image: opnfv/functest-kubernetes-healthcheck:jerma
+  script:
+    - zip_campaign
