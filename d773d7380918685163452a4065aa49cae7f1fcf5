@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0554a278_13e74ac2",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-09-25T13:32:11Z",
+      "side": 1,
+      "message": "naming nit-pick: how about calling them \"deploy_platform\" and \"run_compliance_tests\"? They are a bit more verbose. There is no build process in Kuberef, so \"build\" is not a good fit.",
+      "revId": "d773d7380918685163452a4065aa49cae7f1fcf5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d368b53_febaa504",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-09-25T13:32:11Z",
+      "side": 1,
+      "message": "does this mean that the test state still gets runs if the deployment fails? Are there specific reasons for overriding the result of this job?",
+      "revId": "d773d7380918685163452a4065aa49cae7f1fcf5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
