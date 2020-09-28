@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9c135ecd_d5ded2e3",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-09-28T16:42:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0554a278_13e74ac2",
+      "revId": "d773d7380918685163452a4065aa49cae7f1fcf5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d368b53_febaa504",
         "filename": ".gitlab-ci.yml",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2020-09-25T13:32:11Z",
       "side": 1,
       "message": "does this mean that the test state still gets runs if the deployment fails? Are there specific reasons for overriding the result of this job?",
+      "revId": "d773d7380918685163452a4065aa49cae7f1fcf5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0b5bf9b_91ffeaaf",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-09-28T16:42:44Z",
+      "side": 1,
+      "message": "Thanks for pointing out - I had added this clause because the second job used to start even though the first one failed. But then the \"when\" clause that I added at the end seems to solve that issue, hence removed it now.",
+      "parentUuid": "9d368b53_febaa504",
       "revId": "d773d7380918685163452a4065aa49cae7f1fcf5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
