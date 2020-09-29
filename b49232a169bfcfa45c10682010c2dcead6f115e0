@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6c9685e6_7063ea84",
+        "filename": "functions.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-09-29T07:31:49Z",
+      "side": 1,
+      "message": "Yes you\u0027re right - I did some code cleaning and missed to add this. Will fix this.",
+      "parentUuid": "490ac40a_8b03d7ba",
+      "range": {
+        "startLine": 214,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 39
+      },
+      "revId": "b49232a169bfcfa45c10682010c2dcead6f115e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "59b0e9f4_1e86f110",
         "filename": "functions.sh",
         "patchSetId": 3
@@ -59,6 +83,30 @@
       "writtenOn": "2020-09-28T23:10:19Z",
       "side": 1,
       "message": "Maybe we can use docker-compose to run all this tests in parallel",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 3
+      },
+      "revId": "b49232a169bfcfa45c10682010c2dcead6f115e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1ce17c6_160fb7d1",
+        "filename": "functions.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-09-29T07:31:49Z",
+      "side": 1,
+      "message": "not sure how the logging will look in that case, will have to try out.",
+      "parentUuid": "b954ebd9_23da297c",
       "range": {
         "startLine": 197,
         "startChar": 0,
