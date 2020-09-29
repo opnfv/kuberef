@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "381c9c7c_5cb5f2fc",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-09-29T08:05:59Z",
+      "side": 1,
+      "message": "Is there a specific reason for this change? I think the correct path inside the jump should be $PROJECT_ROOT/$VENDOR/{pdf.yaml,idf.yaml}.",
+      "revId": "521eb64dde79d73cd05096ee882502e623f68b20",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
