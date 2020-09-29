@@ -92,19 +92,19 @@ get_host_pxe_ip() {
         exit 1
     fi
 
-    PXE_NETWORK=$(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/idf.yaml  engine.pxe_network)
+    PXE_NETWORK=$(yq r "$CURRENTPATH"/playbooks/roles/bootstrap/files/"$VENDOR"/idf.yaml engine.pxe_network)
     if [[ "$PXE_NETWORK" == "" ]]; then
         echo "ERROR : PXE network for jump VM not defined in IDF."
         exit 1
     fi
 
-    PXE_IF_INDEX=$(yq r "$CURRENTPATH"/hw_config/"${VENDOR}"/idf.yaml idf.net_config."$PXE_NETWORK".interface)
+    PXE_IF_INDEX=$(yq r "$CURRENTPATH"/playbooks/roles/bootstrap/files/"${VENDOR}"/idf.yaml idf.net_config."$PXE_NETWORK".interface)
     if [[ "$PXE_IF_INDEX" == "" ]]; then
         echo "ERROR : Index of PXE interface not found in IDF."
         exit 1
     fi
 
-    PXE_IF_IP=$(yq r "$CURRENTPATH"/hw_config/"${VENDOR}"/pdf.yaml "$host".interfaces["$PXE_IF_INDEX"].address)
+    PXE_IF_IP=$(yq r "$CURRENTPATH"/playbooks/roles/bootstrap/files/"${VENDOR}"/pdf.yaml "$host".interfaces["$PXE_IF_INDEX"].address)
     if [[ "$PXE_IF_IP" == "" ]]; then
         echo "ERROR : IP of PXE interface not found in PDF."
         exit 1
@@ -121,7 +121,7 @@ get_vm_ip() {
 # Copy files needed by Infra engine & BMRA in the jumphost VM
 copy_files_jump() {
     scp -r -o StrictHostKeyChecking=no \
-    "$CURRENTPATH"/{hw_config/"$VENDOR"/,sw_config/"$INSTALLER"/} \
+    "$CURRENTPATH"/{playbooks/roles/bootstrap/files/"$VENDOR"/,sw_config/"$INSTALLER"/} \
     "$USERNAME@$(get_vm_ip):$PROJECT_ROOT"
 }
 
@@ -133,7 +133,7 @@ provision_hosts() {
 if [ ! -d "${PROJECT_ROOT}/engine" ]; then
     ssh-keygen -t rsa -N "" -f ${PROJECT_ROOT}/.ssh/id_rsa
     git clone https://gerrit.nordix.org/infra/engine.git
-    cp $PROJECT_ROOT/$VENDOR/{pdf.yaml,idf.yaml} \
+    cp ${PROJECT_ROOT}/${VENDOR}/{pdf.yaml,idf.yaml} \
     ${PROJECT_ROOT}/engine/engine
 fi
 cd ${PROJECT_ROOT}/engine/engine

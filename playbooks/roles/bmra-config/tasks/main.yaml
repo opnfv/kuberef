@@ -1,3 +1,4 @@
+---
 - name: write BMRA config
   template:
     src: "inventory.ini"

@@ -7,14 +7,20 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+- name: create inventory folder
+  file:
+    mode: '0755'
+    state: directory
+    path: "{{ inventory_path }}/group_vars/all"
+
 # collected PDF and IDF are copied into group_vars
 # folder in order to ensure we have single PDF and IDF
 - name: Copy collected PDF and IDF to group_vars
   copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
+    src: "{{ vendor }}/{{ item }}.yaml"
+    dest: "{{ inventory_path }}/group_vars/all/{{ item }}.yaml"
     force: true
     mode: 0644
   with_items:
-    - {src: "{{ kuberef_root }}/hw_config/{{ lookup('env', 'VENDOR') }}/pdf.yaml", dest: "{{ inventory_path }}/group_vars/all/pdf.yaml"}
-    - {src: "{{ kuberef_root }}/hw_config/{{ lookup('env', 'VENDOR') }}/idf.yaml", dest: "{{ inventory_path }}/group_vars/all/idf.yaml"}
+    - pdf
+    - idf

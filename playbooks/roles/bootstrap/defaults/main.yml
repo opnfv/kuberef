@@ -8,10 +8,4 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-extends: default
-
-ignore: |
-  .tox/
-
-rules:
-  line-length: disable
+vendor: "{{ lookup('env', 'VENDOR') | default('ericsson-pod2', True) }}"

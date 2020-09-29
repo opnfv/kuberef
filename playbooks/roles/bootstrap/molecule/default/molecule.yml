@@ -8,10 +8,22 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-extends: default
-
-ignore: |
-  .tox/
-
-rules:
-  line-length: disable
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint: |
+  set -e
+  yamllint -c ../../../.yamllint .
+  ansible-lint
+platforms:
+  - name: centos_7
+    image: centos:7
+  - name: ubuntu_bionic
+    image: ubuntu:18.04
+provisioner:
+  name: ansible
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
