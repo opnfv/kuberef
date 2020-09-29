@@ -39,11 +39,11 @@ Deployment
 
 Before initiating the deployment, please note the following:
 
-1. Add your configuration templates, ``pdf.yaml`` and ``idf.yaml`` under ``hw_config/<vendor>``.
+1. Add your configuration templates, ``pdf.yaml`` and ``idf.yaml`` under ``playbooks/roles/bootstrap/files/<vendor>``.
 
 2. Modify the environmental variables defined in ``deploy.env`` to match your setup.
 
-3. Update ``hw_config/<vendor>/setup_network.sh`` with your correct networking info. This particular
+3. Update ``playbooks/roles/bootstrap/files/<vendor>/setup_network.sh`` with your correct networking info. This particular
    script sets up networking on the provisioned nodes after the host provisioning stage is successful.
 
 .. note::
