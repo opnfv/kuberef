@@ -1,5 +1,11 @@
+# Base requirements for Ubuntu
 python3-all-dev [platform:dpkg]
 python3-all [platform:dpkg]
 python-all-dev [platform:dpkg]
+
+# Base requirements for RPM distros
 python-devel [platform:rpm !platform:centos-8]
 python3-devel [platform:rpm]
+
+# For SELinux
+libselinux-python3  [platform:rpm]
