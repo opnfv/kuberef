@@ -16,6 +16,24 @@
       "revId": "521eb64dde79d73cd05096ee882502e623f68b20",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b9ff454_5d266056",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-10-01T16:26:02Z",
+      "side": 1,
+      "message": "This function is called after the bootstrap is executed, technically the pdf and idf files will be placed in the destination folder.",
+      "parentUuid": "381c9c7c_5cb5f2fc",
+      "revId": "521eb64dde79d73cd05096ee882502e623f68b20",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
