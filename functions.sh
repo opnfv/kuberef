@@ -26,6 +26,9 @@ assert_non_empty() {
         error "$2"
     fi
 }
+if [ "${DEBUG:-false}" == "true" ]; then
+    set -o xtrace
+fi
 
 check_prerequisites() {
     info "Check prerequisites"
@@ -65,7 +68,21 @@ check_prerequisites() {
     sudo sed -i "s/^Defaults.*env_reset/#&/" /etc/sudoers
 
     #-------------------------------------------------------------------------------
-    # Check if some tools are installed
+    # Check if Python Virtual Environment is installed
+    #-------------------------------------------------------------------------------
+    if ! command -v virtualenv &> /dev/null; then
+        error "VirtualEnv not found. Please install."
+    fi
+
+    #-------------------------------------------------------------------------------
+    # Check if PIP Installs Packages is installed
+    #-------------------------------------------------------------------------------
+    if ! command -v pip &> /dev/null; then
+        error "PIP not found. Please install."
+    fi
+
+    #-------------------------------------------------------------------------------
+    # Check is libvirt is installed
     #-------------------------------------------------------------------------------
     for tool in ansible yq virsh jq; do
         if ! command -v "$tool" &> /dev/null; then
@@ -258,6 +275,25 @@ run_playbook() {
     ansible_cmd="$(command -v ansible-playbook)"
     ansible_cmd+=" -i $CURRENTPATH/inventory/localhost.ini"
     ansible_cmd+=" -e ansible_python_interpreter=$(command -v python)"
+    if [ "${DEBUG:-false}" == "true" ]; then
+        ansible_cmd+=" -vvv"
+    fi
+    eval "$ansible_cmd $CURRENTPATH/playbooks/${1}.yaml"
+}
+
+# Creates a python virtual environment
+creates_virtualenv() {
+    if [  ! -d "$CURRENTPATH/.venv" ]; then
+        virtualenv .venv
+    fi
+    # shellcheck disable=SC1090
+    source "$CURRENTPATH/.venv/bin/activate"
+    pip install -r "$CURRENTPATH/requirements.txt"
+}
+
+# Executes a specific Ansible playbook
+run_playbook() {
+    ansible_cmd="$(command -v ansible-playbook) -i $CURRENTPATH/inventory/localhost.ini -e ansible_python_interpreter=$(command -v python)"
     if [ "${DEBUG:-false}" == "true" ]; then
         ansible_cmd+=" -vvv"
     fi
