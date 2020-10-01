@@ -8,9 +8,11 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-set -o xtrace
 set -o errexit
 set -o nounset
+if [ "${DEBUG:-false}" == "true" ]; then
+    set -o xtrace
+fi
 
 # Script for end to end RI-2 deployment using Infra engine and BMRA.
 # Please refer to README for detailed information.
@@ -29,6 +31,11 @@ check_prerequisites
 
 # shellcheck source=./deploy.env
 source "$CURRENTPATH/deploy.env"
+
+# ---------------------------------------------------------------------
+# creates a virtual environment for installation of dependencies
+# ---------------------------------------------------------------------
+creates_virtualenv
 
 # ---------------------------------------------------------------------
 # bootstrap install prerequisites
