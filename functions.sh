@@ -8,6 +8,10 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+if [ "${DEBUG:-false}" == "true" ]; then
+    set -o xtrace
+fi
+
 check_prerequisites() {
     echo "Info  : Check prerequisites"
 
@@ -42,10 +46,18 @@ check_prerequisites() {
     sudo sed -i "s/^Defaults.*env_reset/#&/" /etc/sudoers
 
     #-------------------------------------------------------------------------------
-    # Check if Ansible is installed
+    # Check if Python Virtual Environment is installed
     #-------------------------------------------------------------------------------
-    if ! command -v ansible &> /dev/null; then
-        echo "ERROR : Ansible not found. Please install."
+    if ! command -v virtualenv &> /dev/null; then
+        echo "ERROR : VirtualEnv not found. Please install."
+        exit 1
+    fi
+
+    #-------------------------------------------------------------------------------
+    # Check if PIP Installs Packages is installed
+    #-------------------------------------------------------------------------------
+    if ! command -v pip &> /dev/null; then
+        echo "ERROR : PIP not found. Please install."
         exit 1
     fi
 
@@ -179,4 +191,23 @@ sudo docker run --rm \
 -v ~/.ssh/:/root/.ssh/ rihabbanday/bmra-install:centos \
 ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/cluster.yml
 EOF
+}
+
+# Creates a python virtual environment
+creates_virtualenv() {
+    if [  ! -d "$CURRENTPATH/.venv" ]; then
+        virtualenv .venv
+    fi
+    # shellcheck disable=SC1090
+    source "$CURRENTPATH/.venv/bin/activate"
+    pip install -r "$CURRENTPATH/requirements.txt"
+}
+
+# Executes a specific Ansible playbook
+run_playbook() {
+    ansible_cmd="$(command -v ansible-playbook) -i $CURRENTPATH/inventory/localhost.ini -e ansible_python_interpreter=$(command -v python)"
+    if [ "${DEBUG:-false}" == "true" ]; then
+        ansible_cmd+=" -vvv"
+    fi
+    eval "$ansible_cmd $CURRENTPATH/playbooks/${1}.yaml"
 }
