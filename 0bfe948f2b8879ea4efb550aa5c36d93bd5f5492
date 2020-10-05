@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04cfc775_58646528",
+        "filename": "tox.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-10-05T15:15:59Z",
+      "side": 1,
+      "message": "this command also needs to filter the .tox directory, otherwise I get tons of errors:\n\n  -   bash -c \"yamllint {toxinidir}\"\n  +   bash -c \"find {toxinidir} \\\n  +   -not -path {toxinidir}/.tox/\\* \\\n  +   -name \\*.yaml | xargs yamllint\"",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 33
+      },
+      "revId": "0bfe948f2b8879ea4efb550aa5c36d93bd5f5492",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6831f8e5_37b456d2",
+        "filename": "tox.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-10-05T15:15:59Z",
+      "side": 1,
+      "message": "I seem to need a different method to fix execution in a python 3.x environment. It still defaults to python 2.7 on my system, causing this test to fail.",
+      "revId": "0bfe948f2b8879ea4efb550aa5c36d93bd5f5492",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
