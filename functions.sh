@@ -180,3 +180,25 @@ sudo docker run --rm \
 ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/cluster.yml
 EOF
 }
+
+# Ensures that yq is installed
+if ! command -v yq > /dev/null; then
+    echo "Installing yq binary..."
+    binary="yq_$(uname | tr '[:upper:]' '[:lower:]')_"
+    case "$(uname -m)" in
+        x86_64)
+            binary+=amd64
+        ;;
+        armv8*)
+            binary+=arm64
+        ;;
+        aarch64*)
+            binary+=arm64
+        ;;
+        armv*)
+            binary+=armv7
+        ;;
+    esac
+    sudo curl -o /usr/bin/yq -sL "https://github.com/mikefarah/yq/releases/download/${VERSION:-3.4.0}/$binary"
+    sudo chmod +x /usr/bin/yq
+fi

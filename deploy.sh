@@ -19,11 +19,10 @@ set -o nounset
 CURRENTPATH=$(git rev-parse --show-toplevel)
 export CURRENTPATH
 
-# Source env variables & functions
-# shellcheck source=./deploy.env
-source "$CURRENTPATH/deploy.env"
 # shellcheck source=./functions.sh
 source "$CURRENTPATH/functions.sh"
+# shellcheck source=./deploy.env
+source "$CURRENTPATH/deploy.env"
 
 # ---------------------------------------------------------------------
 # check installation and runtime prerequisites
