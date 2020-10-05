@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cb89100b_f254ee4b",
+        "filename": "tox.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-10-05T20:53:39Z",
+      "side": 1,
+      "message": "I applied this change on the yamllint config file(https://gerrit.opnfv.org/gerrit/c/kuberef/+/71190/2..3/.yamllint)",
+      "parentUuid": "04cfc775_58646528",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 33
+      },
+      "revId": "0bfe948f2b8879ea4efb550aa5c36d93bd5f5492",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6831f8e5_37b456d2",
         "filename": "tox.ini",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2020-10-05T15:15:59Z",
       "side": 1,
       "message": "I seem to need a different method to fix execution in a python 3.x environment. It still defaults to python 2.7 on my system, causing this test to fail.",
+      "revId": "0bfe948f2b8879ea4efb550aa5c36d93bd5f5492",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "617187d7_5c3ddf43",
+        "filename": "tox.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-10-05T20:53:39Z",
+      "side": 1,
+      "message": "What about using basepython, does that fix the problem?",
+      "parentUuid": "6831f8e5_37b456d2",
       "revId": "0bfe948f2b8879ea4efb550aa5c36d93bd5f5492",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
