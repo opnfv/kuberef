@@ -39,6 +39,30 @@
       "revId": "5424bb3a48c383dae9257f42ad2dedb2bd7a610e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30334857_5701aa4c",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-10-06T15:24:16Z",
+      "side": 1,
+      "message": "Not sure about the exact reason, but my guess is that it is related to hardware drivers on the machine. Setting the model type to virtio for this interface causes issues in tftp related communication during PXE boot on CentOS 7 machines in Intel Lab, switching it to rt18139 solves the issue. So this change is needed.",
+      "parentUuid": "810a8737_4c76259c",
+      "range": {
+        "startLine": 88,
+        "startChar": 43,
+        "endLine": 88,
+        "endChar": 50
+      },
+      "revId": "5424bb3a48c383dae9257f42ad2dedb2bd7a610e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
