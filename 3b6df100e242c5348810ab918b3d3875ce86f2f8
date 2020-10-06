@@ -16,6 +16,24 @@
       "revId": "3b6df100e242c5348810ab918b3d3875ce86f2f8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "086060ec_766a56d0",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-10-06T15:16:39Z",
+      "side": 1,
+      "message": "The problem is that deploy.env uses the yq tool to set a value and that file is sourced before calling the check_prerequisites function. What about the following workflow source function.sh, run check_prerequisites and then source deploy.env",
+      "parentUuid": "ca324399_b1d6d9bf",
+      "revId": "3b6df100e242c5348810ab918b3d3875ce86f2f8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
