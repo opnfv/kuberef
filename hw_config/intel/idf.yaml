@@ -24,18 +24,25 @@ idf:
       network: 10.10.191.0
       vlan: native
       mask: 24
-      bridge: br-name
+      dns:
+        - 8.8.8.8
   kubespray: &idf_kubespray
     nodes_roles:
-      node1: [k8s-cluster, kube-node, kube-master, etcd, vault]
+      node1: [k8s-cluster, kube-master, etcd, vault]
       node2: [k8s-cluster, kube-node]
+      node3: [k8s-cluster, kube-node]
+      node4: [k8s-cluster, kube-node]
+      node5: [k8s-cluster, kube-node]
     groups:
       k8s-cluster:
         - kube-node
         - kube-master
     hostnames:
-      node1: pod19-node1
-      node2: pod19-node2
+      node1: master1
+      node2: node1
+      node3: node2
+      node4: node3
+      node5: node4
     network:
       # network mapping
       network_mapping:
