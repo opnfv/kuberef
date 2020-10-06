@@ -85,7 +85,7 @@
               --disk path={{ workspace }}/kuberef-jump.qcow2,format=qcow2 \
               --disk {{ workspace }}/kuberef-jump-cidata.iso,device=cdrom \
               --network network=default,model=virtio,mac='{{ jumphost.interfaces[engine.net_config[engine.public_network].interface].mac_address }}' \
-              --network bridge=pxebr,model=virtio,mac='{{ jumphost.interfaces[engine.net_config[engine.pxe_network].interface].mac_address }}' \
+              --network bridge=pxebr,model=rtl8139,mac='{{ jumphost.interfaces[engine.net_config[engine.pxe_network].interface].mac_address }}' \
               --import --noautoconsole"
 
 - name: start jump VM

@@ -178,3 +178,14 @@ sudo docker run --rm \
 ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/cluster.yml
 EOF
 }
+
+# Executes a specific Ansible playbook
+run_playbook() {
+    ansible_cmd="$(command -v ansible-playbook)"
+    ansible_cmd+=" -i $CURRENTPATH/inventory/localhost.ini"
+    ansible_cmd+=" -e ansible_python_interpreter=$(command -v python)"
+    if [ "${DEBUG:-false}" == "true" ]; then
+        ansible_cmd+=" -vvv"
+    fi
+    eval "$ansible_cmd $CURRENTPATH/playbooks/${1}.yaml"
+}
