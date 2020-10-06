@@ -33,20 +33,17 @@ source "$CURRENTPATH/deploy.env"
 # ---------------------------------------------------------------------
 # bootstrap install prerequisites
 # ---------------------------------------------------------------------
-ansible-playbook -i "$CURRENTPATH"/inventory/localhost.ini \
-    "$CURRENTPATH"/playbooks/bootstrap.yaml
+run_playbook bootstrap
 
 # ---------------------------------------------------------------------
 # Create jump VM from which the installation is performed
 # ---------------------------------------------------------------------
-ansible-playbook -i "$CURRENTPATH"/inventory/localhost.ini \
-    "$CURRENTPATH"/playbooks/jump-vm.yaml
+run_playbook jump-vm
 
 # ---------------------------------------------------------------------
 # Create BMRA config based on IDF and PDF
 # ---------------------------------------------------------------------
-ansible-playbook -i "$CURRENTPATH"/inventory/localhost.ini \
-    "$CURRENTPATH"/playbooks/bmra-config.yaml
+run_playbook bmra-config
 
 # ---------------------------------------------------------------------
 # Copy files needed by Infra engine & BMRA in the jumphost VM
