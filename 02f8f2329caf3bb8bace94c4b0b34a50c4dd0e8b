@@ -22,6 +22,30 @@
       "revId": "02f8f2329caf3bb8bace94c4b0b34a50c4dd0e8b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c343b163_c6b7575c",
+        "filename": "hw_config/intel/idf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-10-06T15:01:36Z",
+      "side": 1,
+      "message": "I think that\u0027s definitely the next step. I have not tried that yet, but if Rihab has a stable platform to test an HA deployment, I would give it a try.",
+      "parentUuid": "b8751eb3_2ac7f900",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 37
+      },
+      "revId": "02f8f2329caf3bb8bace94c4b0b34a50c4dd0e8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
