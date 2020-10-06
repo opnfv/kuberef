@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0c42140_d8935f5e",
+        "filename": "inventory/localhost.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-10-06T14:50:12Z",
+      "side": 1,
+      "message": "This patch[1] proposes to setup that variable \n\n[1] https://gerrit.opnfv.org/gerrit/c/kuberef/+/71195/2/functions.sh#208",
+      "revId": "5424bb3a48c383dae9257f42ad2dedb2bd7a610e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "810a8737_4c76259c",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-10-06T14:50:12Z",
+      "side": 1,
+      "message": "What is the advantage to use rtl8139 instead of virtio?",
+      "range": {
+        "startLine": 88,
+        "startChar": 43,
+        "endLine": 88,
+        "endChar": 50
+      },
+      "revId": "5424bb3a48c383dae9257f42ad2dedb2bd7a610e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
