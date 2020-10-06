@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "64171988_3e1e6605",
+        "filename": "inventory/localhost.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-10-06T15:31:10Z",
+      "side": 1,
+      "message": "Yes just saw [1] - when [1] gets merged, this specific change wouldn\u0027t be needed.",
+      "parentUuid": "d0c42140_d8935f5e",
+      "revId": "5424bb3a48c383dae9257f42ad2dedb2bd7a610e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "810a8737_4c76259c",
         "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
         "patchSetId": 1
