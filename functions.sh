@@ -145,16 +145,19 @@ EOF
 
 # Setup networking on provisioned hosts (Adapt setup_network.sh according to your network setup)
 setup_network() {
-    MASTER_IP=$(get_host_pxe_ip "nodes[0]")
-    WORKER_IP=$(get_host_pxe_ip "nodes[1]")
+# Set Upper limit of number nodes in RI2 cluster (starting from 0)
+NODE_MAX_ID=$(($(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/idf.yaml --length idf.kubespray.hostnames)-1))
+
+for idx in $(seq 0 "$NODE_MAX_ID")
+do
+    NODE_IP=$(get_host_pxe_ip "nodes[${idx}]")
 # SSH to jumphost
     # shellcheck disable=SC2087
     ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
-ssh -o StrictHostKeyChecking=no root@$MASTER_IP \
-    'bash -s' <  ${PROJECT_ROOT}/${VENDOR}/setup_network.sh
-ssh -o StrictHostKeyChecking=no root@$WORKER_IP \
+ssh -o StrictHostKeyChecking=no root@${NODE_IP} \
     'bash -s' <  ${PROJECT_ROOT}/${VENDOR}/setup_network.sh
 EOF
+done
 }
 
 # k8s Provisioning (currently BMRA)
