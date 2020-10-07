@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2639bd56_fcfee30a",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-10-07T19:24:08Z",
+      "side": 1,
+      "message": "How about a bit shorter such as:\n\n  for idx in $(seq 0 4)\n  do\n    NODE_IP\u003d$(get_host_pxe_ip \"nodes[${idx}]\")\n    ssh -o StrictHostKeyChecking\u003dno -tT \"$USERNAME\"@\"$(get_vm_ip)\" \u003c\u003c EOF\nssh -o StrictHostKeyChecking\u003dno root@${NODE_IP}\n  [...]\n  done\n\nPlease check if this works.",
+      "revId": "1bd6b90e176c198a272ad3c1c161ac4759797c2f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
