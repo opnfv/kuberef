@@ -137,16 +137,16 @@ EOF
 
 # Setup networking on provisioned hosts (Adapt setup_network.sh according to your network setup)
 setup_network() {
-    MASTER_IP=$(get_host_pxe_ip "nodes[0]")
-    WORKER_IP=$(get_host_pxe_ip "nodes[1]")
+for idx in $(seq 0 4)
+do
+    NODE_IP=$(get_host_pxe_ip "nodes[${idx}]")
 # SSH to jumphost
     # shellcheck disable=SC2087
     ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
-ssh -o StrictHostKeyChecking=no root@$MASTER_IP \
-    'bash -s' <  ${PROJECT_ROOT}/${VENDOR}/setup_network.sh
-ssh -o StrictHostKeyChecking=no root@$WORKER_IP \
+ssh -o StrictHostKeyChecking=no root@${NODE_IP} \
     'bash -s' <  ${PROJECT_ROOT}/${VENDOR}/setup_network.sh
 EOF
+done
 }
 
 # k8s Provisioning (currently BMRA)
