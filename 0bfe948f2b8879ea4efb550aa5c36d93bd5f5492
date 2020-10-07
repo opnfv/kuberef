@@ -81,6 +81,24 @@
       "revId": "0bfe948f2b8879ea4efb550aa5c36d93bd5f5492",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c6fe368_63636019",
+        "filename": "tox.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-10-07T20:31:24Z",
+      "side": 1,
+      "message": "The Ubuntu 16.04 repos natively support up to python 3.5 which is not sufficient. If I manually install python3.6 (which is fine) and specify basepython \u003d python3.6, then everything works for me. It seems that basepython does not allow to specify a minimum version, such as \u003e\u003dpython3.6. So, do we want to fix this to one specific version of Python 3?",
+      "parentUuid": "617187d7_5c3ddf43",
+      "revId": "0bfe948f2b8879ea4efb550aa5c36d93bd5f5492",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
