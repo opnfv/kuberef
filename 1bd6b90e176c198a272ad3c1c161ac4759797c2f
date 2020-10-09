@@ -16,6 +16,24 @@
       "revId": "1bd6b90e176c198a272ad3c1c161ac4759797c2f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35f482fb_3378d373",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-10-09T12:43:05Z",
+      "side": 1,
+      "message": "Thanks, this looks better. I tested it and it works.",
+      "parentUuid": "2639bd56_fcfee30a",
+      "revId": "1bd6b90e176c198a272ad3c1c161ac4759797c2f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
