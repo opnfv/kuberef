@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "def289b8_5045c26f",
+        "filename": "functions.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-10-12T08:44:16Z",
+      "side": 1,
+      "message": "Thanks for including my proposal. Reading it now, I have another comment: this is of course a hardcoded value. Ideally, the upper limit is read from the IDF (not sure if yq allows to read a max index) OR we document this as a limitation right now: EXACTLY five must be available.",
+      "range": {
+        "startLine": 140,
+        "startChar": 13,
+        "endLine": 140,
+        "endChar": 20
+      },
+      "revId": "39897c3a3dabc8eab1721eb8314e49c0bdad8665",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
