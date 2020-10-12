@@ -22,6 +22,30 @@
       "revId": "39897c3a3dabc8eab1721eb8314e49c0bdad8665",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac7c1086_e537e2c6",
+        "filename": "functions.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-10-12T09:28:11Z",
+      "side": 1,
+      "message": "True - how about setting a variable like NODES_MAX etc. in deploy.env? A user will anyway have to check this file before initiating the deployment.",
+      "parentUuid": "def289b8_5045c26f",
+      "range": {
+        "startLine": 140,
+        "startChar": 13,
+        "endLine": 140,
+        "endChar": 20
+      },
+      "revId": "39897c3a3dabc8eab1721eb8314e49c0bdad8665",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
