@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82926a56_a05ac6c9",
+        "filename": "deploy.env",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-10-12T18:30:54Z",
+      "side": 1,
+      "message": "sorry for being a reviewing pain in the **s. Do we need to export this as a variable here instead of using it just locally in the function.sh script? Here is seems this should be changeable by the user which it should not.",
+      "revId": "d1903b00dbc2d95c0ea8ce3586d4563f031ba6b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
