@@ -16,6 +16,24 @@
       "revId": "d1903b00dbc2d95c0ea8ce3586d4563f031ba6b4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d67e12f_709d2d32",
+        "filename": "deploy.env",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-10-13T08:21:34Z",
+      "side": 1,
+      "message": "Good point - I now moved it to the original function body.",
+      "parentUuid": "82926a56_a05ac6c9",
+      "revId": "d1903b00dbc2d95c0ea8ce3586d4563f031ba6b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
