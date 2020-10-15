@@ -74,7 +74,7 @@ check_prerequisites() {
     if [ "${ID,,}" == "ubuntu" ] && [ "$VERSION_ID" == "16.04" ]; then
         libvirt_group+="d"
     fi
-    if ! groups | grep " $libvirt_group "; then
+    if ! groups | grep "$libvirt_group"; then
         echo "ERROR : $(id -nu) user doesn't belong to $libvirt_group group."
         exit 1
     fi
