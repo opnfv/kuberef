@@ -1,0 +1,8 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Georg Kunz <georg.kunz@ericsson.com>
+Code-Review+2: Victor Morales <chipahuac@hotmail.com>
+Submitted-by: Georg Kunz <georg.kunz@ericsson.com>
+Submitted-at: Wed, 21 Oct 2020 15:06:29 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/c/kuberef/+/71257
+Project: kuberef
+Branch: refs/heads/master
