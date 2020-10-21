@@ -8,3 +8,4 @@ inventory/group_vars/all/pdf.yaml
 images
 workspace
 .tox
+docs/_build/
