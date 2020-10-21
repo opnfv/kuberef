@@ -34,6 +34,24 @@
       "revId": "d1903b00dbc2d95c0ea8ce3586d4563f031ba6b4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca5552d4_9d5d909f",
+        "filename": "deploy.env",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-10-21T15:08:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0d67e12f_709d2d32",
+      "revId": "d1903b00dbc2d95c0ea8ce3586d4563f031ba6b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
