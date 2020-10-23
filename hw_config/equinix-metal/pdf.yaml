@@ -1,0 +1,34 @@
+---
+# SPDX-license-identifier: Apache-2.0
+##############################################################################
+# Copyright (c) 2020
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+version: 1.0
+details:
+  pod_owner: Equinix Metal
+  contact: Equinix Metal
+  lab: EWR1
+  location: Parsipanny, USA
+  type: baremetal
+  link: https://console.equinix.com/
+jumphost:
+  name: kuberef-jump
+  interfaces:
+    - name: 'nic1'
+      mac_address: "52:54:00:4a:e8:2d"
+nodes:
+  - name: node1
+    interfaces:
+      - name: 'nic1'
+        # Update with public IP of target server 1 (master)
+        address: <Server IP>
+  - name: node2
+    interfaces:
+      - name: 'nic1'
+        # Update with public IP of target server 2 (worker)
+        address: <Server IP>
