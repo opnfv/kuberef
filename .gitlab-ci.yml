@@ -1,3 +1,4 @@
+---
 # GitLab CI config file to deploy RI2 on baremetal infra
 # and run RC2 compliance tests on the deployed platform.
 # TODO add tox jobs
