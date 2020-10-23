@@ -22,3 +22,6 @@ images_path: "{{ kuberef_root }}/images"
 
 # public SSH key for use by kuberef installation
 pub_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
+
+# deployment type for kuberef
+deployment_type: "{{ lookup('env', 'DEPLOYMENT') }}"

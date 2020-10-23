@@ -19,6 +19,9 @@ set -o nounset
 CURRENTPATH=$(git rev-parse --show-toplevel)
 export CURRENTPATH
 
+# Check for different type of deployments
+DEPLOYMENT="${1:-full}"
+
 # shellcheck source=./functions.sh
 source "$CURRENTPATH/functions.sh"
 
@@ -56,12 +59,16 @@ copy_files_jump
 # ---------------------------------------------------------------------
 # Provision remote hosts
 # ---------------------------------------------------------------------
-provision_hosts
+if [[ "$DEPLOYMENT" == "full" ]]; then
+  provision_hosts
+fi
 
 # ---------------------------------------------------------------------
 # Setup networking (Adapt according to your network setup)
 # ---------------------------------------------------------------------
-setup_network
+if [[ "$DEPLOYMENT" == "full" ]]; then
+  setup_network
+fi
 
 # ---------------------------------------------------------------------
 # Provision k8s cluster (currently BMRA)

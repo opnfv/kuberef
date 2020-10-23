@@ -33,6 +33,15 @@
   when:
     jumphost.name in shutdown_vms.list_vms
 
+- name: remove dhcp leases
+  file:
+    path: "/var/lib/libvirt/dnsmasq/virbr0.{{ item }}"
+    state: absent
+  with_items:
+    - status
+    - macs
+  when: "'k8s' in deployment_type"
+
 - name: clean workspace
   file:
     path: "{{ workspace }}"
@@ -72,7 +81,8 @@
 
 - name: create config drive
   command: "genisoimage  -output {{ workspace }}/{{ jumphost.name }}-cidata.iso -volid cidata -joliet -rock \
-            {{ workspace }}/user-data {{ workspace }}/meta-data {{ workspace }}/network-config"
+            {{ workspace }}/user-data {{ workspace }}/meta-data \
+            {{ '{{ workspace }}/network-config' if deployment_type == 'full' else '' }}"
 
 # currently commented out because of portability issues between Centos and Ubuntu
 # - name: setting root password for debugging
@@ -85,7 +95,7 @@
               --disk path={{ workspace }}/kuberef-jump.qcow2,format=qcow2 \
               --disk {{ workspace }}/kuberef-jump-cidata.iso,device=cdrom \
               --network network=default,model=virtio,mac='{{ jumphost.interfaces[engine.net_config[engine.public_network].interface].mac_address }}' \
-              --network bridge=pxebr,model=virtio,mac='{{ jumphost.interfaces[engine.net_config[engine.pxe_network].interface].mac_address }}' \
+              {{ '--network bridge=pxebr,model=virtio,mac={{ jumphost.interfaces[engine.net_config[engine.pxe_network].interface].mac_address }} \' if deployment_type == 'full' else '' }}
               --import --noautoconsole"
 
 - name: start jump VM
@@ -93,7 +103,20 @@
     name: "{{ jumphost.name }}"
     state: running
 
+- name: wait for ip to be visible
+  shell: virsh domifaddr "{{ jumphost.name }}" --full | grep "{{ jumphost.interfaces[engine.net_config[engine.public_network].interface].mac_address }}" | awk '{print $4}' | tail -n 1
+  register: ipblock
+  retries: 30
+  delay: 1
+  until: ipblock.stdout != ""
+  when: "'k8s' in deployment_type"
+
+- name: store ip
+  set_fact:
+    vm_ip: "{{ ipblock.stdout.split('/') }}"
+  when: "'k8s' in deployment_type"
+
 - name: wait for VM to be reachable
   wait_for:
-    host: "{{ jumphost.interfaces[idf.net_config[engine.pxe_network].interface].address }}"
+    host: "{{ vm_ip.0 }} if 'k8s' in deployment_type else {{ jumphost.interfaces[idf.net_config[engine.pxe_network].interface].address | default('') }}"
     port: 22
