@@ -1,13 +1,18 @@
-    #cloud-config
-    users:
-      - name: ubuntu
-        ssh-authorized-keys:
-          - {{ lookup('file', pub_key ) }}
-        sudo: ['ALL=(ALL) NOPASSWD:ALL']
-        groups: sudo
-        shell: /bin/bash
-    runcmd:
-        # this is requried in labs where the PXE network is different from
-        # the public network. Without internet connectivity, the installation
-        # of BMRA fails
-        - [ iptables, -t, nat, -A, POSTROUTING, -o, ens3, -j, MASQUERADE ]
+#jinja2:lstrip_blocks: True
+#cloud-config
+users:
+  - name: {{ lookup('env', 'USERNAME') }}
+    {% if "{{ lookup('env', 'USERNAME') }}==root" %}
+    lock-passwd: false
+    passwd: root
+    {% endif %}
+    ssh-authorized-keys:
+      - {{ lookup('file', pub_key ) }}
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: sudo
+    shell: /bin/bash
+runcmd:
+    # this is requried in labs where the PXE network is different from
+    # the public network. Without internet connectivity, the installation
+    # of BMRA fails
+    - [ iptables, -t, nat, -A, POSTROUTING, -o, ens3, -j, MASQUERADE ]
