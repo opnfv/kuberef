@@ -5,3 +5,8 @@
 yamllint # LGPLv3
 bashate # Apache-2.0
 rstcheck # MIT
+molecule # MIT
+molecule-docker # MIT
+docker # Apache-2.0
+testinfra # Apache-2.0
+ansible-lint # MIT
