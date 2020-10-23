@@ -55,13 +55,12 @@ copy_files_jump
 
 # ---------------------------------------------------------------------
 # Provision remote hosts
-# ---------------------------------------------------------------------
-provision_hosts
-
-# ---------------------------------------------------------------------
 # Setup networking (Adapt according to your network setup)
 # ---------------------------------------------------------------------
-setup_network
+if [[ "$DEPLOYMENT" == "full" ]]; then
+    provision_hosts
+    setup_network
+fi
 
 # ---------------------------------------------------------------------
 # Provision k8s cluster (currently BMRA)
