@@ -1,0 +1,40 @@
+---
+# SPDX-license-identifier: Apache-2.0
+##############################################################################
+# Copyright (c) 2020
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+idf:
+  version: 0.1
+  net_config: &net_config
+    public:
+      interface: 0
+  kubespray: &idf_kubespray
+    nodes_roles:
+      node1: [kube-master, etcd]
+      node2: [kube-node]
+    groups:
+      k8s-cluster:
+        - kube-node
+        - kube-master
+    hostnames:
+      # Update with hostnames of servers (node1: master, node2: worker)
+      node1: kref-mst
+      node2: kref-wrk
+
+engine:
+  pod_name: kref-jmp
+  net_config: *net_config
+
+  # net_config network to be used by the PXE
+  pxe_network: public
+
+  # net_config network to be used for the internet access
+  public_network: public
+
+  installers:
+    kubespray: *idf_kubespray
