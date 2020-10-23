@@ -1,3 +1,4 @@
+{% if deployment_type == 'full' %}
 version: 1
 config:
   - type: physical
@@ -12,3 +13,4 @@ config:
       - type: static
         address: "{{ jumphost.interfaces[idf.net_config[engine.pxe_network].interface].address }}"
         netmask: "{{ idf.net_config[engine.pxe_network].mask }}"
+{% endif %}
