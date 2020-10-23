@@ -31,9 +31,17 @@ check_prerequisites() {
     info "Check prerequisites"
 
     #-------------------------------------------------------------------------------
+    # Check for DEPLOYMENT type
+    #-------------------------------------------------------------------------------
+    DEPLOYMENT=${DEPLOYMENT:-full}
+    if ! [[ "$DEPLOYMENT" =~ ^(full|k8s)$ ]]; then
+        error "Unsupported value for DEPLOYMENT ($DEPLOYMENT)"
+    fi
+
+    #-------------------------------------------------------------------------------
     # We shouldn't be running as root
     #-------------------------------------------------------------------------------
-    if [[ "$(whoami)" == "root" ]]; then
+    if [[ "$(whoami)" == "root" ]] && [[ "$DEPLOYMENT" != "k8s" ]]; then
         error "This script must not be run as root! Please switch to a regular user before running the script."
     fi
 
@@ -59,7 +67,7 @@ check_prerequisites() {
     #-------------------------------------------------------------------------------
     # Check if some tools are installed
     #-------------------------------------------------------------------------------
-    for tool in ansible yq virsh; do
+    for tool in ansible yq virsh jq; do
         if ! command -v "$tool" &> /dev/null; then
             error "$tool not found. Please install."
         fi
@@ -88,7 +96,7 @@ get_host_pxe_ip() {
     host=$1
     assert_non_empty "$host" "get_ip - host parameter not provided"
 
-    PXE_NETWORK=$(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/idf.yaml  engine.pxe_network)
+    PXE_NETWORK=$(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/idf.yaml engine.pxe_network)
     assert_non_empty "$PXE_NETWORK" "PXE network for jump VM not defined in IDF."
 
     PXE_IF_INDEX=$(yq r "$CURRENTPATH"/hw_config/"${VENDOR}"/idf.yaml idf.net_config."$PXE_NETWORK".interface)
@@ -100,17 +108,51 @@ get_host_pxe_ip() {
     echo "$PXE_IF_IP"
 }
 
+# Get public MAC for VM
+get_host_pub_mac() {
+    local PUB_NETWORK
+    local PUB_IF_INDEX
+    local PUB_IF_MAC
+
+    host=$1
+    assert_non_empty "$host" "get_mac - host parameter not provided"
+
+    PUB_NETWORK=$(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/idf.yaml  engine.public_network)
+    assert_non_empty "$PUB_NETWORK" "Public network for jump VM not defined in IDF."
+
+    PUB_IF_INDEX=$(yq r "$CURRENTPATH"/hw_config/"${VENDOR}"/idf.yaml idf.net_config."$PUB_NETWORK".interface)
+    assert_non_empty "$PUB_IF_INDEX" "Index of public interface not found in IDF."
+
+    PUB_IF_MAC=$(yq r "$CURRENTPATH"/hw_config/"${VENDOR}"/pdf.yaml "$host".interfaces["$PUB_IF_INDEX"].mac_address)
+    assert_non_empty "$PUB_IF_MAC" "MAC of public interface not found in PDF."
+    echo "$PUB_IF_MAC"
+}
+
 # Get jumphost VM IP
 get_vm_ip() {
-    ip=$(get_host_pxe_ip "jumphost")
+    if [[ "$DEPLOYMENT" == "full" ]]; then
+        ip=$(get_host_pxe_ip "jumphost")
+    else
+        mac=$(get_host_pub_mac "jumphost")
+        JUMPHOST_NAME=$(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/pdf.yaml jumphost.name)
+        ipblock=$(virsh domifaddr "$JUMPHOST_NAME" --full | grep "$mac" | awk '{print $4}' | tail -n 1)
+        assert_non_empty "$ipblock" "IP subnet for VM not available."
+        ip="${ipblock%/*}"
+    fi
     echo "$ip"
 }
 
 # Copy files needed by Infra engine & BMRA in the jumphost VM
 copy_files_jump() {
+    vm_ip="$(get_vm_ip)"
     scp -r -o StrictHostKeyChecking=no \
     "$CURRENTPATH"/{hw_config/"$VENDOR"/,sw_config/"$INSTALLER"/} \
-    "$USERNAME@$(get_vm_ip):$PROJECT_ROOT"
+    "$USERNAME@${vm_ip}:$PROJECT_ROOT"
+    if [[ "$DEPLOYMENT" != "full" ]]; then
+        scp -r -o StrictHostKeyChecking=no \
+        ~/.ssh/id_rsa \
+        "$USERNAME@${vm_ip}:.ssh/id_rsa"
+    fi
 }
 
 # Host Provisioning
@@ -147,8 +189,20 @@ EOF
     done
 }
 
+# Get IPs of target nodes (used for installing dependencies)
+get_target_ips() {
+    yq r "$CURRENTPATH"/hw_config/"$VENDOR"/pdf.yaml nodes[*].interfaces[*].address
+}
+
 # k8s Provisioning (currently BMRA)
 provision_k8s() {
+    ansible_cmd='/bin/bash -c "'
+    if [[ "$DEPLOYMENT" == "k8s" ]]; then
+        ansible-playbook -i "$CURRENTPATH"/sw_config/bmra/inventory.ini "$CURRENTPATH"/playbooks/pre-install.yaml
+        ansible_cmd+='pip install --upgrade pip==9.0.3; yum -y remove python-netaddr; pip install netaddr==0.7.19; '
+    fi
+    ansible_cmd+='ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/cluster.yml"'
+
     # shellcheck disable=SC2087
     ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
 # Install BMRA
@@ -164,8 +218,10 @@ if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
     git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v1.4.1 ${PROJECT_ROOT}/container-experience-kits/
     cp -r ${PROJECT_ROOT}/container-experience-kits/examples/group_vars ${PROJECT_ROOT}/container-experience-kits/
 #TODO Remove this once the reported issue is fixed in the next BMRA Release
-    sed -i '/\openshift/a \    extra_args: --ignore-installed PyYAML' \
+    if [[ "$DEPLOYMENT" == "full" ]]; then
+        sed -i '/\openshift/a \    extra_args: --ignore-installed PyYAML' \
         ${PROJECT_ROOT}/container-experience-kits/roles/net-attach-defs-create/tasks/main.yml
+    fi
 fi
 cp ${PROJECT_ROOT}/${INSTALLER}/inventory.ini \
     ${PROJECT_ROOT}/container-experience-kits/
@@ -175,7 +231,7 @@ sudo docker run --rm \
 -e ANSIBLE_CONFIG=/bmra/ansible.cfg \
 -v ${PROJECT_ROOT}/container-experience-kits:/bmra \
 -v ~/.ssh/:/root/.ssh/ rihabbanday/bmra-install:centos \
-ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/cluster.yml
+${ansible_cmd}
 EOF
 }
 
