@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98f4b533_d3932a93",
+        "filename": "deploy.env",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-10-30T00:27:08Z",
+      "side": 1,
+      "message": "I think this logic has to be verified on check_prerequisites() function and this file focus on collecting values\n\n    export DEPENDENCIES\u003d\"lshw pciutils ethtool\"\n    export DEPLOYMENT\u003d\"${DEPLOYMENT:-full}\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86ec0ed5_645d2697",
+        "filename": "deploy.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-10-30T00:27:08Z",
+      "side": 1,
+      "message": "This value needs to be placed on the deploy.env file",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 23
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f8b6659_67c17ff4",
+        "filename": "deploy.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-10-30T00:27:08Z",
+      "side": 1,
+      "message": "Given that these two instructions have the same condition it should be better to move then inside an if condition like:\n\n    if [[ \"$DEPLOYMENT\" \u003d\u003d \"full\" ]]; then\n        provision_hosts\n        setup_network\n    fi",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 2
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07f09f0d_095442cb",
+        "filename": "functions.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-10-30T00:27:08Z",
+      "side": 1,
+      "message": "nit: doublespace",
+      "range": {
+        "startLine": 127,
+        "startChar": 66,
+        "endLine": 127,
+        "endChar": 68
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "863784cb_84e9d962",
+        "filename": "functions.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-10-30T00:27:08Z",
+      "side": 1,
+      "message": "ditto: line 127",
+      "range": {
+        "startLine": 152,
+        "startChar": 72,
+        "endLine": 152,
+        "endChar": 74
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c709f60e_64e0caa1",
+        "filename": "functions.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-10-30T00:27:08Z",
+      "side": 1,
+      "message": "I\u0027d prefer to perform this using ansible playbooks.",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 1
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39733e8b_af2044dc",
+        "filename": "functions.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-10-30T00:27:08Z",
+      "side": 1,
+      "message": "If I understand this correctly, you are ensuring that the netaddr pip package is installed, right? This only applies when CentOS already has that package so maybe it\u0027s a logic that install_deps can cover.",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 70
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ac1c4fc_2e50d778",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-10-30T00:27:08Z",
+      "side": 1,
+      "message": "I think this instruction can be implemented like:\n\n    when: deployment_type \u003d\u003d \u0027k8s\u0027",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 43,
+        "endChar": 34
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27d579a8_5fddd26f",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-10-30T00:27:08Z",
+      "side": 1,
+      "message": "ditto: line 43",
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8447c826_17b2b695",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-10-30T00:27:08Z",
+      "side": 1,
+      "message": "ditto: line 43",
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e19fd94c_c3e2a4fc",
+        "filename": "playbooks/roles/jump-vm/templates/user-data.j2",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-10-30T00:27:08Z",
+      "side": 1,
+      "message": "I didn\u0027t know about this statement",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 27
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
