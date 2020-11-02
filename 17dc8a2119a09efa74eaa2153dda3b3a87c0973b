@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "07b6658e_aa901352",
+        "filename": "deploy.env",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-02T14:13:04Z",
+      "side": 1,
+      "message": "I think it would be valuable to have this in a separate file, so it\u0027s easier to maintain. I do agree that deploy.env isn\u0027t the optimal place though",
+      "parentUuid": "98f4b533_d3932a93",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86ec0ed5_645d2697",
         "filename": "deploy.sh",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9211a684_8c54e145",
+        "filename": "deploy.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-02T14:13:04Z",
+      "side": 1,
+      "message": "I\u0027ll rework it to check for an environment variable DEPLOYMENT instead of input argument, and place it in the env file",
+      "parentUuid": "86ec0ed5_645d2697",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 23
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f8b6659_67c17ff4",
         "filename": "deploy.sh",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2020-10-30T00:27:08Z",
       "side": 1,
       "message": "Given that these two instructions have the same condition it should be better to move then inside an if condition like:\n\n    if [[ \"$DEPLOYMENT\" \u003d\u003d \"full\" ]]; then\n        provision_hosts\n        setup_network\n    fi",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 2
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46875db3_1d6f76e0",
+        "filename": "deploy.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-02T14:13:04Z",
+      "side": 1,
+      "message": "Agree. I\u0027ll update the code",
+      "parentUuid": "4f8b6659_67c17ff4",
       "range": {
         "startLine": 62,
         "startChar": 0,
@@ -140,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "a520dbb9_bdd6150e",
+        "filename": "functions.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-02T14:13:04Z",
+      "side": 1,
+      "message": "That was my initial idea as well, but with how this is currently done it would mean chaining ansible playbooks in the provision_k8s function, which I didn\u0027t really like either",
+      "parentUuid": "c709f60e_64e0caa1",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 1
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "39733e8b_af2044dc",
         "filename": "functions.sh",
         "patchSetId": 5
@@ -151,6 +247,30 @@
       "writtenOn": "2020-10-30T00:27:08Z",
       "side": 1,
       "message": "If I understand this correctly, you are ensuring that the netaddr pip package is installed, right? This only applies when CentOS already has that package so maybe it\u0027s a logic that install_deps can cover.",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 70
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bab360d_3c22ceda",
+        "filename": "functions.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-02T14:13:04Z",
+      "side": 1,
+      "message": "Agree. I\u0027ll figure out a rework for this",
+      "parentUuid": "39733e8b_af2044dc",
       "range": {
         "startLine": 232,
         "startChar": 0,
@@ -186,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "01d2bc29_0c788016",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-02T14:13:04Z",
+      "side": 1,
+      "message": "Yeah that should work as well. Still evaluating if this entire \"remove dhcp\" function should be removed or not.",
+      "parentUuid": "1ac1c4fc_2e50d778",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 43,
+        "endChar": 34
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d45beb55_ec54fe7f",
         "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
         "patchSetId": 5
@@ -197,6 +341,24 @@
       "writtenOn": "2020-11-02T13:30:30Z",
       "side": 1,
       "message": "This if conditional clause doesn\u0027t seem to read the workspace if deployment_type \u003d\u003d \u0027full\u0027.",
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b66efdad_ddf92947",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-02T14:13:04Z",
+      "side": 1,
+      "message": "Interesting. I\u0027ll do some debugging and figure out what happens.",
+      "parentUuid": "d45beb55_ec54fe7f",
       "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
@@ -248,6 +410,30 @@
       "writtenOn": "2020-10-30T00:27:08Z",
       "side": 1,
       "message": "I didn\u0027t know about this statement",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 27
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1259ce5b_29950a76",
+        "filename": "playbooks/roles/jump-vm/templates/user-data.j2",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-02T14:13:04Z",
+      "side": 1,
+      "message": "I know I\u0027ve dealt with this at least once before, but I still had to look it up when I had issues with unexpected indentations in the resulting file due to the conditional 😊",
+      "parentUuid": "e19fd94c_c3e2a4fc",
       "range": {
         "startLine": 1,
         "startChar": 0,
