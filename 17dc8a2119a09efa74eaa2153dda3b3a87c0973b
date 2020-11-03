@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9a051f86_066c5068",
+        "filename": "deploy.env",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-03T09:30:04Z",
+      "side": 1,
+      "message": "I\u0027ve left this mostly as-is for now. I think we need to decide how this should be done, e.g. add to functions or create a new file with variables that can be set for different types of deployments",
+      "parentUuid": "07b6658e_aa901352",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86ec0ed5_645d2697",
         "filename": "deploy.sh",
         "patchSetId": 5
@@ -93,6 +117,30 @@
       "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aabcb6f2_28a1511d",
+        "filename": "deploy.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-03T09:30:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9211a684_8c54e145",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 23
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     },
     {
       "key": {
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "afe5a4ed_21b06e58",
+        "filename": "deploy.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-03T09:30:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46875db3_1d6f76e0",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 2
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07f09f0d_095442cb",
         "filename": "functions.sh",
         "patchSetId": 5
@@ -166,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "2042c3c7_64927e5e",
+        "filename": "functions.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-03T09:30:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07f09f0d_095442cb",
+      "range": {
+        "startLine": 127,
+        "startChar": 66,
+        "endLine": 127,
+        "endChar": 68
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "863784cb_84e9d962",
         "filename": "functions.sh",
         "patchSetId": 5
@@ -186,6 +282,30 @@
       "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc54dc90_1175fcd2",
+        "filename": "functions.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-03T09:30:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "863784cb_84e9d962",
+      "range": {
+        "startLine": 152,
+        "startChar": 72,
+        "endLine": 152,
+        "endChar": 74
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     },
     {
       "key": {
@@ -224,6 +344,30 @@
       "side": 1,
       "message": "That was my initial idea as well, but with how this is currently done it would mean chaining ansible playbooks in the provision_k8s function, which I didn\u0027t really like either",
       "parentUuid": "c709f60e_64e0caa1",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 1
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8347169_12be7240",
+        "filename": "functions.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-03T09:30:04Z",
+      "side": 1,
+      "message": "left as-is for now",
+      "parentUuid": "a520dbb9_bdd6150e",
       "range": {
         "startLine": 215,
         "startChar": 0,
@@ -283,6 +427,30 @@
     },
     {
       "key": {
+        "uuid": "b0277e47_57e04b4a",
+        "filename": "functions.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-03T09:30:04Z",
+      "side": 1,
+      "message": "Still haven\u0027t figured out how to handle this. The dependencies here are for the jump-vm container environment, and not target machines as handled by install_deps. It might be something to handle when creating the container image, but I think we should wait for the new BMRA release and consider what\u0027s needed then",
+      "parentUuid": "1bab360d_3c22ceda",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 234,
+        "endChar": 70
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1ac1c4fc_2e50d778",
         "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
         "patchSetId": 5
@@ -330,6 +498,30 @@
     },
     {
       "key": {
+        "uuid": "4e09e737_00e83883",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-03T09:30:04Z",
+      "side": 1,
+      "message": "Changed the conditional, but left the function in there",
+      "parentUuid": "01d2bc29_0c788016",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 43,
+        "endChar": 34
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d45beb55_ec54fe7f",
         "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
         "patchSetId": 5
@@ -365,6 +557,24 @@
     },
     {
       "key": {
+        "uuid": "b040cc72_6d1d3a19",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-03T09:30:04Z",
+      "side": 1,
+      "message": "Was able to reproduce locally, and updated both this and the following function to properly handle the deployment_type",
+      "parentUuid": "b66efdad_ddf92947",
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27d579a8_5fddd26f",
         "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
         "patchSetId": 5
@@ -382,6 +592,24 @@
     },
     {
       "key": {
+        "uuid": "889340bf_a90fa750",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-03T09:30:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27d579a8_5fddd26f",
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8447c826_17b2b695",
         "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
         "patchSetId": 5
@@ -396,6 +624,24 @@
       "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1289cfc_e1e79805",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-03T09:30:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8447c826_17b2b695",
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     },
     {
       "key": {
@@ -443,6 +689,30 @@
       "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1643310_c64d06e4",
+        "filename": "playbooks/roles/jump-vm/templates/user-data.j2",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-03T09:30:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1259ce5b_29950a76",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 27
+      },
+      "revId": "17dc8a2119a09efa74eaa2153dda3b3a87c0973b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
