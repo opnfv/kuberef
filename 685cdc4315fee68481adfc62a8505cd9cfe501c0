@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff1dc99f_42f720e5",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-11-03T16:36:44Z",
+      "side": 1,
+      "message": "This solved the issue I noticed yesterday, but the jump VM that gets created doesn\u0027t seem to have SSH key of the jump BM in case of deployment_type k8s. Is that on purpose?",
+      "revId": "685cdc4315fee68481adfc62a8505cd9cfe501c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9d91195_53e3556b",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-11-03T16:36:44Z",
+      "side": 1,
+      "message": "Not an ansible expert but is this the correct syntax? Ran into issues when I specified full as deployment_type.",
+      "revId": "685cdc4315fee68481adfc62a8505cd9cfe501c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
