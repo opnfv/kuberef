@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7c9e7093_341019a4",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-04T09:45:58Z",
+      "side": 1,
+      "message": "It should be getting the key, but it is done slightly different. From what I understand, the \"full\" deployment handles this in provision_hosts(), but since this isn\u0027t needed for Equinix Metal \"k8s\" it is instead done through copy_files_jump(), utilizing the existing private key from the host, as this is already authorized for connecting to the target machines.",
+      "parentUuid": "ff1dc99f_42f720e5",
+      "revId": "685cdc4315fee68481adfc62a8505cd9cfe501c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f9d91195_53e3556b",
         "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2020-11-03T16:36:44Z",
       "side": 1,
       "message": "Not an ansible expert but is this the correct syntax? Ran into issues when I specified full as deployment_type.",
+      "revId": "685cdc4315fee68481adfc62a8505cd9cfe501c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00279658_33f5a6dd",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-04T09:45:58Z",
+      "side": 1,
+      "message": "The syntax should be fine, but the handling of the undefined variable vm_ip in case of \"full\" wasn\u0027t. I\u0027ve updated the code, and it should now work for \"full\" deployments given that the jumphost.(...).address is present (otherwise wait_for will timeout after 300 seconds)",
+      "parentUuid": "f9d91195_53e3556b",
       "revId": "685cdc4315fee68481adfc62a8505cd9cfe501c0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
