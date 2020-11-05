@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f12936e8_14a7ad36",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-11-05T13:01:00Z",
+      "side": 1,
+      "message": "I see, but in that case the deployment hangs on the step \u0027wait for VM to be reachable\" \u0026 doesn\u0027t proceed further to the next steps. Do you also notice the same?",
+      "parentUuid": "7c9e7093_341019a4",
+      "revId": "685cdc4315fee68481adfc62a8505cd9cfe501c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f9d91195_53e3556b",
         "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
         "patchSetId": 6
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "The syntax should be fine, but the handling of the undefined variable vm_ip in case of \"full\" wasn\u0027t. I\u0027ve updated the code, and it should now work for \"full\" deployments given that the jumphost.(...).address is present (otherwise wait_for will timeout after 300 seconds)",
       "parentUuid": "f9d91195_53e3556b",
+      "revId": "685cdc4315fee68481adfc62a8505cd9cfe501c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ee1ef0a_3badc99c",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-11-05T13:01:00Z",
+      "side": 1,
+      "message": "Running into similar issue mentioned in line 83 here as well in case of full deployment_type, but unrelated to keys.",
+      "parentUuid": "00279658_33f5a6dd",
       "revId": "685cdc4315fee68481adfc62a8505cd9cfe501c0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
