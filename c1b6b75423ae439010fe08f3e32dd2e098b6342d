@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc75b8dc_0219fab1",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-11-09T09:14:19Z",
+      "side": 1,
+      "message": "Do we need to specify run_tests -p -r -t scriptname? This leads to error ( ERROR - Unknown test case or tier \u0027functest-kubernetes-healthcheck\u0027, or not supported by the given scenario \u0027k8-nosdn-nofeature-noha\u0027). If I run tests directly by docker run env variables dockerimage the test execution seems to work.",
+      "revId": "c1b6b75423ae439010fe08f3e32dd2e098b6342d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
