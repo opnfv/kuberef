@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "680a2638_83c7ae88",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-11-11T10:30:20Z",
+      "side": 1,
+      "message": "As discussed, this leads to issues when run by non-root users. I could get around this by adding become:true in the task, but we could also remove this if it was added for debugging purposes.",
+      "revId": "d9b978488143b5b91f9350a13c213f71b3a9e7b8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
