@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ad7be27_4dd7ea5a",
+        "filename": "deploy.env",
+        "patchSetId": 13
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-12T10:00:12Z",
+      "side": 1,
+      "message": "I think this will break functionality towards Equinix Metal. Is there a reason for removing the conditional that would set USERNAME and PROJECT_ROOT based on DEPLOYMENT?",
+      "revId": "d1e9000dcd65a9b17a93fc854d635e52a706d7b5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
