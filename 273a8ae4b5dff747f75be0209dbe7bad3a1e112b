@@ -46,6 +46,30 @@
       "revId": "273a8ae4b5dff747f75be0209dbe7bad3a1e112b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "801823d0_7d94cbb2",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-11-12T19:54:09Z",
+      "side": 1,
+      "message": "What about this implemtation?\n\n    - name: Remove line hostname\n      lineinfile:\n        path: /var/lib/libvirt/dnsmasq/virbr0.{{ item }}\n        state: absent\n        regexp: \u0027hostname\": \"{{ jumphost.name }}\",\u0027\n      with_items:\n       - status\n       - macs\n    - name: Remove line domain\n      lineinfile:\n        path: /var/lib/libvirt/dnsmasq/virbr0.{{ item }}\n        state: absent\n        regexp: \u0027domain\": \"{{ jumphost.name }}\",\u0027\n      with_items:\n       - status\n       - macs",
+      "parentUuid": "068fc214_701157b9",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 32
+      },
+      "revId": "273a8ae4b5dff747f75be0209dbe7bad3a1e112b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
