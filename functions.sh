@@ -8,32 +8,47 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+info() {
+    _print_msg "INFO" "$1"
+}
+
+error() {
+    _print_msg "ERROR" "$1"
+    exit 1
+}
+
+_print_msg() {
+    echo "$(date +%H:%M:%S) - $1: $2"
+}
+
+assert_non_empty() {
+    if [ -z "$1" ]; then
+        error "$2"
+    fi
+}
+
 check_prerequisites() {
-    echo "Info  : Check prerequisites"
+    info "Check prerequisites"
 
     #-------------------------------------------------------------------------------
     # We shouldn't be running as root
     #-------------------------------------------------------------------------------
     if [[ "$(whoami)" == "root" ]]; then
-        echo "ERROR : This script must not be run as root!"
-        echo "        Please switch to a regular user before running the script."
-        exit 1
+        error "This script must not be run as root! Please switch to a regular user before running the script."
     fi
 
     #-------------------------------------------------------------------------------
     # Check for passwordless sudo
     #-------------------------------------------------------------------------------
     if ! sudo -n "true"; then
-        echo "ERROR : passwordless sudo is needed for '$(id -nu)' user."
-        exit 1
+        error "passwordless sudo is needed for '$(id -nu)' user."
     fi
 
     #-------------------------------------------------------------------------------
     # Check if SSH key exists
     #-------------------------------------------------------------------------------
     if [[ ! -f "$HOME/.ssh/id_rsa" ]]; then
-        echo "ERROR : You must have SSH keypair in order to run this script!"
-        exit 1
+        error "You must have SSH keypair in order to run this script!"
     fi
 
     #-------------------------------------------------------------------------------
@@ -42,28 +57,13 @@ check_prerequisites() {
     sudo sed -i "s/^Defaults.*env_reset/#&/" /etc/sudoers
 
     #-------------------------------------------------------------------------------
-    # Check if Ansible is installed
+    # Check if some tools are installed
     #-------------------------------------------------------------------------------
-    if ! command -v ansible &> /dev/null; then
-        echo "ERROR : Ansible not found. Please install."
-        exit 1
-    fi
-
-    #-------------------------------------------------------------------------------
-    # Check is yq is installed
-    #-------------------------------------------------------------------------------
-    if ! command -v yq &> /dev/null; then
-        echo "ERROR : yq not found. Please install."
-        exit 1
-    fi
-
-    #-------------------------------------------------------------------------------
-    # Check is libvirt is installed
-    #-------------------------------------------------------------------------------
-    if ! command -v virsh &> /dev/null; then
-        echo "ERROR : Libvirt not found. Please install."
-        exit 1
-    fi
+    for tool in ansible yq virsh; do
+        if ! command -v "$tool" &> /dev/null; then
+            error "$tool not found. Please install."
+        fi
+    done
 
     #-------------------------------------------------------------------------------
     # Check if user belongs to libvirt's group
@@ -75,48 +75,36 @@ check_prerequisites() {
         libvirt_group+="d"
     fi
     if ! groups | grep "$libvirt_group"; then
-        echo "ERROR : $(id -nu) user doesn't belong to $libvirt_group group."
-        exit 1
+        error "$(id -nu) user doesn't belong to $libvirt_group group."
     fi
 }
 
-# Get jumphost VM IP
+# Get jumphost VM PXE IP
 get_host_pxe_ip() {
     local PXE_NETWORK
     local PXE_IF_INDEX
     local PXE_IF_IP
 
     host=$1
-    if [[ "$host" == "" ]]; then
-        echo "ERROR : get_ip - host parameter not provided"
-        exit 1
-    fi
+    assert_non_empty "$host" "get_ip - host parameter not provided"
 
     PXE_NETWORK=$(yq r "$CURRENTPATH"/hw_config/"$VENDOR"/idf.yaml  engine.pxe_network)
-    if [[ "$PXE_NETWORK" == "" ]]; then
-        echo "ERROR : PXE network for jump VM not defined in IDF."
-        exit 1
-    fi
+    assert_non_empty "$PXE_NETWORK" "PXE network for jump VM not defined in IDF."
 
     PXE_IF_INDEX=$(yq r "$CURRENTPATH"/hw_config/"${VENDOR}"/idf.yaml idf.net_config."$PXE_NETWORK".interface)
-    if [[ "$PXE_IF_INDEX" == "" ]]; then
-        echo "ERROR : Index of PXE interface not found in IDF."
-        exit 1
-    fi
+    assert_non_empty "$PXE_IF_INDEX" "Index of PXE interface not found in IDF."
 
     PXE_IF_IP=$(yq r "$CURRENTPATH"/hw_config/"${VENDOR}"/pdf.yaml "$host".interfaces["$PXE_IF_INDEX"].address)
-    if [[ "$PXE_IF_IP" == "" ]]; then
-        echo "ERROR : IP of PXE interface not found in PDF."
-        exit 1
-    fi
+    assert_non_empty "$PXE_IF_IP" "IP of PXE interface not found in PDF."
+
     echo "$PXE_IF_IP"
 }
 
+# Get jumphost VM IP
 get_vm_ip() {
     ip=$(get_host_pxe_ip "jumphost")
     echo "$ip"
 }
-
 
 # Copy files needed by Infra engine & BMRA in the jumphost VM
 copy_files_jump() {
