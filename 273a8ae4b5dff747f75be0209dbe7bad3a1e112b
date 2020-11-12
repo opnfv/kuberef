@@ -22,6 +22,30 @@
       "revId": "273a8ae4b5dff747f75be0209dbe7bad3a1e112b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "068fc214_701157b9",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-12T16:24:28Z",
+      "side": 1,
+      "message": "I did a quick scan for any built-in module able to do this, but I didn\u0027t find anything good. What needs to be removed is an element potentially in an array, e.g:\n\n[\n  {\n    \"ip-address\": \"\u003cIP\u003e\",\n    \"mac-address\": \"\u003cMAC\u003e\",\n    \"hostname\": \"kuberef-jump\",\n    \"client-id\": \"\u003cID\u003e\",\n    \"expiry-time\": \u003cExpTime\u003e\n  }\n]\n\nIf this can be done in a nice way using lineinfile or another built-in I think that would be better than using \u0027shell\u0027, but it should do the trick for now (without removing unrelated entries as well)",
+      "parentUuid": "36507ab0_09690b55",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 32
+      },
+      "revId": "273a8ae4b5dff747f75be0209dbe7bad3a1e112b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
