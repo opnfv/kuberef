@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a09a6b39_7e5968bd",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-11-12T19:01:14Z",
+      "side": 1,
+      "message": "xrally_kubernetes and k8s_conformance have longer timeouts which I assume they\u0027re expect to run for few hours, shouldn\u0027t be better to change the order for those jobs?\n\n  - functest-kubernetes-security\n  - functest-kubernetes-benchmarking\n  - functest-kubernetes-smoke\n\nThe major advantage is catch errors quickly instead of waiting some hours",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 36
+      },
+      "revId": "b9d029e3e4afc806426a29cef414212267ad3600",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f480364f_279f6d68",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-11-12T19:01:14Z",
+      "side": 1,
+      "message": "Is it possible to define the OPNFV release in a variables section? Something like:\n\n    OPNFV_RELEASE: jerma",
+      "range": {
+        "startLine": 37,
+        "startChar": 47,
+        "endLine": 37,
+        "endChar": 52
+      },
+      "revId": "b9d029e3e4afc806426a29cef414212267ad3600",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96a25b55_004f41c3",
+        "filename": "functions.sh",
+        "patchSetId": 12
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-11-12T19:01:14Z",
+      "side": 1,
+      "message": "Kubespray creates the kubeconfig file with inventory/artifacts/admin.conf file, so if BMRA uses Kubespray this file should be located in ${PROJECT_ROOT}/container-experience-kits/artifacts  jumpbox\u0027s folder",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 3
+      },
+      "revId": "b9d029e3e4afc806426a29cef414212267ad3600",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ad1f5c8_9e625e59",
+        "filename": "functions.sh",
+        "patchSetId": 12
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-11-12T19:01:14Z",
+      "side": 1,
+      "message": "nit: indentation",
+      "range": {
+        "startLine": 203,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 57
+      },
+      "revId": "b9d029e3e4afc806426a29cef414212267ad3600",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1bd360d_a1f1e202",
+        "filename": "functions.sh",
+        "patchSetId": 12
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-11-12T19:01:14Z",
+      "side": 1,
+      "message": "I think that the /home/opnfv/ folder needs to be replaced for \"$CURRENTPATH\" or something else",
+      "range": {
+        "startLine": 206,
+        "startChar": 19,
+        "endLine": 206,
+        "endChar": 31
+      },
+      "revId": "b9d029e3e4afc806426a29cef414212267ad3600",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
