@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "34505576_de48dbe7",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-11-13T10:24:20Z",
+      "side": 1,
+      "message": "I think we can change the order, but @Cedric is an expert here. The health check should be the first one for sure \u0026 it executes quickly as well, but others could be sorted by ascending execution times.",
+      "parentUuid": "a09a6b39_7e5968bd",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 36
+      },
+      "revId": "b9d029e3e4afc806426a29cef414212267ad3600",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f480364f_279f6d68",
         "filename": ".gitlab-ci.yml",
         "patchSetId": 12
@@ -36,6 +60,30 @@
       "writtenOn": "2020-11-12T19:01:14Z",
       "side": 1,
       "message": "Is it possible to define the OPNFV release in a variables section? Something like:\n\n    OPNFV_RELEASE: jerma",
+      "range": {
+        "startLine": 37,
+        "startChar": 47,
+        "endLine": 37,
+        "endChar": 52
+      },
+      "revId": "b9d029e3e4afc806426a29cef414212267ad3600",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43e072fb_1487ed63",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-11-13T10:24:20Z",
+      "side": 1,
+      "message": "Good proposal, will check this",
+      "parentUuid": "f480364f_279f6d68",
       "range": {
         "startLine": 37,
         "startChar": 47,
@@ -105,6 +153,30 @@
       "writtenOn": "2020-11-12T19:01:14Z",
       "side": 1,
       "message": "I think that the /home/opnfv/ folder needs to be replaced for \"$CURRENTPATH\" or something else",
+      "range": {
+        "startLine": 206,
+        "startChar": 19,
+        "endLine": 206,
+        "endChar": 31
+      },
+      "revId": "b9d029e3e4afc806426a29cef414212267ad3600",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4041730_4f0be876",
+        "filename": "functions.sh",
+        "patchSetId": 12
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-11-13T10:24:20Z",
+      "side": 1,
+      "message": "If I am not wrong, the functest containers by default look for the config and credentials in /home/opnfv/functest-kubernetes which should be setup in advance (will confirm from @Cedric). I can try to assign the path to a variable, but I think it should be the same for every CI host. Also, once everything is figured out, I will add the details in documentation (CNTT RI2 Chapter 4 Validation).",
+      "parentUuid": "c1bd360d_a1f1e202",
       "range": {
         "startLine": 206,
         "startChar": 19,
