@@ -94,6 +94,30 @@
       "revId": "273a8ae4b5dff747f75be0209dbe7bad3a1e112b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0db45b2d_220dd598",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-13T08:54:27Z",
+      "side": 1,
+      "message": "That will only remove the matching lines in the files, not the whole element in the list. I was looking into blockinfile too, but that doesn\u0027t seem to have great support for this operation either.",
+      "parentUuid": "801823d0_7d94cbb2",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 32
+      },
+      "revId": "273a8ae4b5dff747f75be0209dbe7bad3a1e112b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
