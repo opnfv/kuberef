@@ -354,6 +354,30 @@
       "revId": "b9d029e3e4afc806426a29cef414212267ad3600",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9bb56a1_1206b4d8",
+        "filename": "functions.sh",
+        "patchSetId": 12
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-11-13T21:01:46Z",
+      "side": 1,
+      "message": "I figured out the reason, you have to enable the `kubeconfig_localhost` Kubespray value[1] in the BMRA\u0027s configuration file[2]\n\n[1] https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#accessing-kubernetes-api\n[2] https://github.com/opnfv/kuberef/blob/master/sw_config/bmra/all.yml#L80-L96",
+      "parentUuid": "a0b3f04e_b76e4085",
+      "range": {
+        "startLine": 206,
+        "startChar": 19,
+        "endLine": 206,
+        "endChar": 31
+      },
+      "revId": "b9d029e3e4afc806426a29cef414212267ad3600",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
