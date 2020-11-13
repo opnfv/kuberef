@@ -118,6 +118,30 @@
       "revId": "273a8ae4b5dff747f75be0209dbe7bad3a1e112b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7580a8c8_04f17fc1",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7019
+      },
+      "writtenOn": "2020-11-13T16:17:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0db45b2d_220dd598",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 32
+      },
+      "revId": "273a8ae4b5dff747f75be0209dbe7bad3a1e112b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
