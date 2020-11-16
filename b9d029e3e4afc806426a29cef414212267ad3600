@@ -378,6 +378,30 @@
       "revId": "b9d029e3e4afc806426a29cef414212267ad3600",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c67dd8a0_71feb6d4",
+        "filename": "functions.sh",
+        "patchSetId": 12
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-11-16T11:29:06Z",
+      "side": 1,
+      "message": "This is indeed a good shortcut, but I want to avoid doing manual editing of the upstream BMRA config - at the end its introducing another sed/awk. How about can propose it in the community to enable this (and may be the kubectl) option, and keep this scp in the time being? \nRegarding earlier comment about sudo scp - that will not work because sudo will use a different SSH key (root) than the one that gets copied into the VM (gitlab-runner).",
+      "parentUuid": "e9bb56a1_1206b4d8",
+      "range": {
+        "startLine": 206,
+        "startChar": 19,
+        "endLine": 206,
+        "endChar": 31
+      },
+      "revId": "b9d029e3e4afc806426a29cef414212267ad3600",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
