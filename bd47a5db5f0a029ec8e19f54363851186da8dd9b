@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "736cf1f1_3810a3a4",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 16
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2020-11-18T16:37:23Z",
+      "side": 1,
+      "message": "S3_DST_URL: s3://artifacts.opnfv.org/kuberef/",
+      "revId": "bd47a5db5f0a029ec8e19f54363851186da8dd9b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
