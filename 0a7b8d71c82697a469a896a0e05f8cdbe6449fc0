@@ -34,6 +34,24 @@
       "revId": "0a7b8d71c82697a469a896a0e05f8cdbe6449fc0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e72f4469_74647505",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2020-11-18T14:25:36Z",
+      "side": 1,
+      "message": "No they are overriden!",
+      "parentUuid": "772e0036_61b45586",
+      "revId": "0a7b8d71c82697a469a896a0e05f8cdbe6449fc0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
