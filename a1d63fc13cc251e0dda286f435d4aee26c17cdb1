@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a221df48_5e606e29",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-24T11:42:06Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "c80e4106_7f27e614",
+      "range": {
+        "startLine": 8,
+        "startChar": 26,
+        "endLine": 8,
+        "endChar": 34
+      },
+      "revId": "a1d63fc13cc251e0dda286f435d4aee26c17cdb1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c37717d8_2403f39a",
         "filename": "docs/release/release-notes/release-notes.rst",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2020-11-24T11:23:42Z",
       "side": 1,
       "message": "nit: could be removed and just state \"[...] by Equinix Metal [...]\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 38,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "a1d63fc13cc251e0dda286f435d4aee26c17cdb1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e5df4e9_dac678a3",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-24T11:42:06Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "c37717d8_2403f39a",
       "range": {
         "startLine": 11,
         "startChar": 38,
