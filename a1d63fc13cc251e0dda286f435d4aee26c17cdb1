@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c80e4106_7f27e614",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-11-24T11:23:42Z",
+      "side": 1,
+      "message": "nit: [...] of the OPNFV [...]",
+      "range": {
+        "startLine": 8,
+        "startChar": 26,
+        "endLine": 8,
+        "endChar": 34
+      },
+      "revId": "a1d63fc13cc251e0dda286f435d4aee26c17cdb1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c37717d8_2403f39a",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2020-11-24T11:23:42Z",
+      "side": 1,
+      "message": "nit: could be removed and just state \"[...] by Equinix Metal [...]\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 38,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "a1d63fc13cc251e0dda286f435d4aee26c17cdb1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
