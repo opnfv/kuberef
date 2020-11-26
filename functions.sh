@@ -189,19 +189,14 @@ EOF
     done
 }
 
-# Get IPs of target nodes (used for installing dependencies)
-get_target_ips() {
-    yq r "$CURRENTPATH"/hw_config/"$VENDOR"/pdf.yaml nodes[*].interfaces[*].address
-}
-
 # k8s Provisioning (currently BMRA)
 provision_k8s() {
-    ansible_cmd='/bin/bash -c "'
+    ansible_cmd="/bin/bash -c '"
     if [[ "$DEPLOYMENT" == "k8s" ]]; then
         ansible-playbook -i "$CURRENTPATH"/sw_config/bmra/inventory.ini "$CURRENTPATH"/playbooks/pre-install.yaml
-        ansible_cmd+='pip install --upgrade pip==9.0.3; yum -y remove python-netaddr; pip install netaddr==0.7.19; '
+        ansible_cmd+="pip install --upgrade pip==9.0.3; pip install ansible==2.9.6;"
     fi
-    ansible_cmd+='ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/cluster.yml"'
+    ansible_cmd+="ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/k8s/patch_kubespray.yml; ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/${BMRA_PROFILE}.yml'"
 
     # shellcheck disable=SC2087
     ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
@@ -215,8 +210,8 @@ if ! command -v docker; then
     done
 fi
 if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
-    git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v1.4.1 ${PROJECT_ROOT}/container-experience-kits/
-    cp -r ${PROJECT_ROOT}/container-experience-kits/examples/group_vars ${PROJECT_ROOT}/container-experience-kits/
+    git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v2.0.0 ${PROJECT_ROOT}/container-experience-kits/
+    cp -r ${PROJECT_ROOT}/container-experience-kits/examples/${BMRA_PROFILE}/group_vars ${PROJECT_ROOT}/container-experience-kits/
 #TODO Remove this once the reported issue is fixed in the next BMRA Release
     if [[ "$DEPLOYMENT" == "full" ]]; then
         sed -i '/\openshift/a \    extra_args: --ignore-installed PyYAML' \
@@ -229,6 +224,7 @@ cp ${PROJECT_ROOT}/${INSTALLER}/{all.yml,kube-node.yml} \
     ${PROJECT_ROOT}/container-experience-kits/group_vars/
 sudo docker run --rm \
 -e ANSIBLE_CONFIG=/bmra/ansible.cfg \
+-e PROFILE=${BMRA_PROFILE} \
 -v ${PROJECT_ROOT}/container-experience-kits:/bmra \
 -v ~/.ssh/:/root/.ssh/ rihabbanday/bmra-install:centos \
 ${ansible_cmd}
@@ -241,13 +237,15 @@ copy_k8s_config() {
     MASTER_IP=$(get_host_pxe_ip "nodes[0]")
     # shellcheck disable=SC2087
     ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
-scp -q root@$MASTER_IP:/root/.kube/config ${PROJECT_ROOT}/kubeconfig
+scp -o StrictHostKeyChecking=no -q root@$MASTER_IP:/root/.kube/config ${PROJECT_ROOT}/kubeconfig
 EOF
 
 # Copy kubeconfig from Jump VM to appropriate location in Jump Host
 # Direct scp to the specified location doesn't work due to permission/ssh-keys
-    scp "$USERNAME"@"$(get_vm_ip)":"${PROJECT_ROOT}"/kubeconfig kubeconfig
-    sudo cp kubeconfig /home/opnfv/functest-kubernetes/config
+    scp  -o StrictHostKeyChecking=no "$USERNAME"@"$(get_vm_ip)":"${PROJECT_ROOT}"/kubeconfig kubeconfig
+    if [ -d "/home/opnfv/functest-kubernetes" ]; then
+        sudo cp kubeconfig /home/opnfv/functest-kubernetes/config
+    fi
 }
 
 # Executes a specific Ansible playbook
