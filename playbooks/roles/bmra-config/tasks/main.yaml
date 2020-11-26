@@ -1,5 +1,15 @@
 ---
-- name: write BMRA config
+- name: Write BMRA inventory config
   template:
-    src: "inventory.ini"
+    src: "inventory.j2"
     dest: "{{ kuberef_root }}/sw_config/bmra/inventory.ini"
+
+- name: Write BMRA kube-node config
+  template:
+    src: "kube-node.j2"
+    dest: "{{ kuberef_root }}/sw_config/bmra/kube-node.yml"
+
+- name: Write BMRA all config
+  template:
+    src: "all.j2"
+    dest: "{{ kuberef_root }}/sw_config/bmra/all.yml"
