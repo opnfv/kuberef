@@ -8,6 +8,13 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+- name: Ensure Python3 is installed (Equinix Metal)
+  raw: yum install -y python3
+  when: lookup('env', 'VENDOR') == 'equinix-metal'
+
+- name: Gather facts
+  setup:
+
 - name: Load distro variables
   include_vars:
     file: "{{ ansible_os_family }}.yml"
@@ -18,3 +25,22 @@
     name: "{{ item }}"
     state: present
   with_items: "{{ bmra_pkgs }}"
+
+- name: Check if Python is present in PATH
+  shell: "which python"
+  register: pypath
+  failed_when: false
+
+- name: Check if /usr/bin/python exists
+  stat:
+    path: /usr/bin/python
+  register: pybin
+
+- name: Create symlink for Python
+  file:
+    src: /usr/bin/python3
+    dest: /usr/bin/python
+    state: link
+  when:
+    - not pybin.stat.exists
+    - pypath.rc != 0

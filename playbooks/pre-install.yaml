@@ -9,7 +9,7 @@
 ##############################################################################
 
 - name: Install requirements on nodes
-  hosts: all
-  gather_facts: true
+  hosts: all,!localhost
+  gather_facts: false
   roles:
     - role: pre-install
