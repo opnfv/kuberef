@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "180b4551_5f57713e",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-30T13:01:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "78336ba8_78ce21fd",
+      "revId": "fa0e1529a4674a53202748b3612039653e692fbd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "044c3c20_6d85b02d",
         "filename": "playbooks/roles/bmra-config/templates/inventory.j2",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2020-11-30T09:55:55Z",
       "side": 1,
       "message": "I also noticed that setting the interpreter to /usr/bin/python2.7 solved some python package related issues that I had noticed on CentOS 7. May be we could also make it configurable to avoid issues on different python environments.",
+      "revId": "fa0e1529a4674a53202748b3612039653e692fbd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14244a99_14062bcc",
+        "filename": "playbooks/roles/bmra-config/templates/inventory.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-30T13:01:15Z",
+      "side": 1,
+      "message": "That is definitely something we can consider. My biggest worry is supporting too many different OSes. I think Python2 is only supported for CentOS 7, while CentOS 8, Ubuntu LTS releases and RHEL all should use Python3",
+      "parentUuid": "044c3c20_6d85b02d",
       "revId": "fa0e1529a4674a53202748b3612039653e692fbd",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
@@ -86,6 +122,24 @@
       "revId": "fa0e1529a4674a53202748b3612039653e692fbd",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a71d2fb_d65e752b",
+        "filename": "playbooks/roles/bmra-config/templates/kube-node.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-11-30T13:01:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ec83b100_bfcab611",
+      "revId": "fa0e1529a4674a53202748b3612039653e692fbd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
