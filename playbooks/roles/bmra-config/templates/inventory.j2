@@ -19,5 +19,7 @@ kube-node
 
 [calico-rr]
 
+{% if deployment_type == 'k8s' %}
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3
+{% endif %}
