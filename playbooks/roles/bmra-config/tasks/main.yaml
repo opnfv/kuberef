@@ -4,6 +4,15 @@
     src: "inventory.j2"
     dest: "{{ kuberef_root }}/sw_config/bmra/inventory.ini"
 
+- name: Add Python 3 ansible interpreter for Equnix Metal (CentOS 8)
+        (will be added in the template directly after testing on CentOS 8 Baremetal)
+  blockinfile:
+    path: "{{ kuberef_root }}/sw_config/bmra/inventory.ini"
+    block: |
+      [all:vars]
+      ansible_python_interpreter=/usr/bin/python3
+  when: deployment_type == 'k8s'
+
 - name: Write BMRA kube-node config
   template:
     src: "kube-node.j2"
