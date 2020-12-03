@@ -194,9 +194,9 @@ provision_k8s() {
     ansible_cmd="/bin/bash -c '"
     if [[ "$DEPLOYMENT" == "k8s" ]]; then
         ansible-playbook -i "$CURRENTPATH"/sw_config/bmra/inventory.ini "$CURRENTPATH"/playbooks/pre-install.yaml
-        ansible_cmd+="pip install --upgrade pip==9.0.3; pip install ansible==2.9.6;"
+        ansible_cmd+="pip install --upgrade pip==9.0.3; pip install ansible==2.9.6; ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/k8s/patch_kubespray.yml;"
     fi
-    ansible_cmd+="ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/k8s/patch_kubespray.yml; ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/${BMRA_PROFILE}.yml'"
+    ansible_cmd+="ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/${BMRA_PROFILE}.yml'"
 
     # shellcheck disable=SC2087
     ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
@@ -212,10 +212,13 @@ fi
 if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
     git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v2.0.0 ${PROJECT_ROOT}/container-experience-kits/
     cp -r ${PROJECT_ROOT}/container-experience-kits/examples/${BMRA_PROFILE}/group_vars ${PROJECT_ROOT}/container-experience-kits/
-#TODO Remove this once the reported issue is fixed in the next BMRA Release
+# NOTE The following condition/workaround will be removed once the reported issue https://github.com/intel/container-experience-kits/issues/68
+# is fixed upstream
     if [[ "$DEPLOYMENT" == "full" ]]; then
-        sed -i '/\openshift/a \    extra_args: --ignore-installed PyYAML' \
-        ${PROJECT_ROOT}/container-experience-kits/roles/net-attach-defs-create/tasks/main.yml
+       echo "- name: install Python packages
+  pip:
+    name:
+      - pip==9.0.3" >> ${PROJECT_ROOT}/container-experience-kits/roles/bootstrap/install_packages/tasks/rhel.yml
     fi
 fi
 cp ${PROJECT_ROOT}/${INSTALLER}/inventory.ini \
@@ -226,7 +229,7 @@ sudo docker run --rm \
 -e ANSIBLE_CONFIG=/bmra/ansible.cfg \
 -e PROFILE=${BMRA_PROFILE} \
 -v ${PROJECT_ROOT}/container-experience-kits:/bmra \
--v ~/.ssh/:/root/.ssh/ rihabbanday/bmra-install:centos \
+-v ~/.ssh/:/root/.ssh/ rihabbanday/bmra2.0-install:centos \
 ${ansible_cmd}
 EOF
 }
