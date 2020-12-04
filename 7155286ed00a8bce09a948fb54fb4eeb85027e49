@@ -46,6 +46,30 @@
       "revId": "7155286ed00a8bce09a948fb54fb4eeb85027e49",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d64f7ff_8b10cd27",
+        "filename": "playbooks/roles/bmra-config/templates/inventory.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-12-04T15:50:40Z",
+      "side": 0,
+      "message": "I don\u0027t recall testing without this. I think it is OK to remove when deploying towards CentOS 7, but for CentOS 8 it might break something.\n\nIf we aim to continue supporting Python2, then we might also need to update provision_k8s() in functions.sh to not run `/bmra/playbooks/k8s/patch_kubespray.yml` (which patches Kubespray for using Python3)\n\nRegardless, we can test it out without the interpreter set for CentOS 7, and if it works then we can add logic to handle it depending on the target OS",
+      "parentUuid": "4fc99fa6_aab776e6",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 43
+      },
+      "revId": "7155286ed00a8bce09a948fb54fb4eeb85027e49",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
