@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63939d6e_4b3d6450",
+        "filename": "hw_config/intel/idf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-12-04T15:57:51Z",
+      "side": 1,
+      "message": "Make sure this matches the core/thread enumeration on the targets. The values here are based on the threads being listed as follows:\n\nNUMA/Socket 0:\n0 2 4 (...) 26\n28 30 32 (...) 54\n\nNUMA/Socket 1:\n1 3 5 (...) 27\n29 31 33 (...) 55",
+      "revId": "d87a8b9f850a7c695f9feafd66e7b7007ea66346",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
