@@ -22,6 +22,30 @@
       "revId": "7155286ed00a8bce09a948fb54fb4eeb85027e49",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fc99fa6_aab776e6",
+        "filename": "playbooks/roles/bmra-config/templates/inventory.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-12-04T10:58:49Z",
+      "side": 0,
+      "message": "I think it would be good not to keep a dependency on specific python version so that it runs on every platform. For instance, the older version of BMRA didn\u0027t seem to have this dependency. But need to check with Michael if he needs to specify the interpreter in order to run this in his environment.",
+      "parentUuid": "0fa3ded7_285bb363",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 43
+      },
+      "revId": "7155286ed00a8bce09a948fb54fb4eeb85027e49",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
