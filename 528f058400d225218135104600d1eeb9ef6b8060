@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95e123b1_5ac2cf0c",
+        "filename": "playbooks/roles/bmra-config/tasks/main.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-12-08T16:42:49Z",
+      "side": 1,
+      "message": "I\u0027m not sure if the below is what you mean by \"added in the template directly\", but otherwise this could also be handled in the existing template file:\n\n{% if deployment_type \u003d\u003d \u0027k8s\u0027 %}\n\n[all:vars]\nansible_python_interpreter\u003d/usr/bin/python3\n{% endif %}",
+      "revId": "528f058400d225218135104600d1eeb9ef6b8060",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
