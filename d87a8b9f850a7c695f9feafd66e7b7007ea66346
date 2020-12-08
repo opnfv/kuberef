@@ -34,6 +34,24 @@
       "revId": "d87a8b9f850a7c695f9feafd66e7b7007ea66346",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5a3831d_8851f653",
+        "filename": "hw_config/intel/idf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2020-12-08T15:32:16Z",
+      "side": 1,
+      "message": "We might not need all of them isolated, but as long as the list matches the core enumeration of the target nodes then we can always reduce it if needed later. The important part is that the values listed are correct, so the OS actually boots following a grub update :)",
+      "parentUuid": "bf08a5a1_e70a757a",
+      "revId": "d87a8b9f850a7c695f9feafd66e7b7007ea66346",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
