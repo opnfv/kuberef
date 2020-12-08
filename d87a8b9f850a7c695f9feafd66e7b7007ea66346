@@ -16,6 +16,24 @@
       "revId": "d87a8b9f850a7c695f9feafd66e7b7007ea66346",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf08a5a1_e70a757a",
+        "filename": "hw_config/intel/idf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-12-08T14:11:51Z",
+      "side": 1,
+      "message": "Thanks Michael for pointing this out and in helping to figure out the right CPUs. I\u0027ve updated the file with the correct ones now, although I am not sure if we need to isolate all of these. Still learning CMK 😊",
+      "parentUuid": "63939d6e_4b3d6450",
+      "revId": "d87a8b9f850a7c695f9feafd66e7b7007ea66346",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
