@@ -70,6 +70,30 @@
       "revId": "7155286ed00a8bce09a948fb54fb4eeb85027e49",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daf5e0bd_b133e21d",
+        "filename": "playbooks/roles/bmra-config/templates/inventory.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-12-08T14:55:57Z",
+      "side": 0,
+      "message": "Agreed. I am anyway thinking of replacing CentOS 7 by CentOS 8, and that might take a while since the dev work is in a different repo. In the meanwhile, I\u0027ve added a logic to handle this as you proposed.",
+      "parentUuid": "8d64f7ff_8b10cd27",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 43
+      },
+      "revId": "7155286ed00a8bce09a948fb54fb4eeb85027e49",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
