@@ -16,6 +16,24 @@
       "revId": "528f058400d225218135104600d1eeb9ef6b8060",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "080b7616_971511da",
+        "filename": "playbooks/roles/bmra-config/tasks/main.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2020-12-09T10:25:11Z",
+      "side": 1,
+      "message": "I had something else in mind, but for now the approach you mentioned makes more sense. I will update it.",
+      "parentUuid": "95e123b1_5ac2cf0c",
+      "revId": "528f058400d225218135104600d1eeb9ef6b8060",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
