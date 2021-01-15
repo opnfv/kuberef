@@ -225,6 +225,14 @@ cp ${PROJECT_ROOT}/${INSTALLER}/inventory.ini \
     ${PROJECT_ROOT}/container-experience-kits/
 cp ${PROJECT_ROOT}/${INSTALLER}/{all.yml,kube-node.yml} \
     ${PROJECT_ROOT}/container-experience-kits/group_vars/
+cp ${PROJECT_ROOT}/${INSTALLER}/dpdk_patch.yml \
+    ${PROJECT_ROOT}/container-experience-kits/roles/install_dpdk/tasks/main.yml
+cp ${PROJECT_ROOT}/${INSTALLER}/patched_tas.yml \
+    ${PROJECT_ROOT}/container-experience-kits/roles/tas_install/tasks/tas.yml
+cp ${PROJECT_ROOT}/${INSTALLER}/patched_cmk.yml \
+    ${PROJECT_ROOT}/container-experience-kits/roles/cmk_install/charts/cpu-manager-for-kubernetes/templates/job.yml
+cp ${PROJECT_ROOT}/${INSTALLER}/patched_cmk_build.yml \
+    ${PROJECT_ROOT}/container-experience-kits/roles/cmk_install/tasks/main.yml
 sudo docker run --rm \
 -e ANSIBLE_CONFIG=/bmra/ansible.cfg \
 -e PROFILE=${BMRA_PROFILE} \
