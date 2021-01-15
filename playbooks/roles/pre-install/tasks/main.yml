@@ -44,3 +44,15 @@
   when:
     - not pybin.stat.exists
     - pypath.rc != 0
+
+- name: Fix /etc/default/grub (1/2)
+  replace:
+    path: /etc/default/grub
+    regexp: ''''
+    replace: '"'
+
+- name: Fix /etc/default/grub (2/2)
+  replace:
+    path: /etc/default/grub
+    regexp: 'export '
+    replace: ''
