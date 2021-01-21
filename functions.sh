@@ -233,6 +233,8 @@ cp ${PROJECT_ROOT}/${INSTALLER}/patched_cmk.yml \
     ${PROJECT_ROOT}/container-experience-kits/roles/cmk_install/charts/cpu-manager-for-kubernetes/templates/job.yml
 cp ${PROJECT_ROOT}/${INSTALLER}/patched_cmk_build.yml \
     ${PROJECT_ROOT}/container-experience-kits/roles/cmk_install/tasks/main.yml
+cp ${PROJECT_ROOT}/${INSTALLER}/patched_vfio.yml \
+    ${PROJECT_ROOT}/container-experience-kits/roles/sriov_nic_init/tasks/bind_vf_driver.yml
 sudo docker run --rm \
 -e ANSIBLE_CONFIG=/bmra/ansible.cfg \
 -e PROFILE=${BMRA_PROFILE} \

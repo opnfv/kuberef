@@ -8,8 +8,10 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-- name: Ensure Python3 is installed (Equinix Metal)
+- name: Ensure Python3 is installed for CentOS (Equinix Metal)
   raw: yum install -y python3
+  ignore_errors: true
+  failed_when: false
   when: lookup('env', 'VENDOR') == 'equinix-metal'
 
 - name: Gather facts
@@ -18,6 +20,16 @@
 - name: Load distro variables
   include_vars:
     file: "{{ ansible_os_family }}.yml"
+
+- name: Update cache (RedHat)
+  yum:
+    update_cache: yes
+  when: ansible_os_family == "RedHat"
+
+- name: Update cache (Debian)
+  apt:
+    update_cache: yes
+  when: ansible_os_family == "Debian"
 
 - name: Install BRMA requirements
   become: true
