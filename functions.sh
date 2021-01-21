@@ -243,6 +243,8 @@ cp ${PROJECT_ROOT}/${INSTALLER}/{all.yml,kube-node.yml} \
     ${PROJECT_ROOT}/container-experience-kits/group_vars/
 cp ${PROJECT_ROOT}/${INSTALLER}/patched_cmk_build.yml \
     ${PROJECT_ROOT}/container-experience-kits/roles/cmk_install/tasks/main.yml
+cp ${PROJECT_ROOT}/${INSTALLER}/patched_vfio.yml \
+    ${PROJECT_ROOT}/container-experience-kits/roles/sriov_nic_init/tasks/bind_vf_driver.yml
 sudo docker run --rm \
 -e ANSIBLE_CONFIG=/bmra/ansible.cfg \
 -e PROFILE=${BMRA_PROFILE} \

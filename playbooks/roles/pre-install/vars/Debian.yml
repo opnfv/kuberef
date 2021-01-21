@@ -1,0 +1,6 @@
+---
+bmra_pkgs:
+  - lshw
+  - pciutils
+  - ethtool
+  - python3
