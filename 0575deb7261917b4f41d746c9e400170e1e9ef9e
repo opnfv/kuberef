@@ -52,6 +52,24 @@
       "revId": "0575deb7261917b4f41d746c9e400170e1e9ef9e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daeeb2a6_52e22306",
+        "filename": "functions.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2021-01-27T12:47:45Z",
+      "side": 1,
+      "message": "We can keep this staged for now, at least as a reference for having something that works on Equinix Metal. I agree that it would be good to wait pushing more updates until BMRA v2.1 is available. At that point we can also look into refactoring the installation a bit to avoid running any deployment (e.g. pre-install) directly from the host OS.",
+      "parentUuid": "25a98682_822c18e4",
+      "revId": "0575deb7261917b4f41d746c9e400170e1e9ef9e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
