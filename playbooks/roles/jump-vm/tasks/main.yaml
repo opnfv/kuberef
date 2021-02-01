@@ -68,7 +68,7 @@
     mode: '0666'
 
 - name: create new VM image from base image
-  command: "qemu-img create -f qcow2 -o backing_file={{ images_path }}/bionic-server-cloudimg-amd64.img {{ workspace }}/{{ jumphost.name }}.qcow2 10G"
+  command: "qemu-img create -f qcow2 -F qcow2 -o backing_file={{ images_path }}/bionic-server-cloudimg-amd64.img {{ workspace }}/{{ jumphost.name }}.qcow2 10G"
 
 - name: render config files for jump VM from templates
   template:
