@@ -183,7 +183,7 @@ if [ ! -d "${PROJECT_ROOT}/engine" ]; then
     ${PROJECT_ROOT}/engine/engine
 fi
 cd ${PROJECT_ROOT}/engine/engine
-./deploy.sh -s ironic -d centos7 \
+./deploy.sh -s ironic -d ${DISTRO} \
 -p file:///${PROJECT_ROOT}/engine/engine/pdf.yaml \
 -i file:///${PROJECT_ROOT}/engine/engine/idf.yaml
 EOF
