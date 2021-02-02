@@ -167,7 +167,7 @@ if [ ! -d "${PROJECT_ROOT}/engine" ]; then
     ${PROJECT_ROOT}/engine/engine
 fi
 cd ${PROJECT_ROOT}/engine/engine
-./deploy.sh -s ironic -d centos7 \
+./deploy.sh -s ironic -d ${DISTRO} \
 -p file:///${PROJECT_ROOT}/engine/engine/pdf.yaml \
 -i file:///${PROJECT_ROOT}/engine/engine/idf.yaml
 EOF
@@ -237,7 +237,7 @@ sudo docker run --rm \
 -e ANSIBLE_CONFIG=/bmra/ansible.cfg \
 -e PROFILE=${BMRA_PROFILE} \
 -v ${PROJECT_ROOT}/container-experience-kits:/bmra \
--v ~/.ssh/:/root/.ssh/ rihabbanday/bmra2.0-install:centos \
+-v ~/.ssh/:/root/.ssh/ rihabbanday/bmra2.0-install:${DISTRO} \
 ${ansible_cmd}
 EOF
 }
