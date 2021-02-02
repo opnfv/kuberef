@@ -4,3 +4,4 @@ bmra_pkgs:
   - pciutils
   - ethtool
   - python3
+  - unattended-upgrades
