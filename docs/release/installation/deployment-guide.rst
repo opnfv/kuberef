@@ -33,6 +33,73 @@ Additionally, please make note of the following:
 
 4. Install Ansible (tested with 2.9.14) and yq.
 
+Installing and configuring the prerequisites will depend on the operating system installed on the jump server. Below are additional details for setting up some of the more popular distributions.
+
+**Ubuntu 20.04 LTS**
+
+Install packages using Apt
+
+* ``apt-get install qemu-kvm libvirt-daemon-system libvirt-clients genisoimage virt-manager bridge-utils python3-libvirt git jq``
+* Some of the packages might be installed already
+* Start libvirtd if it isn't running using ``service libvirtd start``
+* Add user to libvirt group using ``adduser `id -un` libvirt``
+* Log out and in on the current user to update the groups
+
+If ``python`` isn't available in the path, consider adding a symlink for Python3
+
+* ``ln -s /usr/bin/python3 /usr/bin/python``
+
+Install Ansible
+
+* ``apt-add-repository --yes --update ppa:ansible/ansible``
+* ``apt-get install ansible``
+
+Install ``yq`` binary from Github
+
+* Find the correct build of version `v3.4.1 <https://github.com/mikefarah/yq/releases/tag/3.4.1>`_
+* Place the binary in ``/usr/bin/yq`` and make it executable ``chmod +x /usr/bin/yq``
+
+You might need to update the libvirt (QEMU) configuration if there are problems with user and group
+
+* You can set the user and group to "root" by uncommenting `user` and `group` in ``/etc/libvirt/qemu.conf``
+* If the configuration is changed, finish by restarting libvirtd through ``service libvirtd restart``
+
+Generate SSH keypair
+
+* ``ssh-keygen -t rsa -b 4096``
+
+**CentOS 8**
+
+Install packages using dnf
+
+* ``dnf install qemu-kvm qemu-img libvirt virt-install libvirt-client python3 git jq``
+* Some of the packages might be installed already
+* Start libvirtd if it isn't running using ``service libvirtd restart``
+* Add user to libvirt group using ``usermod -a -G libvirt $(whoami)``
+* Log out and in on the current user to update the groups
+
+If ``python`` isn't available in the path, consider adding a symlink for Python3
+
+* ``ln -s /usr/bin/python3 /usr/bin/python``
+
+Install Ansible
+* ``dnf install epel-release``
+* ``dnf install ansible``
+
+Install ``yq`` binary from Github
+
+* Find the correct build of version `v3.4.1 <https://github.com/mikefarah/yq/releases/tag/3.4.1>`_
+* Place the binary in ``/usr/bin/yq`` and make it executable ``chmod +x /usr/bin/yq``
+
+You might need to update the libvirt (QEMU) configuration if there are problems with user and group
+
+* You can set the user and group to "root" by uncommenting `user` and `group` in ``/etc/libvirt/qemu.conf``
+* If the configuration is changed, finish by restarting libvirtd through ``service libvirtd restart``
+
+Generate SSH keypair
+
+* ``ssh-keygen -t rsa -b 4096``
+
 Deployment
 =============================
 
