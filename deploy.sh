@@ -21,14 +21,13 @@ export CURRENTPATH
 
 # shellcheck source=./functions.sh
 source "$CURRENTPATH/functions.sh"
+# shellcheck source=./deploy.env
+source "$CURRENTPATH/deploy.env"
 
 # ---------------------------------------------------------------------
 # check installation and runtime prerequisites
 # ---------------------------------------------------------------------
 check_prerequisites
-
-# shellcheck source=./deploy.env
-source "$CURRENTPATH/deploy.env"
 
 # ---------------------------------------------------------------------
 # bootstrap install prerequisites
