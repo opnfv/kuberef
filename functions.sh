@@ -36,7 +36,6 @@ check_prerequisites() {
     #-------------------------------------------------------------------------------
     # Check for DEPLOYMENT type
     #-------------------------------------------------------------------------------
-    DEPLOYMENT=${DEPLOYMENT:-full}
     if ! [[ "$DEPLOYMENT" =~ ^(full|k8s)$ ]]; then
         error "Unsupported value for DEPLOYMENT ($DEPLOYMENT)"
     fi
