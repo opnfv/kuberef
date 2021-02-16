@@ -106,5 +106,5 @@ bmra:
       policy: "best-effort"
     tas:
       enable: true
-      demo_policy: true
+      demo_policy: false
     psp: true

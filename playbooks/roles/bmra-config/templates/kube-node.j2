@@ -16,11 +16,11 @@
 ---
 # Kubernetes node configuration
 
-# Enable SR-IOV networking related setup
-sriov_enabled: {{ bmra.features.sriov.enable }}
+# Enable IOMMU (required for SR-IOV networking)
+iommu_enabled: {{ bmra.features.sriov.enable }}
 
-# SR-IOV PF specific configuration list
-sriov_nics:
+# dataplane interface configuration list
+dataplane_interfaces:
 {% for intf in bmra.network_roles.sriov %}
   - name: {{ intf.name }}
     bus_info: "{{ intf.bus_info }}"
@@ -41,8 +41,8 @@ sriov_cni_enabled: {{ bmra.features.sriov_cni }}
 # Bond CNI
 bond_cni_enabled: false
 
-# install DPDK
-install_dpdk: true # DPDK installation is required for sriov_enabled:true; default to false
+# Install DPDK (required for SR-IOV networking)
+install_dpdk: true
 
 # Userspace networking
 userspace_cni_enabled: false
@@ -62,10 +62,10 @@ update_nic_drivers: false
 update_nic_firmware: false
 
 # Additional list of NIC interfaces that the FW update will be executed on
-# NOTE: FW update will be also executed on all NICs listed in "sriov_nics[*].name"
-firmware_update_nics:
-  - intf1
-  - intf2
+# NOTE: FW update will be also executed on all NICs listed in "dataplane_interfaces[*].name"
+firmware_update_nics: []
+#  - enp24s0f0
+#  - enp24s0f1
 
 # install Intel x700 & x800 series NICs DDP packages
 install_ddp_packages: false
@@ -93,7 +93,7 @@ cpu_count: 144
 # Enable/Disable Intel PState scaling driver
 intel_pstate_enabled: true
 # Config options for intel_pstate: disable, passive, force, no_hwp, hwp_only, support_acpi_ppc, per_cpu_perf_limits
-intel_pstate: disable
+intel_pstate: hwp_only
 # Enable/Disable Intel Turbo Boost PState attribute
 turbo_boost_enabled: false
 
