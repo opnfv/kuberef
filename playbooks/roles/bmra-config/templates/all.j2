@@ -65,7 +65,7 @@ topology_manager_policy: "{{ bmra.features.topology_manager.policy }}"
 sriov_net_dp_enabled: {{ bmra.features.sriov_net_dp }}
 sriov_net_dp_namespace: kube-system
 # whether to build and store image locally or use one from public external registry
-sriov_net_dp_build_image_locally: false
+sriov_net_dp_build_image_locally: true
 # SR-IOV network device plugin configuration.
 # For more information on supported configuration refer to: https://github.com/intel/sriov-network-device-plugin#configurations
 sriovdp_config_data: |
