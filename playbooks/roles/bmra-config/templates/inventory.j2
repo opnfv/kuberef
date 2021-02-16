@@ -2,7 +2,7 @@
 {% for node in nodes %}
 {{ idf.kubespray.hostnames[node.name] }}   ansible_host={{ node.interfaces[idf.net_config[engine.pxe_network].interface].address }} ip={{ node.interfaces[idf.net_config[engine.pxe_network].interface].address }}
 {% endfor %}
-localhost
+localhost ansible_python_interpreter=/usr/bin/python2
 
 {% for role in ['kube-master', 'etcd', 'kube-node'] %}
 [{{ role }}]

@@ -194,7 +194,7 @@ provision_k8s() {
     ansible_cmd="/bin/bash -c '"
     if [[ "$DEPLOYMENT" == "k8s" ]]; then
         ansible-playbook -i "$CURRENTPATH"/sw_config/bmra/inventory.ini "$CURRENTPATH"/playbooks/pre-install.yaml
-        ansible_cmd+="pip install --upgrade pip==9.0.3; pip install ansible==2.9.6; ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/k8s/patch_kubespray.yml;"
+        ansible_cmd+="yum -y remove python-netaddr; pip install --upgrade pip; pip install ansible==2.9.6; ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/k8s/patch_kubespray.yml;"
     fi
     ansible_cmd+="ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/${BMRA_PROFILE}.yml'"
 
@@ -210,7 +210,7 @@ if ! command -v docker; then
     done
 fi
 if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
-    git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v2.0.0 ${PROJECT_ROOT}/container-experience-kits/
+    git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v2.1.0 ${PROJECT_ROOT}/container-experience-kits/
     cp -r ${PROJECT_ROOT}/container-experience-kits/examples/${BMRA_PROFILE}/group_vars ${PROJECT_ROOT}/container-experience-kits/
 # NOTE The following condition/workaround will be removed once the reported issue https://github.com/intel/container-experience-kits/issues/68
 # is fixed upstream
@@ -225,12 +225,6 @@ cp ${PROJECT_ROOT}/${INSTALLER}/inventory.ini \
     ${PROJECT_ROOT}/container-experience-kits/
 cp ${PROJECT_ROOT}/${INSTALLER}/{all.yml,kube-node.yml} \
     ${PROJECT_ROOT}/container-experience-kits/group_vars/
-cp ${PROJECT_ROOT}/${INSTALLER}/dpdk_patch.yml \
-    ${PROJECT_ROOT}/container-experience-kits/roles/install_dpdk/tasks/main.yml
-cp ${PROJECT_ROOT}/${INSTALLER}/patched_tas.yml \
-    ${PROJECT_ROOT}/container-experience-kits/roles/tas_install/tasks/tas.yml
-cp ${PROJECT_ROOT}/${INSTALLER}/patched_cmk.yml \
-    ${PROJECT_ROOT}/container-experience-kits/roles/cmk_install/charts/cpu-manager-for-kubernetes/templates/job.yml
 cp ${PROJECT_ROOT}/${INSTALLER}/patched_cmk_build.yml \
     ${PROJECT_ROOT}/container-experience-kits/roles/cmk_install/tasks/main.yml
 sudo docker run --rm \
