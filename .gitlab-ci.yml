@@ -26,16 +26,16 @@ stages:
 
 deploy:
   tags:
-    - ericsson-pod2
+    - intel-pod19-shell
   stage: deploy_platform
   script:
     - bash deploy.sh
 
 k8s_quick:
   tags:
-    - ericsson-pod2-docker
+    - intel-pod19-docker
   stage: functest-kubernetes-healthcheck
-  image: opnfv/functest-kubernetes-healthcheck:jerma
+  image: opnfv/functest-kubernetes-healthcheck:v1.18
   script:
     - run_tests -t k8s_quick -p -r
 
@@ -43,7 +43,7 @@ k8s_smoke:
   tags:
     - ericsson-pod2-docker
   stage: functest-kubernetes-healthcheck
-  image: opnfv/functest-kubernetes-healthcheck:jerma
+  image: opnfv/functest-kubernetes-healthcheck:v1.18
   script:
     - run_tests -t k8s_smoke -p -r
 
@@ -53,7 +53,7 @@ xrally_kubernetes:
   tags:
     - ericsson-pod2-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:jerma
+  image: opnfv/functest-kubernetes-smoke:v1.18
   timeout: 3 hours 30 minutes
   script:
     - run_tests -t xrally_kubernetes -p -r
@@ -64,7 +64,7 @@ k8s_conformance:
   tags:
     - ericsson-pod2-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:jerma
+  image: opnfv/functest-kubernetes-smoke:v1.18
   timeout: 3 hours 30 minutes
   script:
     - run_tests -t k8s_conformance -p -r
@@ -75,7 +75,7 @@ kube_hunter:
   tags:
     - ericsson-pod2-docker
   stage: functest-kubernetes-security
-  image: opnfv/functest-kubernetes-security:jerma
+  image: opnfv/functest-kubernetes-security:v1.18
   script:
     - run_tests -t kube_hunter -p -r
 
@@ -85,7 +85,7 @@ kube_bench_master:
   tags:
     - ericsson-pod2-docker
   stage: functest-kubernetes-security
-  image: opnfv/functest-kubernetes-security:jerma
+  image: opnfv/functest-kubernetes-security:v1.18
   script:
     - run_tests -t kube_bench_master -p -r
 
@@ -95,7 +95,7 @@ kube_bench_node:
   tags:
     - ericsson-pod2-docker
   stage: functest-kubernetes-security
-  image: opnfv/functest-kubernetes-security:jerma
+  image: opnfv/functest-kubernetes-security:v1.18
   script:
     - run_tests -t kube_bench_node -p -r
 
@@ -105,7 +105,7 @@ xrally_kubernetes_full:
   tags:
     - ericsson-pod2-docker
   stage: functest-kubernetes-benchmarking
-  image: opnfv/functest-kubernetes-benchmarking:jerma
+  image: opnfv/functest-kubernetes-benchmarking:v1.18
   script:
     - run_tests -t xrally_kubernetes_full -p -r
 
@@ -115,7 +115,7 @@ k8s_vims:
   tags:
     - ericsson-pod2-docker
   stage: functest-kubernetes-cnf
-  image: opnfv/functest-kubernetes-cnf:jerma
+  image: opnfv/functest-kubernetes-cnf:v1.18
   script:
     - run_tests -t k8s_vims -p -r
 
@@ -125,7 +125,7 @@ helm_vims:
   tags:
     - ericsson-pod2-docker
   stage: functest-kubernetes-cnf
-  image: opnfv/functest-kubernetes-cnf:jerma
+  image: opnfv/functest-kubernetes-cnf:v1.18
   script:
     - run_tests -t helm_vims -p -r
 
@@ -135,7 +135,7 @@ cnf_conformance:
   tags:
     - ericsson-pod2-docker
   stage: functest-kubernetes-cnf
-  image: opnfv/functest-kubernetes-cnf:jerma
+  image: opnfv/functest-kubernetes-cnf:v1.18
   script:
     - run_tests -t cnf_conformance -p -r
 
@@ -143,11 +143,11 @@ zip:
   only:
     - schedules
   tags:
-    - ericsson-pod2-docker
+    - intel-pod19-docker
   stage: zip
   variables:
     S3_DST_URL: s3://artifacts.opnfv.org/kuberef/
     HTTP_DST_URL: http://artifacts.opnfv.org/kuberef/
-  image: opnfv/functest-kubernetes-healthcheck:jerma
+  image: opnfv/functest-kubernetes-healthcheck:v1.18
   script:
     - zip_campaign
