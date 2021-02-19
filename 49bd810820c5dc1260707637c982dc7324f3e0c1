@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "64d2578b_58fc3fb5",
+        "filename": ".gitlab-ci.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2021-02-19T13:40:20Z",
+      "side": 1,
+      "message": "The old hardware that was registered in GitLab is no longer available. Hence I connected intel-pod19 to the GitLab-CI setup. So the jobs should run automatically on Pod 19 once this patch gets merged.",
+      "parentUuid": "db169b27_1888e67a",
+      "revId": "49bd810820c5dc1260707637c982dc7324f3e0c1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a51047d6_2754de8e",
         "filename": ".gitlab-ci.yml",
         "patchSetId": 1
