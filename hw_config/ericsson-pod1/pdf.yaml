@@ -10,7 +10,7 @@
 version: 1.0
 details:
   pod_owner: Ericsson
-  contact: georg.kunz@ericsson.com
+  contact: rihab.banday@ericsson.com
   lab: OPNFV lab
   location: Sweden
   type: baremetal
@@ -66,15 +66,129 @@ nodes:
       pass: Winter2017
     remote_management:
       <<: *remoteparas
+      address: 172.16.1.16
+      mac_address: "14:58:D0:5D:AB:6A"
+    interfaces:
+      - name: 'nic1'
+        speed: 1gb
+        features: 'dpdk|sriov'
+        address: 10.0.20.6
+        mac_address: "14:58:d0:54:e7:88"
+        vlan: native
+      - name: 'nic2'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "38:ea:a7:17:6b:98"
+        address: 100.64.200.6
+        vlan: native
+      - name: 'nic3'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "38:ea:a7:17:6b:99"
+      - name: 'nic4'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "38:ea:a7:17:6b:84"
+      - name: 'nic5'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "38:ea:a7:17:6b:85"
+      - name: 'nic6'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "00:00:00:00:00:00"
+        vlan: native
+  ############################################################################
+  - name: node2
+    node: *nodeparams
+    disks: *disks
+    remote_management:
+      <<: *remoteparas
+      address: 172.16.1.17
+      mac_address: "14:58:D0:5D:AB:4D"
+    interfaces:
+      - name: 'nic1'
+        speed: 1gb
+        features: 'dpdk|sriov'
+        address: 10.0.20.7
+        mac_address: "14:58:d0:54:6a:60"
+        vlan: native
+      - name: 'nic2'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        address: 100.64.200.7
+        mac_address: "38:ea:a7:17:6b:7c"
+        vlan: native
+      - name: 'nic3'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "38:ea:a7:17:6b:7d"
+      - name: 'nic4'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "38:ea:a7:17:6b:6c"
+      - name: 'nic5'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "38:ea:a7:17:6b:6d"
+      - name: 'nic6'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "00:00:00:00:00:00"
+        vlan: native
+  ############################################################################
+  - name: node3
+    node: *nodeparams
+    disks: *disks
+    remote_management:
+      <<: *remoteparas
+      address: 172.16.1.18
+      mac_address: "14:58:D0:5D:AB:F2"
+    interfaces:
+      - name: 'nic1'
+        speed: 1gb
+        features: 'dpdk|sriov'
+        address: 10.0.20.8
+        mac_address: "14:58:D0:54:7A:28"
+        vlan: native
+      - name: 'nic2'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        address: 100.64.200.8
+        mac_address: "38:ea:a7:17:6a:38"
+        vlan: native
+      - name: 'nic3'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "38:ea:a7:17:6a:39"
+      - name: 'nic4'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "38:ea:a7:17:6a:3c"
+      - name: 'nic5'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "38:ea:a7:17:6a:3d"
+      - name: 'nic6'
+        speed: 10gb
+        features: 'dpdk|sriov'
+        mac_address: "00:00:00:00:00:00"
+        vlan: native
+  ############################################################################
+  - name: node4
+    node: *nodeparams
+    disks: *disks
+    remote_management:
+      <<: *remoteparas
       address: 172.16.1.19
       mac_address: "FC:15:B4:12:97:64"
     interfaces:
       - name: 'nic1'
         speed: 1gb
         features: 'dpdk|sriov'
+        address: 10.0.20.9
         mac_address: "9c:b6:54:8a:95:a0"
         vlan: native
-        address: 10.0.20.9
       - name: 'nic2'
         speed: 10gb
         features: 'dpdk|sriov'
@@ -97,10 +211,9 @@ nodes:
         speed: 10gb
         features: 'dpdk|sriov'
         mac_address: "00:00:00:00:00:00"
-        address: 10.10.10.15
         vlan: native
   ############################################################################
-  - name: node2
+  - name: node5
     node: *nodeparams
     disks: *disks
     remote_management:
