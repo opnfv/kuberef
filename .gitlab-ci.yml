@@ -68,6 +68,66 @@ k8s_conformance:
   script:
     - run_tests -t k8s_conformance -p -r
 
+sig_api_machinery:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_api_machinery -p -r
+
+sig_apps:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_apps -p -r
+
+sig_auth:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_auth -p -r
+
+sig_cli:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_cli -p -r
+
+sig_cluster_lifecycle:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_cluster_lifecycle -p -r
+
+sig_instrumentation:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_instrumentation -p -r
+
 sig_network:
   only:
     - schedules
@@ -87,6 +147,26 @@ sig_network_features:
   image: opnfv/functest-kubernetes-smoke:v1.18
   script:
     - run_tests -t sig_network_features -p -r
+
+sig_node:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_node -p -r
+
+sig_scheduling:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_scheduling -p -r
 
 sig_storage:
   only:
