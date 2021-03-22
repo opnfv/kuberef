@@ -57,6 +57,16 @@ xrally_kubernetes:
   script:
     - run_tests -t xrally_kubernetes -p -r
 
+k8s_io:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t k8s_io -p -r
+
 k8s_conformance:
   only:
     - schedules
@@ -64,9 +74,108 @@ k8s_conformance:
     - intel-pod19-docker
   stage: functest-kubernetes-smoke
   image: opnfv/functest-kubernetes-smoke:v1.18
-  timeout: 3 hours 30 minutes
   script:
     - run_tests -t k8s_conformance -p -r
+
+k8s_conformance_serial:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t k8s_conformance_serial -p -r
+
+sig_api_machinery:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_api_machinery -p -r
+
+sig_api_machinery_serial:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_api_machinery_serial -p -r
+
+sig_apps:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_apps -p -r
+
+sig_apps_serial:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_apps_serial -p -r
+
+sig_auth:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_auth -p -r
+
+sig_cli:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_cli -p -r
+
+sig_cli_serial:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_cli_serial -p -r
+
+sig_cluster_lifecycle:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_cluster_lifecycle -p -r
+
+sig_instrumentation:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_instrumentation -p -r
 
 sig_network:
   only:
@@ -78,7 +187,7 @@ sig_network:
   script:
     - run_tests -t sig_network -p -r
 
-sig_network_features:
+sig_network_serial:
   only:
     - schedules
   tags:
@@ -86,7 +195,37 @@ sig_network_features:
   stage: functest-kubernetes-smoke
   image: opnfv/functest-kubernetes-smoke:v1.18
   script:
-    - run_tests -t sig_network_features -p -r
+    - run_tests -t sig_network_serial -p -r
+
+sig_node:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_node -p -r
+
+sig_node_serial:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_node_serial -p -r
+
+sig_scheduling_serial:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_scheduling_serial -p -r
 
 sig_storage:
   only:
@@ -97,6 +236,16 @@ sig_storage:
   image: opnfv/functest-kubernetes-smoke:v1.18
   script:
     - run_tests -t sig_storage -p -r
+
+sig_storage_serial:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-smoke
+  image: opnfv/functest-kubernetes-smoke:v1.18
+  script:
+    - run_tests -t sig_storage_serial -p -r
 
 kube_hunter:
   only:
