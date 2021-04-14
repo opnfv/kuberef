@@ -207,16 +207,6 @@ sig_node:
   script:
     - run_tests -t sig_node -p -r
 
-sig_node_serial:
-  only:
-    - schedules
-  tags:
-    - intel-pod19-docker
-  stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.18
-  script:
-    - run_tests -t sig_node_serial -p -r
-
 sig_scheduling_serial:
   only:
     - schedules
