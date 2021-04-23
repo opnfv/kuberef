@@ -73,14 +73,21 @@ bmra:
   network_roles:
     sriov:
       - name: eth2
-        bus_info: "05:00.0"
-        device_info: "8086:10f8:0200"
-        driver: vfio-pci
+        pci: "05:00.0"
+        pf_driver: i40e
+        vf_driver: vfio-pci
     sriov_dpdk:
       - name: eth3
-        bus_info: "05:00.1"
-        device_info: "8086:10f8:0200"
-        driver: vfio-pci
+        pci: "05:00.1"
+        pf_driver: i40e
+        vf_driver: vfio-pci
+  device_roles:
+#    qat:
+#      - name: crypto01
+#        pci: "0000:ab:00.0"
+#        mod_type: qat_c62x
+#        pci_type: c6xx
+#        vfs: 4
   features:
     sriov:
       enable: false
@@ -95,7 +102,8 @@ bmra:
       hugepages_2M: 10240
     isolcpus:
       enable: true
-      cpus: "4-9,14-19,24-29,34-39"
+      autogenerate: true
+      cpus: "4-9,14-19,24-29,34-39" # Not used when autogenerate is true
     nfd: true
     cmk:
       enable: true
@@ -107,4 +115,8 @@ bmra:
     tas:
       enable: true
       demo_policy: false
+    bond_cni: true
     psp: true
+    qat:
+      enable: false
+      update_drivers: false
