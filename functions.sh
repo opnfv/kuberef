@@ -210,7 +210,7 @@ provision_k8s() {
     ansible_cmd="/bin/bash -c '"
     if [[ "$DEPLOYMENT" == "k8s" ]]; then
         ansible-playbook -i "$CURRENTPATH"/sw_config/bmra/inventory.ini "$CURRENTPATH"/playbooks/pre-install.yaml
-        ansible_cmd+="yum -y remove python-netaddr; pip install --upgrade pip; pip install ansible==2.9.6; ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/k8s/patch_kubespray.yml;"
+        ansible_cmd+="yum -y remove python-netaddr; pip install --upgrade pip; pip install ansible==2.9.17; ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/k8s/patch_kubespray.yml;"
     fi
     ansible_cmd+="ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/${BMRA_PROFILE}.yml'"
 
@@ -226,7 +226,7 @@ if ! command -v docker; then
     done
 fi
 if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
-    git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v2.1.0 ${PROJECT_ROOT}/container-experience-kits/
+    git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v21.03 ${PROJECT_ROOT}/container-experience-kits/
     cp -r ${PROJECT_ROOT}/container-experience-kits/examples/${BMRA_PROFILE}/group_vars ${PROJECT_ROOT}/container-experience-kits/
 # NOTE The following condition/workaround will be removed once the reported issue https://github.com/intel/container-experience-kits/issues/68
 # is fixed upstream
@@ -245,6 +245,11 @@ cp ${PROJECT_ROOT}/${INSTALLER}/patched_cmk_build.yml \
     ${PROJECT_ROOT}/container-experience-kits/roles/cmk_install/tasks/main.yml
 cp ${PROJECT_ROOT}/${INSTALLER}/patched_vfio.yml \
     ${PROJECT_ROOT}/container-experience-kits/roles/sriov_nic_init/tasks/bind_vf_driver.yml
+cp ${PROJECT_ROOT}/${INSTALLER}/ansible.cfg \
+    ${PROJECT_ROOT}/container-experience-kits/ansible.cfg
+cp ${PROJECT_ROOT}/${INSTALLER}/patched_rhel_packages.yml \
+    ${PROJECT_ROOT}/container-experience-kits/roles/bootstrap/install_packages/tasks/rhel.yml
+
 sudo docker run --rm \
 -e ANSIBLE_CONFIG=/bmra/ansible.cfg \
 -e PROFILE=${BMRA_PROFILE} \
