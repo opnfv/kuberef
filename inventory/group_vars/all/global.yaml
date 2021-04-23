@@ -25,3 +25,6 @@ pub_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
 
 # deployment type for kuberef
 deployment_type: "{{ lookup('env', 'DEPLOYMENT') }}"
+
+# OS distro from DISTRO from environment variables
+os_distro: "{{ lookup('env', 'DISTRO') }}"
