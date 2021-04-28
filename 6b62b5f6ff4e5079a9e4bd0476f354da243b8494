@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a18e7c5c_fdf692bb",
+        "filename": "playbooks/roles/bmra-config/templates/all.j2",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2021-04-28T10:15:16Z",
+      "side": 1,
+      "message": "So this setting seems to have resolved my package related issues. I had done some troubleshooting with the older patch sets and it seemed that the new code attempted to pull packages from Vault repo and failed in my setup because the corresponding kernel version of the CentOS image that I am using was missing from Vault. Adding a workaround (updating kernel, grub, etc.) solves those issues but with this update setting that workaround is not needed anymore 😊",
+      "revId": "6b62b5f6ff4e5079a9e4bd0476f354da243b8494",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
