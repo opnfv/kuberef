@@ -254,7 +254,7 @@ sudo docker run --rm \
 -e ANSIBLE_CONFIG=/bmra/ansible.cfg \
 -e PROFILE=${BMRA_PROFILE} \
 -v ${PROJECT_ROOT}/container-experience-kits:/bmra \
--v ~/.ssh/:/root/.ssh/ rihabbanday/bmra2.0-install:centos \
+-v ~/.ssh/:/root/.ssh/ rihabbanday/bmra21.03-install:centos \
 ${ansible_cmd}
 EOF
 }

@@ -224,3 +224,11 @@
      - jq
     state: present
   when: ansible_distribution in ["RedHat", "CentOS"]
+
+- name: use the correct pip version for CentOS 7
+  pip:
+    name:
+      - pip==9.0.3
+  when:
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_version < '7.9'
