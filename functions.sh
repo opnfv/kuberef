@@ -249,6 +249,8 @@ cp ${PROJECT_ROOT}/${INSTALLER}/ansible.cfg \
     ${PROJECT_ROOT}/container-experience-kits/ansible.cfg
 cp ${PROJECT_ROOT}/${INSTALLER}/patched_rhel_packages.yml \
     ${PROJECT_ROOT}/container-experience-kits/roles/bootstrap/install_packages/tasks/rhel.yml
+cp ${PROJECT_ROOT}/${INSTALLER}/patched_packages.yml \
+    ${PROJECT_ROOT}/container-experience-kits/roles/bootstrap/install_packages/tasks/main.yml
 
 sudo docker run --rm \
 -e ANSIBLE_CONFIG=/bmra/ansible.cfg \
