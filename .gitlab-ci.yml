@@ -297,7 +297,7 @@ helm_vims:
   script:
     - run_tests -t helm_vims -p -r
 
-cnf_conformance:
+cnf_testsuite:
   only:
     - schedules
   tags:
@@ -305,7 +305,7 @@ cnf_conformance:
   stage: functest-kubernetes-cnf
   image: opnfv/functest-kubernetes-cnf:v1.19
   script:
-    - run_tests -t cnf_conformance -p -r
+    - run_tests -t cnf_testsuite -p -r
 
 zip:
   only:
