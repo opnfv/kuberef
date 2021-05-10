@@ -36,7 +36,7 @@
     name:
       - jmespath==0.9.5
       - ruamel.yaml==0.16.13
-      - cachetools==3.1.1
+      - cachetools=="{{ (ansible_os_family == 'RedHat' and ansible_distribution_version < '8') | ternary('3.1.1', '4.2.1') }}"
       - openshift==0.11.2
     state: present
   register: pip_result
