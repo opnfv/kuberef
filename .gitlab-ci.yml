@@ -277,6 +277,16 @@ xrally_kubernetes_full:
   script:
     - run_tests -t xrally_kubernetes_full -p -r
 
+netperf:
+  only:
+    - schedules
+  tags:
+    - intel-pod19-docker
+  stage: functest-kubernetes-benchmarking
+  image: opnfv/functest-kubernetes-benchmarking:v1.19
+  script:
+    - run_tests -t netperf -p -r
+
 k8s_vims:
   only:
     - schedules
