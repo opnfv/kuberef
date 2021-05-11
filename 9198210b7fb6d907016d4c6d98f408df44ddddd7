@@ -16,6 +16,24 @@
       "revId": "9198210b7fb6d907016d4c6d98f408df44ddddd7",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b773e257_d87cffad",
+        "filename": "sw_config/bmra/patched_packages.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2021-05-11T09:54:28Z",
+      "side": 1,
+      "message": "Good catch. I can see I didn\u0027t add a minor fix I had in my test environment back to this commit. I will update with correct version.",
+      "parentUuid": "9801c05f_6986b59b",
+      "revId": "9198210b7fb6d907016d4c6d98f408df44ddddd7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
