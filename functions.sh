@@ -228,16 +228,8 @@ fi
 if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
     git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v21.03 ${PROJECT_ROOT}/container-experience-kits/
     cp -r ${PROJECT_ROOT}/container-experience-kits/examples/${BMRA_PROFILE}/group_vars ${PROJECT_ROOT}/container-experience-kits/
-# NOTE The following condition/workaround will be removed once the reported issue https://github.com/intel/container-experience-kits/issues/68
-# is fixed upstream
-    if [[ "$DEPLOYMENT" == "full" ]]; then
-       echo "- name: install Python packages
-  pip:
-    name:
-      - pip==9.0.3" >> ${PROJECT_ROOT}/container-experience-kits/roles/bootstrap/install_packages/tasks/rhel.yml
-    fi
 fi
-cp ${PROJECT_ROOT}/${INSTALLER}/inventory.ini \
+cp ${PROJECT_ROOT}/${INSTALLER}/{inventory.ini,ansible.cfg} \
     ${PROJECT_ROOT}/container-experience-kits/
 cp ${PROJECT_ROOT}/${INSTALLER}/{all.yml,kube-node.yml} \
     ${PROJECT_ROOT}/container-experience-kits/group_vars/
@@ -245,8 +237,6 @@ cp ${PROJECT_ROOT}/${INSTALLER}/patched_cmk_build.yml \
     ${PROJECT_ROOT}/container-experience-kits/roles/cmk_install/tasks/main.yml
 cp ${PROJECT_ROOT}/${INSTALLER}/patched_vfio.yml \
     ${PROJECT_ROOT}/container-experience-kits/roles/sriov_nic_init/tasks/bind_vf_driver.yml
-cp ${PROJECT_ROOT}/${INSTALLER}/ansible.cfg \
-    ${PROJECT_ROOT}/container-experience-kits/ansible.cfg
 cp ${PROJECT_ROOT}/${INSTALLER}/patched_rhel_packages.yml \
     ${PROJECT_ROOT}/container-experience-kits/roles/bootstrap/install_packages/tasks/rhel.yml
 cp ${PROJECT_ROOT}/${INSTALLER}/patched_packages.yml \
