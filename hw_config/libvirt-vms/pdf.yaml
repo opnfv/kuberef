@@ -1,0 +1,128 @@
+---
+# SPDX-license-identifier: Apache-2.0
+##############################################################################
+# Copyright (c) 2020
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+### POD descriptor file ###
+details:
+  type: virtual
+  link: http://wiki.nordix.org/
+jumphost:
+  name: jumphost
+  node:
+    type: virtual
+    vendor: libvirt
+    model: pc
+    arch: x86_64
+    cpus: 12
+    cpu_cflags: host-passthrough
+    cores: 12
+    memory: 16G
+  disks:
+    - name: disk1
+      disk_capacity: 300G
+      disk_type: hdd
+      disk_interface: sata
+      disk_rotation:
+  os: ubuntu1804
+  interfaces:
+      # NOTE (fdegir): The IPs listed below actually belong to the libvirt bridges
+      # we create & configure since this is virtual POD and its real IP has nothing
+      # to do with the deployment itself.
+      # interface connected to admin/pxe network
+      - address: 10.1.0.1
+      # interface connected to public network
+      - address: 10.2.0.1
+##############################################################################
+nodes:
+  - name: node1
+    node:
+      type: virtual
+      vendor: libvirt
+      model: pc
+      arch: x86_64
+      cpus: 8
+      cpu_cflags: host-passthrough
+      cores: 4
+      memory: 16G
+    disks: &disks
+      - name: disk1
+        disk_capacity: 30G
+        disk_type: hdd
+        disk_interface: sata
+        disk_rotation:
+      - name: disk2
+        disk_capacity: 20G
+        disk_type: hdd
+        disk_interface: sata
+        disk_rotation:
+    remote_params: &remote_params
+      type:
+        - ipmi
+      user: admin
+      pass: password
+      privilege_level: OPERATOR
+    remote_management:
+      <<: *remote_params
+      port: 623
+      address: 10.1.0.1
+      mac_address: "52:54:00:72:bf:cf"
+    interface_common_nic1: &interface_common_nic1
+      name: nic1
+      speed:
+      features:
+      vlan: native
+    interface_common_nic2: &interface_common_nic2
+      name: nic2
+      speed:
+      features:
+      vlan: native
+    interface_common_nic3: &interface_common_nic3
+      name: nic3
+      speed:
+      features:
+      vlan: native
+    interface_common_nic4: &interface_common_nic4
+      name: nic4
+      speed:
+      features:
+      vlan: native
+    interfaces:
+      # interface connected to admin/pxe network
+      - mac_address: "52:54:00:72:bf:cf"
+        address: 10.1.0.3
+        <<: *interface_common_nic1
+      # interface connected to public network
+      - mac_address: "52:54:00:21:4f:fb"
+        address: 10.2.0.3
+        <<: *interface_common_nic2
+  ##############################################################################
+  - name: node2
+    node:
+      type: virtual
+      vendor: libvirt
+      model: pc
+      arch: x86_64
+      cpus: 8
+      cpu_cflags: host-passthrough
+      cores: 4
+      memory: 32G
+    disks: *disks
+    remote_management:
+      <<: *remote_params
+      port: 624
+      address: 10.1.0.1
+      mac_address: "52:54:00:b9:d4:87"
+    interfaces:
+      # interface connected to admin/pxe network
+      - mac_address: "52:54:00:b9:d4:87"
+        address: 10.1.0.4
+        <<: *interface_common_nic1
+      # interface connected to public network
+      - mac_address: "52:54:00:b7:9f:50"
+        address: 10.2.0.4
+        <<: *interface_common_nic2
