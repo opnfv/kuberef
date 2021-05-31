@@ -4,3 +4,4 @@
 
 ansible
 libvirt-python
+netaddr
