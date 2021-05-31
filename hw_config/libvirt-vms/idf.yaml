@@ -1,0 +1,114 @@
+---
+# SPDX-license-identifier: Apache-2.0
+##############################################################################
+# Copyright (c) 2020
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+### Installer descriptor file ###
+idf:
+  version: 0.1
+  net_config: &net_config
+    admin:
+      interface: 0
+      network: 10.1.0.0
+      mask: 24
+    public:
+      interface: 1
+      network: 10.2.0.0
+      mask: 24
+      gateway: 10.2.0.1
+      dns:
+        - 8.8.8.8
+        - 8.8.4.4
+  kubespray: &idf_kubespray
+    nodes_roles:
+      node1: [k8s-cluster, kube-master, etcd, vault]
+      node2: [k8s-cluster, kube-node]
+    groups:
+      k8s-cluster:
+        - kube-node
+        - kube-master
+    hostnames:
+      node1: master1
+      node2: worker1
+    network:
+      # network mapping
+      network_mapping:
+        # Admin network
+        net_admin: admin
+        # Public network
+        net_public: public
+        # Management network used by installer components to communicate
+        net_mgmt: admin
+
+engine:
+  pod_name: jumphost
+  net_config: *net_config
+
+  # net_config network to be used by the PXE
+  pxe_network: admin
+
+  # net_config network to be used for the internet access
+  public_network: public
+
+  # interface to be used by the PXE
+  pxe_interface: br_admin
+
+  installers:
+    kubespray: *idf_kubespray
+
+bmra:
+  profile: full_nfv
+  network_roles:
+    sriov:
+      - name: ens2
+        pci: "00:02.0"
+        pf_driver: virtio_net
+        vf_driver: virtio_net
+    sriov_dpdk:
+      - name: ens3
+        pci: "00:03.0"
+        pf_driver: virtio_net
+        vf_driver: virtio_net
+  device_roles:
+#    qat:
+#      - name: crypto01
+#        pci: "0000:ab:00.0"
+#        mod_type: qat_c62x
+#        pci_type: c6xx
+#        vfs: 4
+  features:
+    sriov:
+      enable: false
+      sriov_vfs_per_port: 2
+      sriov_dpdk_vfs_per_port: 4
+    sriov_cni: true
+    sriov_net_dp: true
+    hugepages:
+      enable: true
+      default: 2M
+      hugepages_1G: 0
+      hugepages_2M: 5120
+    isolcpus:
+      enable: false
+      autogenerate: false
+      cpus: "4-19,24-39,44-59,64-79" # Not used when autogenerate is true
+    nfd: true
+    cmk:
+      enable: true
+      num_shared_cores: 3
+      num_exclusive_cores: 3
+    topology_manager:
+      enable: true
+      policy: "best-effort"
+    tas:
+      enable: true
+      demo_policy: false
+    bond_cni: true
+    psp: true
+    qat:
+      enable: false
+      update_drivers: false
