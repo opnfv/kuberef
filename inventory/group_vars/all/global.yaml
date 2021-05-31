@@ -28,3 +28,6 @@ deployment_type: "{{ lookup('env', 'DEPLOYMENT') }}"
 
 # OS distro from DISTRO from environment variables
 os_distro: "{{ lookup('env', 'DISTRO') }}"
+
+# Vendor name from hw_config folder (used for VM specific changes)
+vendor: "{{ lookup('env', 'VENDOR') }}"
