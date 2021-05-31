@@ -172,7 +172,7 @@ copy_files_jump() {
 }
 
 # Host Provisioning
-provision_hosts() {
+provision_hosts_baremetal() {
     # shellcheck disable=SC2087
     ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
 # Install and run cloud-infra
@@ -187,6 +187,20 @@ cd ${PROJECT_ROOT}/engine/engine
 -p file:///${PROJECT_ROOT}/engine/engine/pdf.yaml \
 -i file:///${PROJECT_ROOT}/engine/engine/idf.yaml
 EOF
+}
+
+provision_hosts_vms() {
+    # shellcheck disable=SC2087
+# Install and run cloud-infra
+if [ ! -d "$CURRENTPATH/engine" ]; then
+    git clone https://gerrit.nordix.org/infra/engine.git ${CURRENTPATH}/engine
+    cp $CURRENTPATH/hw_config/$VENDOR/{pdf.yaml,idf.yaml} \
+    ${CURRENTPATH}/engine/engine
+fi
+cd $CURRENTPATH/engine/engine
+./deploy.sh -s ironic \
+-p file:///${CURRENTPATH}/engine/engine/pdf.yaml \
+-i file:///${CURRENTPATH}/engine/engine/idf.yaml
 }
 
 # Setup networking on provisioned hosts (Adapt setup_network.sh according to your network setup)
@@ -206,7 +220,7 @@ EOF
 }
 
 # k8s Provisioning (currently BMRA)
-provision_k8s() {
+provision_k8s_baremetal() {
     ansible_cmd="/bin/bash -c '"
     if [[ "$DEPLOYMENT" == "k8s" ]]; then
         ansible-playbook -i "$CURRENTPATH"/sw_config/bmra/inventory.ini "$CURRENTPATH"/playbooks/pre-install.yaml
@@ -249,6 +263,36 @@ sudo docker run --rm \
 -v ~/.ssh/:/root/.ssh/ rihabbanday/bmra21.03-install:centos \
 ${ansible_cmd}
 EOF
+}
+
+provision_k8s_vms() {
+    # shellcheck disable=SC2087
+# Install BMRA
+if [ ! -d "${CURRENTPATH}/container-experience-kits" ]; then
+    git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v21.03 ${CURRENTPATH}/container-experience-kits/
+    cp -r ${CURRENTPATH}/container-experience-kits/examples/${BMRA_PROFILE}/group_vars ${CURRENTPATH}/container-experience-kits/
+fi
+cp ${PROJECT_ROOT}/${INSTALLER}/{inventory.ini,ansible.cfg} \
+    ${PROJECT_ROOT}/container-experience-kits/
+cp ${PROJECT_ROOT}/${INSTALLER}/{all.yml,kube-node.yml} \
+    ${PROJECT_ROOT}/container-experience-kits/group_vars/
+cp ${PROJECT_ROOT}/${INSTALLER}/patched_cmk_build.yml \
+    ${PROJECT_ROOT}/container-experience-kits/roles/cmk_install/tasks/main.yml
+cp ${PROJECT_ROOT}/${INSTALLER}/patched_vfio.yml \
+    ${PROJECT_ROOT}/container-experience-kits/roles/sriov_nic_init/tasks/bind_vf_driver.yml
+cp ${PROJECT_ROOT}/${INSTALLER}/patched_rhel_packages.yml \
+    ${PROJECT_ROOT}/container-experience-kits/roles/bootstrap/install_packages/tasks/rhel.yml
+cp ${PROJECT_ROOT}/${INSTALLER}/patched_packages.yml \
+    ${PROJECT_ROOT}/container-experience-kits/roles/bootstrap/install_packages/tasks/main.yml
+
+ansible-playbook -i "$CURRENTPATH"/sw_config/bmra/inventory.ini "$CURRENTPATH"/playbooks/pre-install.yaml
+
+sudo docker run --rm \
+-e ANSIBLE_CONFIG=/bmra/ansible.cfg \
+-e PROFILE=${BMRA_PROFILE} \
+-v ${CURRENTPATH}/container-experience-kits:/bmra \
+-v ~/.ssh/:/root/.ssh/ rihabbanday/bmra21.03-install:centos \
+ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/${BMRA_PROFILE}.yml
 }
 
 # Copy kubeconfig to the appropriate location needed by functest containers

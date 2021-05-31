@@ -8,14 +8,14 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+# Script for end to end RI-2 deployment using Infra engine and BMRA on VMS 
+# TODO Update README
+
 set -o errexit
 set -o nounset
 if [ "${DEBUG:-false}" == "true" ]; then
     set -o xtrace
 fi
-
-# Script for end to end RI-2 deployment using Infra engine and BMRA.
-# Please refer to README for detailed information.
 
 # Get path information
 CURRENTPATH=$(git rev-parse --show-toplevel)
@@ -42,36 +42,22 @@ creates_virtualenv
 run_playbook bootstrap
 
 # ---------------------------------------------------------------------
-# Create jump VM from which the installation is performed
-# ---------------------------------------------------------------------
-run_playbook jump-vm
-
-# ---------------------------------------------------------------------
 # Create BMRA config based on IDF and PDF
 # ---------------------------------------------------------------------
 run_playbook bmra-config
 
 # ---------------------------------------------------------------------
-# Copy files needed by Infra engine & BMRA in the jumphost VM
+# Provision VMs
 # ---------------------------------------------------------------------
-copy_files_jump
+provision_hosts_vms
 
+# TODO
 # ---------------------------------------------------------------------
-# Provision remote hosts
-# Setup networking (Adapt according to your network setup)
+#  Configure Networking on the VMs
 # ---------------------------------------------------------------------
-if [[ "$DEPLOYMENT" == "full" ]]; then
-    provision_hosts_baremetal
-    setup_network
-fi
+#ansible-playbook -i "$CURRENTPATH"/engine/engine/inventory/inventory.ini "$CURRENTPATH"/playbooks/configure-vms.yaml
 
 # ---------------------------------------------------------------------
 # Provision k8s cluster (currently BMRA)
 # ---------------------------------------------------------------------
-provision_k8s_baremetal
-
-# ---------------------------------------------------------------------
-# Copy kubeconfig to desired location
-# ---------------------------------------------------------------------
-copy_k8s_config
-
+provision_k8s_vms
