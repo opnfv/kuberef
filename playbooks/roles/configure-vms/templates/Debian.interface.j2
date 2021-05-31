@@ -1,0 +1,33 @@
+{%- set macaddress = item.key -%}
+{%- set device = item.value -%}
+{%- for selected_net_name, selected_net in idf.net_config.items() if node.interfaces[selected_net.interface].mac_address == macaddress -%}
+{%- set selected_inf = node.interfaces[selected_net.interface] -%}
+{%- set ifname = device if selected_inf.vlan == 'native' else device + '.' + selected_inf.vlan -%}
+{%- set proto = "inet6" if selected_net.network | ipv6 else "inet" -%}
+{%- set method = selected_inf.address if selected_inf.address in ["dhcp", "manual"] else "static" -%}
+
+auto {{ ifname }}
+iface {{ ifname }} {{ proto }} {{ method }}
+{% if selected_net.gateway is defined %}
+up route add default gateway {{ selected_net.gateway | ipaddr('address') }}
+{% endif %}
+{% if method != "manual" %}
+address {{ selected_inf.address | ipaddr('address') }}
+{% endif %}
+{% if selected_inf.address | ipv6 %}
+netmask {{ selected_net.mask }}
+{% endif %}
+{% if selected_inf.address | ipv4 %}
+netmask {{ (selected_net.network + "/" + (selected_net.mask | string)) | ipaddr('netmask') }}
+{% endif %}
+{% if selected_net.gateway is defined %}
+gateway {{ selected_net.gateway | ipaddr('address') }}
+{% endif %}
+{% if selected_net.routes is defined %}
+{% for route in selected_net.routes %}
+up route add -net {{ route.network }}/{{ route.mask }} gw {{ route.gateway }}
+{% endfor %}
+{% endif %}
+
+{%- endfor -%}
+

@@ -1,6 +1,6 @@
 [all]
 {% for node in nodes %}
-{{ idf.kubespray.hostnames[node.name] }}   ansible_host={{ node.interfaces[idf.net_config[engine.pxe_network].interface].address }} ip={{ node.interfaces[idf.net_config[engine.pxe_network].interface].address }}
+{{ idf.kubespray.hostnames[node.name] }}   ansible_host={{ node.interfaces[idf.net_config[engine.pxe_network].interface].address }} ip={{ node.interfaces[idf.net_config[engine.pxe_network].interface].address }} {% if vendor|lower == 'libvirt-vms' %} ansible_user=root {% endif %}{{''}}
 {% endfor %}
 localhost ansible_connection=local ansible_python_interpreter=/usr/bin/python2
 

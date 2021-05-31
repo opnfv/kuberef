@@ -67,23 +67,9 @@ check_prerequisites() {
     sudo sed -i "s/^Defaults.*env_reset/#&/" /etc/sudoers
 
     #-------------------------------------------------------------------------------
-    # Check if Python Virtual Environment is installed
+    # Check if necessary tools are installed
     #-------------------------------------------------------------------------------
-    if ! command -v virtualenv &> /dev/null; then
-        error "VirtualEnv not found. Please install."
-    fi
-
-    #-------------------------------------------------------------------------------
-    # Check if PIP Installs Packages is installed
-    #-------------------------------------------------------------------------------
-    if ! command -v pip &> /dev/null; then
-        error "PIP not found. Please install."
-    fi
-
-    #-------------------------------------------------------------------------------
-    # Check is libvirt is installed
-    #-------------------------------------------------------------------------------
-    for tool in ansible yq virsh jq; do
+    for tool in ansible yq virsh jq docker virtualenv pip; do
         if ! command -v "$tool" &> /dev/null; then
             error "$tool not found. Please install."
         fi
@@ -177,21 +163,35 @@ copy_files_jump() {
 }
 
 # Host Provisioning
-provision_hosts() {
+provision_hosts_baremetal() {
     # shellcheck disable=SC2087
     ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
 # Install and run cloud-infra
-if [ ! -d "${PROJECT_ROOT}/engine" ]; then
-    ssh-keygen -t rsa -N "" -f ${PROJECT_ROOT}/.ssh/id_rsa
+if [ ! -d "${PROJECT_ROOT}"/engine" ]; then
+    ssh-keygen -t rsa -N "" -f "${PROJECT_ROOT}"/.ssh/id_rsa
     git clone https://gerrit.nordix.org/infra/engine.git
-    cd ${PROJECT_ROOT}/engine/engine && git checkout ${ENGINE_COMMIT_ID}
-    cp ${PROJECT_ROOT}/${VENDOR}/{pdf.yaml,idf.yaml} \
-    ${PROJECT_ROOT}/engine/engine
+    cp "${PROJECT_ROOT}"/"${VENDOR}"/{pdf.yaml,idf.yaml} \
+    "${PROJECT_ROOT}"/engine/engine
 fi
-${PROJECT_ROOT}/engine/engine/deploy.sh -s ironic -d ${DISTRO} \
--p file:///${PROJECT_ROOT}/engine/engine/pdf.yaml \
--i file:///${PROJECT_ROOT}/engine/engine/idf.yaml
+cd "${PROJECT_ROOT}"/engine/engine || return
+./deploy.sh -s ironic -d "${DISTRO}" \
+-p file:///"${PROJECT_ROOT}"/engine/engine/pdf.yaml \
+-i file:///"${PROJECT_ROOT}"/engine/engine/idf.yaml
 EOF
+}
+
+provision_hosts_vms() {
+    # shellcheck disable=SC2087
+# Install and run cloud-infra
+if [ ! -d "$CURRENTPATH/engine" ]; then
+    git clone https://gerrit.nordix.org/infra/engine.git "${CURRENTPATH}"/engine
+    cp "$CURRENTPATH"/hw_config/"$VENDOR"/{pdf.yaml,idf.yaml} \
+    "${CURRENTPATH}"/engine/engine
+fi
+cd "$CURRENTPATH"/engine/engine || return
+./deploy.sh -s ironic \
+-p file:///"${CURRENTPATH}"/engine/engine/pdf.yaml \
+-i file:///"${CURRENTPATH}"/engine/engine/idf.yaml
 }
 
 # Setup networking on provisioned hosts (Adapt setup_network.sh according to your network setup)
@@ -204,14 +204,14 @@ setup_network() {
         # SSH to jumphost
         # shellcheck disable=SC2087
         ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
-ssh -o StrictHostKeyChecking=no root@${NODE_IP} \
-    'bash -s' <  ${PROJECT_ROOT}/${VENDOR}/setup_network.sh
+ssh -o StrictHostKeyChecking=no root@"${NODE_IP}" \
+    'bash -s' <  "${PROJECT_ROOT}"/"${VENDOR}"/setup_network.sh
 EOF
     done
 }
 
 # k8s Provisioning (currently BMRA)
-provision_k8s() {
+provision_k8s_baremetal() {
     ansible_cmd="/bin/bash -c '"
     if [[ "$DEPLOYMENT" == "k8s" ]]; then
         ansible-playbook -i "$CURRENTPATH"/sw_config/bmra/inventory.ini "$CURRENTPATH"/playbooks/pre-install.yaml
@@ -230,40 +230,72 @@ if ! command -v docker; then
         sleep 2
     done
 fi
-if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
-    git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v21.03 ${PROJECT_ROOT}/container-experience-kits/
-    cp -r ${PROJECT_ROOT}/container-experience-kits/examples/${BMRA_PROFILE}/group_vars ${PROJECT_ROOT}/container-experience-kits/
+if [ ! -d "${PROJECT_ROOT}"/container-experience-kits" ]; then
+    git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v21.03 "${PROJECT_ROOT}"/container-experience-kits/
+    cp -r "${PROJECT_ROOT}"/container-experience-kits/examples/"${BMRA_PROFILE}"/group_vars "${PROJECT_ROOT}"/container-experience-kits/
 fi
 if [ -f "${PROJECT_ROOT}/docker_config" ]; then
-    cp ${PROJECT_ROOT}/docker_config \
-        ${PROJECT_ROOT}/${INSTALLER}/dockerhub_credentials/vars/main.yml
-    cp -r ${PROJECT_ROOT}/${INSTALLER}/dockerhub_credentials \
-        ${PROJECT_ROOT}/container-experience-kits/roles/
-    cp ${PROJECT_ROOT}/${INSTALLER}/patched_k8s.yml \
-        ${PROJECT_ROOT}/container-experience-kits/playbooks/k8s/k8s.yml
+    cp "${PROJECT_ROOT}"/docker_config \
+        "${PROJECT_ROOT}"/"${INSTALLER}"/dockerhub_credentials/vars/main.yml
+    cp -r "${PROJECT_ROOT}"/"${INSTALLER}"/dockerhub_credentials \
+        "${PROJECT_ROOT}"/container-experience-kits/roles/
+    cp "${PROJECT_ROOT}"/"${INSTALLER}"/patched_k8s.yml \
+        "${PROJECT_ROOT}"/container-experience-kits/playbooks/k8s/k8s.yml
 fi
-cp ${PROJECT_ROOT}/${INSTALLER}/{inventory.ini,ansible.cfg} \
-    ${PROJECT_ROOT}/container-experience-kits/
-cp ${PROJECT_ROOT}/${INSTALLER}/{all.yml,kube-node.yml} \
-    ${PROJECT_ROOT}/container-experience-kits/group_vars/
-cp ${PROJECT_ROOT}/${INSTALLER}/patched_cmk_build.yml \
-    ${PROJECT_ROOT}/container-experience-kits/roles/cmk_install/tasks/main.yml
-cp ${PROJECT_ROOT}/${INSTALLER}/patched_vfio.yml \
-    ${PROJECT_ROOT}/container-experience-kits/roles/sriov_nic_init/tasks/bind_vf_driver.yml
-cp ${PROJECT_ROOT}/${INSTALLER}/patched_rhel_packages.yml \
-    ${PROJECT_ROOT}/container-experience-kits/roles/bootstrap/install_packages/tasks/rhel.yml
-cp ${PROJECT_ROOT}/${INSTALLER}/patched_packages.yml \
-    ${PROJECT_ROOT}/container-experience-kits/roles/bootstrap/install_packages/tasks/main.yml
-cp ${PROJECT_ROOT}/${INSTALLER}/patched_kubespray_requirements.txt \
-    ${PROJECT_ROOT}/container-experience-kits/playbooks/k8s/kubespray/requirements.txt
+cp "${PROJECT_ROOT}"/"${INSTALLER}"/{inventory.ini,ansible.cfg} \
+    "${PROJECT_ROOT}"/container-experience-kits/
+cp "${PROJECT_ROOT}"/"${INSTALLER}"/{all.yml,kube-node.yml} \
+    "${PROJECT_ROOT}"/container-experience-kits/group_vars/
+cp "${PROJECT_ROOT}"/"${INSTALLER}"/patched_cmk_build.yml \
+    "${PROJECT_ROOT}"/container-experience-kits/roles/cmk_install/tasks/main.yml
+cp "${PROJECT_ROOT}"/"${INSTALLER}"/patched_vfio.yml \
+    "${PROJECT_ROOT}"/container-experience-kits/roles/sriov_nic_init/tasks/bind_vf_driver.yml
+cp "${PROJECT_ROOT}"/"${INSTALLER}"/patched_rhel_packages.yml \
+    "${PROJECT_ROOT}"/container-experience-kits/roles/bootstrap/install_packages/tasks/rhel.yml
+cp "${PROJECT_ROOT}"/"${INSTALLER}"/patched_packages.yml \
+    "${PROJECT_ROOT}"/container-experience-kits/roles/bootstrap/install_packages/tasks/main.yml
+cp "${PROJECT_ROOT}"/"${INSTALLER}"/patched_kubespray_requirements.txt \
+    "${PROJECT_ROOT}"/container-experience-kits/playbooks/k8s/kubespray/requirements.txt
 
 sudo docker run --rm \
 -e ANSIBLE_CONFIG=/bmra/ansible.cfg \
--e PROFILE=${BMRA_PROFILE} \
--v ${PROJECT_ROOT}/container-experience-kits:/bmra \
+-e PROFILE="${BMRA_PROFILE}" \
+-v "${PROJECT_ROOT}"/container-experience-kits:/bmra \
 -v ~/.ssh/:/root/.ssh/ rihabbanday/bmra21.03-install:centos \
-${ansible_cmd}
+"${ansible_cmd}"
 EOF
+}
+
+provision_k8s_vms() {
+    # shellcheck disable=SC2087
+# Install BMRA
+if [ ! -d "${CURRENTPATH}/container-experience-kits" ]; then
+    git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v21.03 "${CURRENTPATH}"/container-experience-kits/
+    cp -r "${CURRENTPATH}"/container-experience-kits/examples/"${BMRA_PROFILE}"/group_vars "${CURRENTPATH}"/container-experience-kits/
+fi
+cp "${CURRENTPATH}"/sw_config/bmra/{inventory.ini,ansible.cfg} \
+    "${CURRENTPATH}"/container-experience-kits/
+cp "${CURRENTPATH}"/sw_config/bmra/{all.yml,kube-node.yml} \
+    "${CURRENTPATH}"/container-experience-kits/group_vars/
+cp "${CURRENTPATH}"/sw_config/bmra/patched_cmk_build.yml \
+    "${CURRENTPATH}"/container-experience-kits/roles/cmk_install/tasks/main.yml
+cp "${CURRENTPATH}"/sw_config/bmra/patched_vfio.yml \
+   "${CURRENTPATH}"/container-experience-kits/roles/sriov_nic_init/tasks/bind_vf_driver.yml
+cp "${CURRENTPATH}"/sw_config/bmra/patched_rhel_packages.yml \
+    "${CURRENTPATH}"/container-experience-kits/roles/bootstrap/install_packages/tasks/rhel.yml
+cp "${CURRENTPATH}"/sw_config/bmra/patched_packages.yml \
+    "${CURRENTPATH}"/container-experience-kits/roles/bootstrap/install_packages/tasks/main.yml
+cp "${CURRENTPATH}"/sw_config/"${INSTALLER}"/patched_kubespray_requirements.txt \
+    "${CURRENTPATH}"/container-experience-kits/playbooks/k8s/kubespray/requirements.txt
+
+ansible-playbook -i "$CURRENTPATH"/sw_config/bmra/inventory.ini "$CURRENTPATH"/playbooks/pre-install.yaml
+
+sudo docker run --rm \
+-e ANSIBLE_CONFIG=/bmra/ansible.cfg \
+-e PROFILE="${BMRA_PROFILE}" \
+-v "${CURRENTPATH}"/container-experience-kits:/bmra \
+-v ~/.ssh/:/root/.ssh/ rihabbanday/bmra21.03-install:centos \
+ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/"${BMRA_PROFILE}".yml
 }
 
 # Copy kubeconfig to the appropriate location needed by functest containers
@@ -272,7 +304,7 @@ copy_k8s_config() {
     MASTER_IP=$(get_host_pxe_ip "nodes[0]")
     # shellcheck disable=SC2087
     ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
-scp -o StrictHostKeyChecking=no -q root@$MASTER_IP:/root/.kube/config ${PROJECT_ROOT}/kubeconfig
+scp -o StrictHostKeyChecking=no -q root@"$MASTER_IP":/root/.kube/config "${PROJECT_ROOT}"/kubeconfig
 EOF
 
 # Copy kubeconfig from Jump VM to appropriate location in Jump Host
