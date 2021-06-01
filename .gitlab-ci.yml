@@ -17,10 +17,10 @@ stages:
   - .pre
   - deploy_platform
   - functest-kubernetes-healthcheck
-  - functest-kubernetes-smoke
-  - functest-kubernetes-security
   - functest-kubernetes-benchmarking
+  - functest-kubernetes-security
   - functest-kubernetes-cnf
+  - functest-kubernetes-smoke
   - zip
   - .post
 
