@@ -16,6 +16,24 @@
       "revId": "0b09ec673693c72278e557f0cfef2e6c4c2f316f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4202cf5b_9a8857df",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2021-06-29T16:03:43Z",
+      "side": 1,
+      "message": "I\u0027ve been doing fresh installs each time so haven\u0027t noticed this, but I can imagine running into this in the future. Since git clone doesn\u0027t allow to checkout a specific SHA (I think it only allows to checkout branches), I am thinking of adding the full path of the deploy.sh call to solve this.",
+      "parentUuid": "7285c95d_129fa6d1",
+      "revId": "0b09ec673693c72278e557f0cfef2e6c4c2f316f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
