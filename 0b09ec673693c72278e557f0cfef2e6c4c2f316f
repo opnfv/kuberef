@@ -34,6 +34,24 @@
       "revId": "0b09ec673693c72278e557f0cfef2e6c4c2f316f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e16a0b33_e993a4ae",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2021-06-29T19:30:43Z",
+      "side": 1,
+      "message": "Yeah that should be fine - Or just keep the \u0027cd\u0027 command just before it is run. Either way it should be sufficient as a \"catch all\"",
+      "parentUuid": "4202cf5b_9a8857df",
+      "revId": "0b09ec673693c72278e557f0cfef2e6c4c2f316f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
