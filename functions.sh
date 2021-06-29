@@ -179,10 +179,10 @@ provision_hosts() {
 if [ ! -d "${PROJECT_ROOT}/engine" ]; then
     ssh-keygen -t rsa -N "" -f ${PROJECT_ROOT}/.ssh/id_rsa
     git clone https://gerrit.nordix.org/infra/engine.git
-    cp $PROJECT_ROOT/$VENDOR/{pdf.yaml,idf.yaml} \
+    cd ${PROJECT_ROOT}/engine/engine && git checkout ${ENGINE_COMMIT_ID}
+    cp ${PROJECT_ROOT}/${VENDOR}/{pdf.yaml,idf.yaml} \
     ${PROJECT_ROOT}/engine/engine
 fi
-cd ${PROJECT_ROOT}/engine/engine
 ./deploy.sh -s ironic -d ${DISTRO} \
 -p file:///${PROJECT_ROOT}/engine/engine/pdf.yaml \
 -i file:///${PROJECT_ROOT}/engine/engine/idf.yaml
