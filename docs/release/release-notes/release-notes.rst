@@ -2,10 +2,10 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Ericsson AB and others.
 
-OPNFV Jerma Release
-======================
+OPNFV Kali Release
+==================
 
-This is the first release of the OPNFV Kuberef Project.
+This is the Kali release of the OPNFV Kuberef Project.
 
 * Framework for e2e RI2 deployment on bare-metal hosts (using Bifrost)
   and on bare-metal hosts provided by Equinix Metal.
