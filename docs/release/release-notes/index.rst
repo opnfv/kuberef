@@ -2,7 +2,7 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Ericsson AB and others.
 
-.. _kubref-releasenotes:
+.. _kuberef-releasenotes:
 
 ==================================================
 Kuberef Release Notes
