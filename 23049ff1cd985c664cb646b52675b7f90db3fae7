@@ -1,0 +1,8 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Verified+1: Georg Kunz <georg.kunz@ericsson.com>
+Code-Review+2: Georg Kunz <georg.kunz@ericsson.com>
+Submitted-by: Georg Kunz <georg.kunz@ericsson.com>
+Submitted-at: Thu, 01 Jul 2021 19:01:03 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/c/kuberef/+/72603
+Project: kuberef
+Branch: refs/heads/stable/kali
