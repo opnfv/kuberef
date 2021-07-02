@@ -3,11 +3,11 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International License.
 .. http://creativecommons.org/licenses/by/4.0
 .. SPDX-License-Identifier CC-BY-4.0
-.. (c) OPNFV, Ericsson AB and others
+.. (c) 2021 Anuket contributors
 
-*********************************
-OPNFV Kuberef
-*********************************
+**************
+Anuket Kuberef
+**************
 
 .. toctree::
    :numbered:
