@@ -241,6 +241,8 @@ cp ${PROJECT_ROOT}/${INSTALLER}/patched_rhel_packages.yml \
     ${PROJECT_ROOT}/container-experience-kits/roles/bootstrap/install_packages/tasks/rhel.yml
 cp ${PROJECT_ROOT}/${INSTALLER}/patched_packages.yml \
     ${PROJECT_ROOT}/container-experience-kits/roles/bootstrap/install_packages/tasks/main.yml
+cp ${PROJECT_ROOT}/${INSTALLER}/patched_kubespray_requirements.txt \
+    ${PROJECT_ROOT}/container-experience-kits/playbooks/k8s/kubespray/requirements.txt
 
 sudo docker run --rm \
 -e ANSIBLE_CONFIG=/bmra/ansible.cfg \
