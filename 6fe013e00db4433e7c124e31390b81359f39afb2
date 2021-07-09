@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4906467d_3ac35081",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2021-07-09T14:15:04Z",
+      "side": 1,
+      "message": "As mentioned in the commitmsg, this is more of a general update to try and speed up deployment a bit. It is quite slow compared to running directly on host. I suspect the relatively low amount of VM resources might be the culprit.",
+      "parentUuid": "7efc43a2_5aff0419",
+      "revId": "6fe013e00db4433e7c124e31390b81359f39afb2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "191cdd7f_bc38ca9e",
         "filename": "sw_config/bmra/dockerhub_credentials/tasks/main.yml",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2021-07-09T13:57:39Z",
       "side": 1,
       "message": "this would be useless if the file is copied in the right dir.",
+      "revId": "6fe013e00db4433e7c124e31390b81359f39afb2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc5624d4_bc24a2dc",
+        "filename": "sw_config/bmra/dockerhub_credentials/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2021-07-09T14:15:04Z",
+      "side": 1,
+      "message": "Correct, and it is also only used when credentials are present on the host system. Pod19 has already been updated, so this should work immediately when merged. This is not intended as a \"general use\" feature, but mainly to support CI. I observed in recent runs that the BMRA deployment would fail due to the pull limit, so the credentials must be added before the features in BMRA are installed.",
+      "parentUuid": "191cdd7f_bc38ca9e",
       "revId": "6fe013e00db4433e7c124e31390b81359f39afb2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
