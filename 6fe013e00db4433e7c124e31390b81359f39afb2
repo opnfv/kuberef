@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7efc43a2_5aff0419",
+        "filename": "playbooks/roles/jump-vm/tasks/main.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2021-07-09T13:57:39Z",
+      "side": 1,
+      "message": "I don\u0027t see why flavors should be increased to manage docker hub creds ;)",
+      "revId": "6fe013e00db4433e7c124e31390b81359f39afb2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "191cdd7f_bc38ca9e",
+        "filename": "sw_config/bmra/dockerhub_credentials/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2021-07-09T13:57:39Z",
+      "side": 1,
+      "message": "this would be useless if the file is copied in the right dir.",
+      "revId": "6fe013e00db4433e7c124e31390b81359f39afb2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
