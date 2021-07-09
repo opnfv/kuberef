@@ -161,6 +161,7 @@ get_vm_ip() {
 # Copy files needed by Infra engine & BMRA in the jumphost VM
 copy_files_jump() {
     vm_ip="$(get_vm_ip)"
+    docker_config="/opt/kuberef/docker_config"
     scp -r -o StrictHostKeyChecking=no \
     "$CURRENTPATH"/{hw_config/"$VENDOR"/,sw_config/"$INSTALLER"/} \
     "$USERNAME@${vm_ip}:$PROJECT_ROOT"
@@ -168,6 +169,10 @@ copy_files_jump() {
         scp -r -o StrictHostKeyChecking=no \
         ~/.ssh/id_rsa \
         "$USERNAME@${vm_ip}:.ssh/id_rsa"
+    fi
+    if [ -f "$docker_config" ]; then
+        scp -r -o StrictHostKeyChecking=no \
+        "$docker_config" "$USERNAME@${vm_ip}:$PROJECT_ROOT"
     fi
 }
 
@@ -228,6 +233,14 @@ fi
 if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
     git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v21.03 ${PROJECT_ROOT}/container-experience-kits/
     cp -r ${PROJECT_ROOT}/container-experience-kits/examples/${BMRA_PROFILE}/group_vars ${PROJECT_ROOT}/container-experience-kits/
+fi
+if [ -f "${PROJECT_ROOT}/docker_config" ]; then
+    cp ${PROJECT_ROOT}/docker_config \
+        ${PROJECT_ROOT}/${INSTALLER}/dockerhub_credentials/vars/main.yml
+    cp -r ${PROJECT_ROOT}/${INSTALLER}/dockerhub_credentials \
+        ${PROJECT_ROOT}/container-experience-kits/roles/
+    cp ${PROJECT_ROOT}/${INSTALLER}/patched_k8s.yml \
+        ${PROJECT_ROOT}/container-experience-kits/playbooks/k8s/k8s.yml
 fi
 cp ${PROJECT_ROOT}/${INSTALLER}/{inventory.ini,ansible.cfg} \
     ${PROJECT_ROOT}/container-experience-kits/

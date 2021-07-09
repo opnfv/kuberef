@@ -92,7 +92,7 @@
 
 - name: define jump VM
   command: "virt-install --connect qemu:///system --name {{ jumphost.name }} \
-              --ram 4096 --vcpus=4 --os-type linux --os-variant ubuntu16.04 \
+              --ram 8192 --vcpus=8 --os-type linux --os-variant ubuntu16.04 \
               --disk path={{ workspace }}/kuberef-jump.qcow2,format=qcow2 \
               --disk {{ workspace }}/kuberef-jump-cidata.iso,device=cdrom \
               --network network=default,model=virtio,mac='{{ jumphost.interfaces[engine.net_config[engine.public_network].interface].mac_address }}' \
