@@ -1,0 +1,8 @@
+---
+- name: Add Docker hub credentials on target nodes
+  docker_login:
+    username: "{{ dhub_user }}"
+    password: "{{ dhub_pass }}"
+    email: "{{ dhub_email }}"
+    registry_url: "{{ dhub_reg_url }}"
+  no_log: True
