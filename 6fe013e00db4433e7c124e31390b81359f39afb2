@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "247caad3_72f239be",
+        "filename": "requirements.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2021-07-16T14:18:16Z",
+      "side": 1,
+      "message": "I think this was done to align with other versions used (v2.x.x). Let me re-test and if it runs without then we can leave out this change",
+      "parentUuid": "d0fdecc5_e1671b65",
+      "revId": "6fe013e00db4433e7c124e31390b81359f39afb2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "191cdd7f_bc38ca9e",
         "filename": "sw_config/bmra/dockerhub_credentials/tasks/main.yml",
         "patchSetId": 2
