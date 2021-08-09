@@ -1,3 +1,7 @@
+.. SPDX-FileCopyrightText: 2021 Anuket contributors
+..
+.. SPDX-License-Identifier: CC-BY-4.0
+
 ===================================
 Welcome to Kuberef's documentation!
 ===================================

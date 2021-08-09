@@ -1,3 +1,9 @@
+{#
+SPDX-FileCopyrightText: 2021 Anuket contributors
+
+SPDX-License-Identifier: Apache-2.0
+#}
+
 [all]
 {% for node in nodes %}
 {{ idf.kubespray.hostnames[node.name] }}   ansible_host={{ node.interfaces[idf.net_config[engine.pxe_network].interface].address }} ip={{ node.interfaces[idf.net_config[engine.pxe_network].interface].address }}

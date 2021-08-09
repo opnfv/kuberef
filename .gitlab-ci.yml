@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2021 Anuket contributors
+#
+# SPDX-License-Identifier: Apache-2.0
+
 ---
 # GitLab CI config file to deploy RI2 on baremetal infra
 # and run RC2 compliance tests on the deployed platform.

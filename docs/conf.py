@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2021 Anuket contributors
+#
+# SPDX-License-Identifier: Apache-2.0
+
 """ for docs
 """
 

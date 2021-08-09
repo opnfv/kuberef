@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2021 Anuket contributors
+#
+# SPDX-License-Identifier: Apache-2.0
+
 FROM centos:7
 MAINTAINER "Rihab Banday <rihab.banday@ericsson.com>"
 
