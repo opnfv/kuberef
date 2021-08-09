@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2021 Anuket contributors
+#
+# SPDX-License-Identifier: Apache-2.0
+
 ansible==2.9.17
 jinja2==2.11.1
 netaddr==0.7.19
