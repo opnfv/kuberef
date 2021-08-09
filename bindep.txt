@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2021 Anuket contributors
+#
+# SPDX-License-Identifier: Apache-2.0
+
 python3-all-dev [platform:dpkg]
 python3-all [platform:dpkg]
 python-all-dev [platform:dpkg]
