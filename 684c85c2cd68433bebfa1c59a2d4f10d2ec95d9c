@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7fe9410e_78eca736",
+        "filename": ".yamllint",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2021-08-11T19:04:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c28aa985_699a6c28",
+      "revId": "684c85c2cd68433bebfa1c59a2d4f10d2ec95d9c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59615a6b_2814f5b9",
         "filename": "playbooks/roles/bmra-config/templates/kube-node.j2",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "684c85c2cd68433bebfa1c59a2d4f10d2ec95d9c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b48a139d_57feeebe",
+        "filename": "playbooks/roles/bmra-config/templates/kube-node.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2021-08-11T19:04:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59615a6b_2814f5b9",
+      "revId": "684c85c2cd68433bebfa1c59a2d4f10d2ec95d9c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
