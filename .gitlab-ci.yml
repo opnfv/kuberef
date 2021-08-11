@@ -19,8 +19,8 @@ stages:
   - functest-kubernetes-healthcheck
   - functest-kubernetes-benchmarking
   - functest-kubernetes-security
-  - functest-kubernetes-cnf
   - functest-kubernetes-smoke
+  - functest-kubernetes-cnf
   - zip
   - .post
 
