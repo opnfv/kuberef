@@ -1,11 +1,11 @@
+#jinja2:lstrip_blocks: True
+#cloud-config
 {#
 SPDX-FileCopyrightText: 2021 Anuket contributors
 
 SPDX-License-Identifier: Apache-2.0
 #}
 
-#jinja2:lstrip_blocks: True
-#cloud-config
 users:
   - name: {{ lookup('env', 'USERNAME') }}
     ssh-authorized-keys:
