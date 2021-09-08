@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45ecf679_badc7227",
+        "filename": "docs/release/installation/deployment-guide.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2021-09-08T18:36:27Z",
+      "side": 1,
+      "message": "Are there any additional information which might be helpful with sshing into the VMs: \n- login credentials or ssh keys?\n- static of dynamic IPs (and how to determine them)",
+      "revId": "83884b759eb23fb425b3433cbddc5919950d94a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
