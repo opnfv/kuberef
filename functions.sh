@@ -163,7 +163,7 @@ provision_hosts_baremetal() {
     # shellcheck disable=SC2087
     ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
 # Install and run cloud-infra
-if [ ! -d "${PROJECT_ROOT}"/engine" ]; then
+if [ ! -d "${PROJECT_ROOT}/engine" ]; then
     ssh-keygen -t rsa -N "" -f "${PROJECT_ROOT}"/.ssh/id_rsa
     git clone https://gerrit.nordix.org/infra/engine.git
     cp "${PROJECT_ROOT}"/"${VENDOR}"/{pdf.yaml,idf.yaml} \
@@ -226,7 +226,7 @@ if ! command -v docker; then
         sleep 2
     done
 fi
-if [ ! -d "${PROJECT_ROOT}"/container-experience-kits" ]; then
+if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
     git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v21.03 "${PROJECT_ROOT}"/container-experience-kits/
     cp -r "${PROJECT_ROOT}"/container-experience-kits/examples/"${BMRA_PROFILE}"/group_vars "${PROJECT_ROOT}"/container-experience-kits/
 fi
