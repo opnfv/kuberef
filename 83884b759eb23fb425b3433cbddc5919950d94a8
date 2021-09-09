@@ -34,6 +34,24 @@
       "revId": "83884b759eb23fb425b3433cbddc5919950d94a8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e718605_07803e62",
+        "filename": "docs/release/installation/deployment-guide.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2021-09-09T14:14:21Z",
+      "side": 1,
+      "message": "Good points - I usually look at the inventory under sw_config/bmra/inventory.ini to obtain the IP information of the nodes, but the user can look at the PDF too since that\u0027s where the network/hw information should be specified by the user before initiating a deployment as mentioned in the 2nd bullet above. I\"ll add more info in the next patchset.",
+      "parentUuid": "2e5539a4_be9b0e0b",
+      "revId": "83884b759eb23fb425b3433cbddc5919950d94a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
