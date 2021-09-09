@@ -16,6 +16,24 @@
       "revId": "83884b759eb23fb425b3433cbddc5919950d94a8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e5539a4_be9b0e0b",
+        "filename": "docs/release/installation/deployment-guide.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2021-09-09T06:50:57Z",
+      "side": 1,
+      "message": "Good catch - It might be worth adding a few lines on this topic to the file.\n\nIPs are static for the VMs, and I have not found any good way of checking other than looking at the pdf.yml file (or potentially using \u0027virsh dumpxml \u003chost\u003e\u0027). Normally I would use \u0027virsh domifaddr \u003chost\u003e\u0027 but this does not show the VMs here.\n\nWhen logging in to the VMs it should be noted that the VM user is \"root\". The SSH public key of the user running the Kuberef installer will be added to the VMs, so no credentials are used.",
+      "parentUuid": "45ecf679_badc7227",
+      "revId": "83884b759eb23fb425b3433cbddc5919950d94a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
