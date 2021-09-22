@@ -77,9 +77,9 @@ bmra:
 #    qat:
 #      - name: crypto01
 #        pci: "0000:ab:00.0"
-#        mod_type: qat_c62x
 #        pci_type: c6xx
 #        vfs: 4
+  runtime: docker # 'docker' and 'containerd' supported
   features:
     sriov:
       enable: false
@@ -90,12 +90,11 @@ bmra:
     hugepages:
       enable: true
       default: 2M
-      hugepages_1G: 0
-      hugepages_2M: 5120
+      amount: 5120
     isolcpus:
-      enable: false
+      enable: true
       autogenerate: false
-      cpus: "4-19,24-39,44-59,64-79" # Not used when autogenerate is true
+      cpus: "2-5" # Not used when autogenerate is true
     nfd: true
     cmk:
       enable: true

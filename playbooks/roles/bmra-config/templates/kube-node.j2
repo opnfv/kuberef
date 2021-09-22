@@ -40,22 +40,22 @@ bond_cni_enabled: {{ bmra.features.bond_cni }}
 install_dpdk: true
 
 # DPDK version
-dpdk_version: "19.11.6"
+dpdk_version: "21.05"
 
 # Custom DPDK patches local path
-# dpdk_local_patches_dir: "/tmp/patches/dpdk-19.11.6"
+# dpdk_local_patches_dir: "/tmp/patches/dpdk-20.11"
 
 # Userspace networking
 userspace_cni_enabled: false
-ovs_dpdk_enabled: false # Should be enabled with Userspace CNI, when VPP is set to "false"; 1G hugepages required
-ovs_version: "v2.13.0"
+ovs_dpdk_enabled: false # Should be enabled with Userspace CNI, when VPP is set to "false"; 1G default_hugepage_size required
+ovs_version: "v2.15.0"
 # CPU mask for OVS-DPDK PMD threads
 ovs_dpdk_lcore_mask: 0x1
 # Huge memory pages allocated by OVS-DPDK per NUMA node in megabytes
 # example 1: "256,512" will allocate 256MB from node 0 abd 512MB from node 1
-# example 2: "1024" will allocate 1GB fron node 0 on a single socket board, e.g. in a VM
+# example 2: "1024" will allocate 1GB from node 0 on a single socket board, e.g. in a VM
 ovs_dpdk_socket_mem: "256,0"
-vpp_enabled: false # Should be enabled with Userspace CNI, when ovs_dpdk is set to "false"; 2M hugepages required
+vpp_enabled: false # Should be enabled with Userspace CNI, when ovs_dpdk is set to "false"; 2M default_hugepage_size required
 
 # Set to 'true' to update i40e, ice and iavf kernel modules
 update_nic_drivers: false
@@ -82,30 +82,15 @@ qat_devices:
 {% for dev in bmra.device_roles.qat %}
   - qat_dev: {{ dev.name }}
     qat_id: "{{ dev.pci }}"
-    qat_module_type: {{ dev.mod_type }}
     qat_pci_type: {{ dev.pci_type }}
     qat_sriov_numvfs: {{ dev.vfs }}
 {% endfor %}
 {% else %}
 qat_devices: []
 {% endif %}
-#  - qat_dev: crypto01                # Device name as separate QAT Symmetric Crypto devices on which qat_sriov_numvfs will be distributed
-#    qat_id: "0000:ab:00.0"           # Device QAT id one using DPDK compatible driver for VF devices to be used by vfio-pci kernel driver, replace as required
-#    qat_module_type: qat_c62x        # QAT Crypto Poll Mode Kernel Module supported are qat_dh895xcc,qat_c62x,qat_c3xxx,qat_200xx,qat_c4xxx,qat_d15xx
-#    qat_pci_type: c6xx               # QAT Crypto Poll Mode Pci Driver id supported are dh895xcc,c6xx,c3xxx,d15xx,200xx & c4xxx
-#    qat_sriov_numvfs: 12             # set how many VFs per qat_id to be created such as c6xxvf support 32 so per device will be 10+10+12=32, replace as required
-                                     # Note: If don't want to assign VFs to id leave it as 0 such as qat_sriov_numvfs: 0
-#  - qat_dev: crypto02
-#    qat_id: "0000:xy:00.0"
-#    qat_module_type: qat_c62x
-#    qat_pci_type: c6xx
-#    qat_sriov_numvfs: 10
 
-#  - qat_dev: crypto03
-#    qat_id: "0000:yz:00.0"
-#    qat_module_type: qat_c62x
-#    qat_pci_type: c6xx
-#    qat_sriov_numvfs: 10
+# Install and configure OpenSSL cryptography
+openssl_install: {{ bmra.features.qat.update_drivers }} # This requires update_qat_drivers set to 'true' in host vars
 
 # Enables hugepages support
 hugepages_enabled: {{ bmra.features.hugepages.enable }}
@@ -113,9 +98,8 @@ hugepages_enabled: {{ bmra.features.hugepages.enable }}
 # Hugepage sizes available: 2M, 1G
 default_hugepage_size: {{ bmra.features.hugepages.default }}
 
-# Sets how many hugepages of each size should be created
-hugepages_1G: {{ bmra.features.hugepages.hugepages_1G }}
-hugepages_2M: {{ bmra.features.hugepages.hugepages_2M }}
+# Sets how many hugepages of 'default_hugepage_size' size should be created
+number_of_hugepages: {{ bmra.features.hugepages.amount }}
 
 # CPU isolation from Linux scheduler
 isolcpus_enabled: {{ bmra.features.isolcpus.enable }}
@@ -124,17 +108,18 @@ isolcpus_enabled: {{ bmra.features.isolcpus.enable }}
 isolcpus: "{{ bmra.features.isolcpus.cpus }}"
 
 # Native CPU Manager (Kubernetes built-in)
-
+# These settings are relevant only if in group_vars native_cpu_manager_enabled: true
+# Amount of CPU cores that will be reserved for the housekeeping (2000m = 2000 millicores = 2 cores)
 native_cpu_manager_system_reserved_cpus: 2000m
 # Amount of CPU cores that will be reserved for Kubelet
 native_cpu_manager_kube_reserved_cpus: 1000m
 # Explicit list of the CPUs reserved from pods scheduling.
 # Note: Supported only with kube_version 1.17 and newer, overrides native_cpu_manager_system_reserved_cpus and native_cpu_manager_kube_reserved_cpus.
 #native_cpu_manager_reserved_cpus: "0,1,2"
-# Note: All reamining unreserved CPU cores will be consumed by the workloads.
+# Note: All remaining unreserved CPU cores will be consumed by the workloads.
 
 # Enable/Disable Intel PState scaling driver
-intel_pstate_enabled: true
+intel_pstate_enabled: false
 # Config options for intel_pstate: disable, passive, force, no_hwp, hwp_only, support_acpi_ppc, per_cpu_perf_limits
 intel_pstate: hwp_only
 # Enable/Disable Intel Turbo Boost PState attribute
@@ -190,6 +175,10 @@ sst_cp_cpu_clos:
   - clos: 1
     cpus: 3,7
 
+# Intel(R) SST-TF (feature turbo-freq) configuration for Ice Lake (ICX) Platforms.
+# [true] Enable Intel Speed Select Turbo Frequency (SST-TF)
+# [false] Disable Intel Speed Select Base Frequency (SST-TF)
+sst_tf_configuration_enabled: false
 
 # (CentOS 7 only) install real time kernel and related packages for flexran
 install_real_time_package: false
