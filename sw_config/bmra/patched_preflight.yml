@@ -1,0 +1,544 @@
+# SPDX-FileCopyrightText: 2021 Intel Corporation.
+#
+# SPDX-License-Identifier: Apache-2.0
+
+---
+# Preflight: ALL checks must PASS
+# Only assert issues (do NOT change anything)
+#
+# Manual run: 'ansible-playbook -i inventory.ini playbooks/preflight.yml --flush-cache'
+#
+# Summary:
+# On Ansible Host (localhost):
+# - Check Ansible version (match)
+# - Check Python version (min)
+# - Check Group Vars (exist)
+# - Check CMK Hosts (valid targets)
+# On All targets (k8s-cluster):
+# - Check Linux Distro
+# - Check Hostnames (match Inventory)
+# - Check CMK Config (isolcpus defined)
+# - Check isolcpus Total (not more than actual)
+# - Check isolcpus IDs (valid on system)
+# - Check isolcpus OS Reserved (not 0,1,etc)
+# On Worker Nodes Only (kube-node):
+# - Check DP Interfaces (is not empty)
+# - Check DP Interfaces Name (optional)
+# - Check DP Interfaces Bus Info (pciid)
+# - Check QAT Devices Bus Info (pciid)
+# - Check QAT SRIOV VFs (max)
+# - Check SGX configuration
+# - Check OVS DPDK Dependencies (for 1G Hugepages)
+# - Check VPP Dependencies (for 2M Hugepages)
+# - Check CNI Dependencies (for OVS DPDK or VPP and Hugepages)
+# - Check SST (not on RHEL 8.2 or old OSs)
+# - Warn BIOS VT-d (should be enabled)
+# - Warn BIOS Hyper-Threading (should be enabled)
+# - Warn collectd (kernel update needed on old OSs)
+# - Check OVS DPDK Version Compatability (for OVS support)
+
+# additional vars required:
+#  bmra_supported_ansible: # must be version
+#  bmra_supported_python: # min version
+#  bmra_supported_distros: [] # list
+#  bmra_supported_distros_versions: [] # list
+
+
+##################################
+# Prerequisites for Ansible Host #
+##################################
+- hosts: 127.0.0.1
+  connection: local
+  vars:
+    bmra_supported_ansible: 2.9.20
+    bmra_supported_python: 2.7
+
+  tasks:
+
+    - debug: msg="Ansible version is {{ ansible_version.string }}"
+    - name: Check Ansible Version
+      assert:
+        that: (ansible_version.full is version_compare(bmra_supported_ansible, '=='))
+        msg: "Ansible version must be {{ bmra_supported_ansible }}. Please update"
+
+    - debug: msg="Python version is {{ ansible_python_version }}"
+    - name: Check Python Version
+      assert:
+        that: (ansible_python_version is version_compare(bmra_supported_python, '>='))
+        msg: "Python version must be at least {{ bmra_supported_python }}. Please update"
+
+    - name: Read Group Vars
+      stat:
+        path: "{{ inventory_dir }}/group_vars/"
+      register: group_vars_details
+
+    - name: Check Group Vars
+      assert:
+        that: "group_vars_details.stat.exists and group_vars_details.stat.isdir"
+        msg: "File group_vars/all.yml does NOT exist. Must be created per Guide"
+
+    - debug:
+        msg:
+          - cmk_enabled = {{ cmk_enabled }} (group_vars/all.yml)
+          - cmk_use_all_hosts = {{ cmk_use_all_hosts }} (group_vars/all.yml)
+          - cmk_hosts_list = {{ cmk_hosts_list | default('') }} (group_vars/all.yml)
+          - all targets = {{ groups['all'] }} (inventory.ini)
+      when: cmk_enabled is defined  # CMK expected true for all profiles except basic
+
+    - name: Check Intel CMK Hosts
+      assert:
+        that: "item in groups['all']"
+        msg: "Hostname '{{ item }}' is NOT a valid target from inventory.  Please correct the cmk_hosts_list or disable the CMK feature in group vars"
+      with_items: "{{ (cmk_hosts_list.split(',') if (cmk_hosts_list is defined and cmk_hosts_list | length > 0) else []) }}"
+      when: cmk_enabled is defined and cmk_enabled and not cmk_use_all_hosts
+
+
+##############################################
+# Prerequisites for Control and Worker Nodes #
+##############################################
+- hosts: k8s-cluster
+  vars:
+    bmra_supported_distros: [CentOS, RedHat, Ubuntu]
+    bmra_supported_distros_versions: ['7.6', '7.8', '7.9', '8.2', '8.3', '8.4', '18.04', '20.04', '21.04']
+    isolcpus_ranges: []
+    isolcpus_discretes: []
+
+  tasks:
+
+    - debug: msg="Linux distribution on target is {{ ansible_distribution }} {{ ansible_distribution_version }} {{ ansible_distribution_release }}"
+    - name: Check Linux Distro and Version
+      assert:
+        that: "ansible_distribution in bmra_supported_distros and ansible_distribution_version in bmra_supported_distros_versions"
+        msg:
+          - Linux distribution {{ ansible_distribution }} {{ ansible_distribution_version }} on target '{{ inventory_hostname }}' is NOT supported
+          - Must be one of {{ bmra_supported_distros }} and version {{ bmra_supported_distros_versions }}
+
+#    - name: Check Linux Across Cluster
+# TODO ?? Linux OS must be the same on all targets (no mix-n-match)
+
+    - name: regather network facts in case hostname recently changed
+      setup:
+        gather_subset: network
+    - debug: msg="Inventory target '{{ inventory_hostname }}' has the actual system hostname '{{ ansible_hostname }}'"
+    - name: Check Inventory Hostnames
+      debug:
+        msg:
+          - "Target '{{ inventory_hostname }}' in inventory does NOT match the actual system hostname '{{ ansible_hostname }}'."
+          - "If it's done intentionally, please ignore this message."
+      when:
+        - inventory_hostname != ansible_hostname
+
+# Early check if SELinux is configured properly
+    - block:
+      - name: "Collect packages facts"
+        package_facts:
+      - debug:
+          msg:
+            - "Current SELinux status:"
+            - "status: {{ ansible_selinux.status | default('') }}"
+            - "policy version:  {{ ansible_selinux.policyvers | default('') }}"
+            - "type: {{ ansible_selinux.type | default('') }}"
+            - "mode: {{ ansible_selinux.mode | default('') }}"
+            - "config_mode: {{ ansible_selinux.config_mode | default('') }}"
+
+      - name: check selinux condition possibly causing system boot failure
+        debug:
+          msg:
+            - "Current SELinux setup might cause the system possibly will not boot up on next reboot."
+            - "Please, check SELinux settings and set it up according to the documentation."
+        when:
+          - "'selinux-policy' not in ansible_facts.packages"
+          - "'selinux-policy-targeted' not in ansible_facts.packages"
+      when:
+        - ansible_os_family == "RedHat"
+
+# STORY: "cmk requires isolcpus to be configured"
+    - block:
+      - debug:
+          msg:
+            - cmk_enabled = {{ cmk_enabled }} (group_vars/all.yml)
+            - cmk_use_all_hosts = {{ cmk_use_all_hosts }} (group_vars/all.yml)
+            - cmk_hosts_list = {{ cmk_hosts_list | default('') }} (group_vars/all.yml)
+            - cmk_shared_num_cores = {{ cmk_shared_num_cores }} (group_vars/all.yml)
+            - cmk_exclusive_num_cores = {{ cmk_exclusive_num_cores }} (group_vars/all.yml)
+            - isolcpus_enabled = {{ isolcpus_enabled }} (host_vars)
+            - isolcpus = {{ isolcpus }} (host_vars)
+            - ansible_processor_count = {{ ansible_processor_count }}
+            - ansible_processor_cores = {{ ansible_processor_cores }}
+            - ansible_processor_threads_per_core = {{ ansible_processor_threads_per_core }}
+            - ansible_processor_vcpus = {{ ansible_processor_vcpus }}
+            - CPUs Reserved for OS = 0...{{ ansible_processor_count - 1 }}
+#            - CPUs Reserved for OS = {{ lookup('sequence','0-{{ ansible_processor_count - 1 }}').split(',') }} # [E207] Nested jinja pattern
+
+      - name: Check Intel CMK Config
+        assert:
+          that: ({{ cmk_enabled }} and {{ isolcpus_enabled }} and "{{ isolcpus }}" | length > 0)
+          msg:
+            - Incorrect configuration pertaining Intel CMK. Conflicting or improper values detected
+            - When Intel CMK is enabled, CPUs isolation ('isolcpus') must be set according to the example file for host_vars. Please correct the configuration
+
+      - name: Split isolcpus Groups
+        set_fact:
+          isolcpus_groups: "{{ isolcpus.split(',') }}"
+
+      - debug: msg="isolcpus_groups = {{ isolcpus_groups }}"
+
+      - name: Filter isolcpus Ranges
+        set_fact:
+          isolcpus_ranges: "{{ isolcpus_ranges + [item] }}"
+        with_items: "{{ isolcpus_groups }}"
+        when: ("-" in item)
+
+      - debug: msg="isolcpus_ranges = {{ isolcpus_ranges }}"
+
+      - name: Filter isolcpus Discretes
+        set_fact:
+          isolcpus_discretes: "{{ isolcpus_discretes + [item] }}"
+        with_items: "{{ isolcpus_groups }}"
+        when: ("-" not in item)
+
+      - debug: msg="isolcpus_discretes = {{ isolcpus_discretes }}"
+
+      - name: Build isolcpus List
+        set_fact:
+          isolcpus_list: "{{ isolcpus_list | default([]) | union(isolcpus_discretes) | union([item]) }}"
+        with_sequence: "{{ isolcpus_ranges }}"
+
+      - debug: msg="isolcpus_list = {{ isolcpus_list }}"
+
+      - name: Check isolcpus Total
+        assert:
+          that: "{{ isolcpus_list | length }} <= ansible_processor_vcpus"
+          msg:
+            - Incorrect configuration pertaining isolcpus. Conflicting or improper values detected
+            - The number of isolcpus {{ isolcpus_list | length }}, exceeds total CPUs on target {{ ansible_processor_vcpus }}. Please correct the configuration
+        when: isolcpus is defined
+
+      - name: Check isolcpus IDs
+        assert:
+          that: "item | int <= ansible_processor_vcpus"
+          msg:
+            - Incorrect configuration pertaining isolcpus. Conflicting or improper values detected
+            - The CPU ID {{ item }} set for isolcpus is NOT actually present on target. Please correct the configuration
+        with_items: "{{ isolcpus_list }}"
+        when: isolcpus is defined
+
+      - name: Check isolcpus OS Reserved
+        assert:
+          that: "item not in isolcpus_list"
+          msg:
+            - Incorrect configuration pertaining isolcpus. Conflicting or improper values detected
+            - The CPU ID 0...{{ ansible_processor_count - 1 }} should NOT be set for isolcpus. Please correct the configuration
+        with_items: "{{ lookup('sequence','0-{{ ansible_processor_count - 1 }}').split(',') }}"
+        when: isolcpus is defined
+
+#TODO relationship between cmk shared/exclusive cores and isolcpus
+
+      when:
+        - cmk_enabled is defined
+        - (not cmk_hosts_list is defined) or (inventory_hostname in cmk_hosts_list)  #CMK expected true for all profiles except basic
+      # {% if not cmk_use_all_hosts %}
+        - "'kube-node' in group_names"
+      # {% endif %}
+
+
+####################################
+# Prerequisites for Worker Node(s) #
+####################################
+- hosts: kube-node
+  vars:
+    phy_nics_pciids: []
+
+  tasks:
+
+# STORY: "nic bus info specified is present on system"
+    - debug:
+        msg: "Dataplane (DP) interface(s) defined in host_vars = {{ dataplane_interfaces }}"
+      when: dataplane_interfaces is defined
+
+    - name: Check DP Interfaces
+      assert:
+        that: "dataplane_interfaces != []"
+        msg: "Dataplane (DP) interface(s) on target '{{ ansible_hostname }}' must be set in host_vars. Please correct the configuration"
+      when:
+        - dataplane_interfaces is defined
+        - (update_nic_drivers is defined and update_nic_drivers) or
+          (install_ddp_packages is defined and install_ddp_packages) or
+          (sriov_cni_enabled is defined and sriov_cni_enabled) or
+          (sriov_network_operator_enabled is defined and sriov_network_operator_enabled)
+
+    - debug:
+        msg: "Network interfaces present on target '{{ ansible_hostname }}' = {{ ansible_interfaces }}"
+
+    - name: Read Physical NICs PCIIDs
+      set_fact:
+        phy_nics_pciids: "{{ phy_nics_pciids + [ ansible_facts[item]['pciid'] ] }}"
+      with_items: "{{ ansible_interfaces }}"
+      when: ansible_facts[item]['pciid'] is defined and ansible_facts[item]['type'] == "ether"
+
+    - debug: msg="PCI Slots for the NICs on target '{{ ansible_hostname }}' = {{ phy_nics_pciids }}"
+
+    - name: Check DP Interfaces Names
+      assert:
+        that: ("{{ item.name }}" in {{ ansible_interfaces }})
+        msg: "Dataplane interface '{{ item.name }}' defined in host_vars does NOT exist on target. Please correct the configuration"
+      with_items: "{{ dataplane_interfaces }}"
+      when: dataplane_interfaces is defined and dataplane_interfaces != []
+      ignore_errors: True
+
+    - name: Check DP Interfaces Bus Info
+      assert:
+        that: ("{{ item.bus_info }}" in "{{ phy_nics_pciids }}")
+        msg: "Dataplane interface '{{ item.name }}' defined with PCI ID '{{ item.bus_info }}' does NOT exist on target. Please correct the configuration"
+      with_items: "{{ dataplane_interfaces }}"
+      when: dataplane_interfaces is defined and dataplane_interfaces != []
+      ignore_errors: True
+
+
+# QAT Devices list is okay to be left empty (default), but if was defined, device(s) must exist on target
+    - debug:
+        msg: "QAT device(s) defined in host_vars = {{ qat_devices }}"
+      when: qat_devices is defined
+
+    - name: Read QAT PCIIDs
+      shell: lshw -businfo -numeric | grep -i quickassist
+      register: lshw_qat
+      ignore_errors: True
+      when: qat_devices is defined
+
+    - debug:
+        msg: "QAT devices found on target = {{ lshw_qat.stdout }}"
+      when: qat_devices is defined
+
+    - name: Check QAT Devices' Bus Info
+      assert:
+        that: ("{{ item.qat_id }}" in """{{ lshw_qat.stdout }}""")
+        msg: "QAT device '{{ item.qat_dev }}' defined with PCI ID '{{ item.qat_id }}' does NOT exist on target. Please correct the configuration"
+      with_items: "{{ qat_devices }}"
+      when: qat_devices is defined and qat_devices != []
+      ignore_errors: True
+
+# STORY: "qat_sriov_numvfs should not exceed max supported (16) per each dev_ID"
+    - debug:
+        msg:
+          - qat_sriov_numvfs for {{ item.qat_id }} = {{ item.qat_sriov_numvfs }} (host_vars)
+          - update_qat_drivers = {{ update_qat_drivers }} (host_vars)
+      with_items: "{{ qat_devices }}"
+      when: qat_devices is defined and qat_devices != [] # update_qat_drivers expected as 'true' for all profiles except basic
+
+    - name: Check QAT SRIOV VFs
+      assert:
+        that: ({{ item.qat_sriov_numvfs }} <= 16)
+        msg:
+          - Incorrect configuration pertaining QAT SRIOV. Conflicting or improper values detected
+          - When SRIOV VFs are set for QAT, max value is 16 for each ID (max 48 total per card). Please correct the configuration
+      with_items: "{{ qat_devices }}"
+      when:
+        - update_qat_drivers is defined and update_qat_drivers
+        - qat_devices is defined and qat_devices != []
+# OpenSSL & OpenSSL*Engine must only be configured / installed when update_qat_drivers is set to 'true' and qat_devices is defined in host vars
+    - name: check OpenSSL and OpenSSL*Engine requirements
+      assert:
+        that:
+          - update_qat_drivers
+          - qat_devices is defined and qat_devices != []
+        fail_msg: "OpenSSL & OpenSSL*Engine will only configured if update_qat_drivers is set to 'true' & qat_devices is defined in host vars"
+        success_msg: "OpenSSL & OpenSSL*Engine verification completed"
+      when: openssl_install is defined and openssl_install
+
+    - name: check KMRA requirements
+      assert:
+        that:
+          - sgx_dp_enabled
+        fail_msg: "KMRA installation requires sgx_dp_enabled set to 'true'"
+        success_msg: "KMRA requirements verified"
+      when: kmra_enabled is defined and kmra_enabled
+
+    - name: check SGX configuration
+      assert:
+        that:
+          - sgx_enabled
+        fail_msg: "SGX drivers installation requires sgx_enabled set to 'true'"
+        success_msg: "SGX configuration verified"
+      when:
+        - sgx_dp_enabled is defined and sgx_dp_enabled
+        - (ansible_distribution == 'Ubuntu' and ansible_distribution_version != '21.04')
+          or (ansible_os_family == 'RedHat' and ansible_distribution_version != '8.4')
+
+    - name: check NFD configuration
+      assert:
+        that:
+          - nfd_enabled
+        fail_msg: "SGX DP requires nfd_enabled set to 'true'"
+        success_msg: "NFD configuration verified"
+      when: sgx_dp_enabled is defined and sgx_dp_enabled
+
+    - name: check kmra_pccs_api_key presence
+      assert:
+        that:
+          - kmra_pccs_api_key is defined
+        fail_msg:
+          - "kmra_pccs_api_key is not defined"
+        success_msg: "kmra_pccs_api_key presence is verified"
+      when:
+        - kmra_enabled is defined and kmra_enabled
+
+    - name: check PCCS API key length
+      assert:
+        that:
+          - kmra_pccs_api_key | length == 32
+        fail_msg: "PCCS API Key should be 32 bytes long"
+        success_msg: "PCCS API key length verified"
+      when:
+        - kmra_enabled is defined and kmra_enabled
+
+    - name: check PCCS API key is not a placeholder
+      assert:
+        that:
+          - kmra_pccs_api_key is defined
+          - kmra_pccs_api_key != "ffffffffffffffffffffffffffffffff"
+        fail_msg:
+          - "Please, visit https://api.portal.trustedservices.intel.com/provisioning-certification and click on 'Subscribe'"
+          - "to generate PCCS API key."
+          - "PCCS API key is essential for KMRA deployment and usage."
+        success_msg: "PCCS API key verified"
+      when:
+        - kmra_enabled is defined and kmra_enabled
+
+# STORY: "vpp/ovsdpdk require hugepage enabled and configured"
+    - debug:
+        msg:
+          - vpp_enabled = {{ vpp_enabled }} (host_vars)
+          - example_net_attach_defs = {{ example_net_attach_defs }} (group_vars/all.yml)
+          - userspace_ovs_dpdk = {{ example_net_attach_defs['userspace_ovs_dpdk'] }} (group_vars/all.yml)
+          - userspace_vpp = {{ example_net_attach_defs['userspace_vpp'] }} (group_vars/all.yml)
+          - sriov_net_dp = {{ example_net_attach_defs['sriov_net_dp'] }} (group_vars/all.yml)
+          - userspace_cni_enabled = {{ userspace_cni_enabled }} (host_vars)
+          - sriov_cni_enabled = {{ sriov_cni_enabled }} (host_vars)
+          - sriov_network_operator_enabled = {{ sriov_network_operator_enabled }} (host_vars)
+          - bond_cni_enabled = {{ bond_cni_enabled }} (host_vars)
+          - ovs_dpdk_enabled = {{ ovs_dpdk_enabled }} (host_vars)
+          - userspace_cni_enabled = {{ userspace_cni_enabled }} (host_vars)
+          - hugepages_enabled = {{ hugepages_enabled }} (host_vars)
+          - default_hugepage_size = {{ default_hugepage_size }} (host_vars)
+          - number_of_hugepages = {{ number_of_hugepages }} (host_vars)
+      when: vpp_enabled is defined #host_vars
+
+    - name: Check OVS DPDK Dependencies
+      assert:
+        that: >-
+          ({{ ovs_dpdk_enabled }} and not {{ vpp_enabled }} and {{ hugepages_enabled }} and
+          "{{ default_hugepage_size }}" == "1G" and {{ number_of_hugepages }} >= 0)
+          or {{ vpp_enabled }}
+        msg:
+          - Incorrect configuration pertaining OVS DPDK. Conflicting or improper values detected
+          - When OVS DPDK is enabled, VPP must be disabled and Hugepages must be set to 1G according to host_vars example. Please correct the configuration
+      when: ovs_dpdk_enabled is defined and ovs_dpdk_enabled
+
+    - name: Check VPP Dependencies
+      assert:
+        that: >-
+          ({{ vpp_enabled }} and not {{ ovs_dpdk_enabled }} and {{ hugepages_enabled }} and
+          "{{ default_hugepage_size }}" == "2M" and {{ number_of_hugepages }} >= 0)
+          or {{ ovs_dpdk_enabled }}
+        msg:
+          - Incorrect configuration pertaining VPP. Conflicting or improper values detected
+          - When VPP is enabled, OVS DPDK must be disabled and Hugepages must be set to 2M according to host_vars example. Please correct the configuration
+      when: vpp_enabled is defined and vpp_enabled
+
+
+# STORY: "cnis require net-attach-defs to be enabled"
+    - name: Check CNI Config
+      assert:
+        that: >-
+          ({{ userspace_cni_enabled }} and {{ ovs_dpdk_enabled }} and {{ example_net_attach_defs['userspace_ovs_dpdk'] }} and not {{ vpp_enabled }} and
+          not {{ example_net_attach_defs['userspace_vpp'] }} and {{ hugepages_enabled }} and
+          "{{ default_hugepage_size }}" == "1G" and {{ number_of_hugepages }} >= 0)
+          or ({{ userspace_cni_enabled }} and not {{ ovs_dpdk_enabled }} and not {{ example_net_attach_defs['userspace_ovs_dpdk'] }} and {{ vpp_enabled }}
+          and {{ example_net_attach_defs['userspace_vpp'] }} and {{ hugepages_enabled }} and
+          "{{ default_hugepage_size }}" == "2M" and {{ number_of_hugepages }} >= 0)
+        msg:
+          - Incorrect configuration pertaining CNI. Conflicting or improper values detected.
+          - When CNI is enabled, either OVS DPDK either VPP must be enabled and Hugepages must be according to example files. Please correct the configuration
+      when: userspace_cni_enabled is defined and userspace_cni_enabled
+
+
+# STORY: "If SST enabled, confirm minimum kernel or kernel_update specified"
+    - name: Check SST # see Jira NPF-1545
+      assert:
+        that: (not sst_bf_configuration_enabled)
+        msg: "SST-BF is NOT supported on {{ ansible_distribution }} {{ ansible_distribution_version }}. Please use a different OS or disable this feature"
+      when:
+        - sst_bf_configuration_enabled is defined
+        - (ansible_distribution == "RedHat" and ansible_distribution_version == '8.2') or ansible_distribution_version in ['7.6', '7.8', '7.9', '18.04']
+      ignore_errors: True
+
+# STORY: Intel VT-d should be enabled in BIOS
+    - name: Check Intel VT-d
+      shell: dmesg | grep DMAR | grep remapping
+      register: dmesg_dmar_remap
+      ignore_errors: True
+      changed_when: False
+
+    - debug: msg="dmesg >> {{ dmesg_dmar_remap.stdout }}"
+
+    - name: Warn about Intel VT-d
+      fail:
+        msg: "Warning: Intel VT-d appears DISABLED on target.  Please check BIOS under 'Advanced > Integrated IO Configuration' and Enable if necessary"
+      when: dmesg_dmar_remap.stdout|length  == 0
+      ignore_errors: True
+
+
+# STORY: CPU Hyper-Threading should be enabled in BIOS
+    - name: Warn about Hyper-Threading
+      fail:
+        msg: "Warning: CPU Hyper-Threading is DISABLED on target.  Please check BIOS under 'Advanced > Processor Configuration' and Enable if necessary"
+      when: ansible_processor_threads_per_core != 2
+      ignore_errors: True
+
+
+# STORY: "check for collectd. See Jira NPF-1687"
+    - name: Warn about collectd
+      fail:
+        msg: "Warning: On {{ ansible_distribution }} {{ ansible_distribution_version }} collectd won't work unless 'update_kernel' is enabled in group_vars"
+      when: ansible_distribution_version in ['7.6', '18.04']
+      ignore_errors: True
+
+
+# STORY: TEMPORARY: "ovs dpdk version requirements"
+    - debug:
+        msg:
+          - install_dpdk = {{ install_dpdk }} (host_vars)
+          - dpdk_version = {{ dpdk_version }} (host_vars)
+          - ovs_dpdk_enabled = {{ ovs_dpdk_enabled }} (host_vars)
+          - ovs_version = {{ ovs_version }} (host_vars)
+      when:
+        - install_dpdk is defined #host_vars
+        - dpdk_version is defined #host_vars
+        - ovs_version is defined #host_vars
+        - ovs_dpdk_enabled is defined and ovs_dpdk_enabled #host_vars
+
+    - name: Check OVS DPDK compatibility
+      assert:
+        that: >-
+          "{{ ovs_version }} == \"v2.15.0\" and {{ dpdk_version }} >= \"20.11\""
+          or "{{ ovs_version }} == \"v2.14.2\" and {{ dpdk_version }} == \"19.11.6\""
+          or "{{ ovs_version }} == \"v2.14.1\" and {{ dpdk_version }} == \"19.11.6\""
+          or "{{ ovs_version }} == \"v2.14.0\" and {{ dpdk_version }} == \"19.11.6\""
+          or "{{ ovs_version }} == \"v2.13.3\" and {{ dpdk_version }} == \"19.11.6\""
+          or "{{ ovs_version }} == \"v2.13.2\" and {{ dpdk_version }} == \"19.11.6\""
+          or "{{ ovs_version }} == \"v2.13.1\" and {{ dpdk_version }} == \"19.11.6\""
+          or "{{ ovs_version }} == \"v2.13.0\" and {{ dpdk_version }} == \"19.11.6\""
+        msg: "OVS {{ ovs_version }} does not build with DPDK version {{ dpdk_version }}. Please correct the host_vars configuration"
+      when:
+        - dpdk_version is defined #host_vars
+        - ovs_version is defined #host_vars
+        - ovs_dpdk_enabled is defined and ovs_dpdk_enabled #host_vars
+
+
+    - meta: end_play
+
+#    - name: Print all variables/facts known for a host
+#      ansible.builtin.debug:
+#        var: hostvars[inventory_hostname]
+#        verbosity: 4
