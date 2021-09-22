@@ -166,9 +166,9 @@ provision_hosts_baremetal() {
 if [ ! -d "${PROJECT_ROOT}/engine" ]; then
     ssh-keygen -t rsa -N "" -f "${PROJECT_ROOT}"/.ssh/id_rsa
     git clone https://gerrit.nordix.org/infra/engine.git
-    cp "${PROJECT_ROOT}"/"${VENDOR}"/{pdf.yaml,idf.yaml} \
-    "${PROJECT_ROOT}"/engine/engine
 fi
+cp "${PROJECT_ROOT}"/"${VENDOR}"/{pdf.yaml,idf.yaml} \
+"${PROJECT_ROOT}"/engine/engine
 cd "${PROJECT_ROOT}"/engine/engine || return
 ./deploy.sh -s ironic -d "${DISTRO}" \
 -p file:///"${PROJECT_ROOT}"/engine/engine/pdf.yaml \
@@ -181,9 +181,9 @@ provision_hosts_vms() {
 # Install and run cloud-infra
 if [ ! -d "$CURRENTPATH/engine" ]; then
     git clone https://gerrit.nordix.org/infra/engine.git "${CURRENTPATH}"/engine
-    cp "$CURRENTPATH"/hw_config/"$VENDOR"/{pdf.yaml,idf.yaml} \
-    "${CURRENTPATH}"/engine/engine
 fi
+cp "$CURRENTPATH"/hw_config/"$VENDOR"/{pdf.yaml,idf.yaml} \
+"${CURRENTPATH}"/engine/engine
 cd "$CURRENTPATH"/engine/engine || return
 ./deploy.sh -s ironic \
 -p file:///"${CURRENTPATH}"/engine/engine/pdf.yaml \
@@ -211,7 +211,7 @@ provision_k8s_baremetal() {
     ansible_cmd="/bin/bash -c '"
     if [[ "$DEPLOYMENT" == "k8s" ]]; then
         ansible-playbook -i "$CURRENTPATH"/sw_config/bmra/inventory.ini "$CURRENTPATH"/playbooks/pre-install.yaml
-        ansible_cmd+="yum -y remove python-netaddr; pip install --upgrade pip; pip install ansible==2.9.17; ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/k8s/patch_kubespray.yml;"
+        ansible_cmd+="yum -y remove python-netaddr; ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/k8s/patch_kubespray.yml;"
     fi
     ansible_cmd+="ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/${BMRA_PROFILE}.yml'"
 
@@ -227,7 +227,7 @@ if ! command -v docker; then
     done
 fi
 if [ ! -d "${PROJECT_ROOT}/container-experience-kits" ]; then
-    git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v21.03 "${PROJECT_ROOT}"/container-experience-kits/
+    git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v21.08 "${PROJECT_ROOT}"/container-experience-kits/
     cp -r "${PROJECT_ROOT}"/container-experience-kits/examples/"${BMRA_PROFILE}"/group_vars "${PROJECT_ROOT}"/container-experience-kits/
 fi
 if [ -f "${PROJECT_ROOT}/docker_config" ]; then
@@ -252,13 +252,17 @@ cp "${PROJECT_ROOT}"/"${INSTALLER}"/patched_packages.yml \
     "${PROJECT_ROOT}"/container-experience-kits/roles/bootstrap/install_packages/tasks/main.yml
 cp "${PROJECT_ROOT}"/"${INSTALLER}"/patched_kubespray_requirements.txt \
     "${PROJECT_ROOT}"/container-experience-kits/playbooks/k8s/kubespray/requirements.txt
+cp "${PROJECT_ROOT}"/"${INSTALLER}"/patched_preflight.yml \
+    "${PROJECT_ROOT}"/container-experience-kits/playbooks/preflight.yml
+cp "${PROJECT_ROOT}"/"${INSTALLER}"/patched_sriov_cni_install.yml \
+    "${PROJECT_ROOT}"/container-experience-kits/roles/sriov_cni_install/tasks/main.yml
 
 sudo docker run --rm \
 -e ANSIBLE_CONFIG=/bmra/ansible.cfg \
 -e PROFILE="${BMRA_PROFILE}" \
 -v "${PROJECT_ROOT}"/container-experience-kits:/bmra \
--v ~/.ssh/:/root/.ssh/ rihabbanday/bmra21.03-install:centos \
-"${ansible_cmd}"
+-v ~/.ssh/:/root/.ssh/ rihabbanday/bmra21.08-install:centos \
+${ansible_cmd}
 EOF
 }
 
@@ -266,7 +270,7 @@ provision_k8s_vms() {
     # shellcheck disable=SC2087
 # Install BMRA
 if [ ! -d "${CURRENTPATH}/container-experience-kits" ]; then
-    git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v21.03 "${CURRENTPATH}"/container-experience-kits/
+    git clone --recurse-submodules --depth 1 https://github.com/intel/container-experience-kits.git -b v21.08 "${CURRENTPATH}"/container-experience-kits/
     cp -r "${CURRENTPATH}"/container-experience-kits/examples/"${BMRA_PROFILE}"/group_vars "${CURRENTPATH}"/container-experience-kits/
 fi
 cp "${CURRENTPATH}"/sw_config/bmra/{inventory.ini,ansible.cfg} \
@@ -283,14 +287,19 @@ cp "${CURRENTPATH}"/sw_config/bmra/patched_packages.yml \
     "${CURRENTPATH}"/container-experience-kits/roles/bootstrap/install_packages/tasks/main.yml
 cp "${CURRENTPATH}"/sw_config/"${INSTALLER}"/patched_kubespray_requirements.txt \
     "${CURRENTPATH}"/container-experience-kits/playbooks/k8s/kubespray/requirements.txt
+cp "${CURRENTPATH}"/sw_config/"${INSTALLER}"/patched_preflight.yml \
+    "${CURRENTPATH}"/container-experience-kits/playbooks/preflight.yml
+cp "${CURRENTPATH}"/sw_config/"${INSTALLER}"/patched_sriov_cni_install.yml \
+    "${CURRENTPATH}"/container-experience-kits/roles/sriov_cni_install/tasks/main.yml
 
 ansible-playbook -i "$CURRENTPATH"/sw_config/bmra/inventory.ini "$CURRENTPATH"/playbooks/pre-install.yaml
 
+# Ansible upgrade below can be removed once image is updated
 sudo docker run --rm \
 -e ANSIBLE_CONFIG=/bmra/ansible.cfg \
 -e PROFILE="${BMRA_PROFILE}" \
 -v "${CURRENTPATH}"/container-experience-kits:/bmra \
--v ~/.ssh/:/root/.ssh/ rihabbanday/bmra21.03-install:centos \
+-v ~/.ssh/:/root/.ssh/ rihabbanday/bmra21.08-install:centos \
 ansible-playbook -i /bmra/inventory.ini /bmra/playbooks/"${BMRA_PROFILE}".yml
 }
 
