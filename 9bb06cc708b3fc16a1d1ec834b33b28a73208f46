@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82766e7a_6aea767e",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2021-10-13T14:56:55Z",
+      "side": 1,
+      "message": "For now we need to add \"pip install ansible\u003d\u003d2.9.20;\" here. I will update the image so that we can skip this.",
+      "revId": "9bb06cc708b3fc16a1d1ec834b33b28a73208f46",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9afdf83_65e30485",
+        "filename": "sw_config/bmra/patched_rhel_packages.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2021-10-13T14:56:55Z",
+      "side": 0,
+      "message": "I found that we still need to keep this section since the newer version of pip causes issues during installation of distutil packages like pyyaml, etc. in CentOS 7.",
+      "revId": "4c6fe2cf6e1bbb279dcf5698cff315740ea6d8e8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
