@@ -39,7 +39,7 @@ k8s_quick:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-healthcheck
-  image: opnfv/functest-kubernetes-healthcheck:v1.19
+  image: opnfv/functest-kubernetes-healthcheck:v1.21
   script:
     - run_tests -t k8s_quick -p -r
 
@@ -47,7 +47,7 @@ k8s_smoke:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-healthcheck
-  image: opnfv/functest-kubernetes-healthcheck:v1.19
+  image: opnfv/functest-kubernetes-healthcheck:v1.21
   script:
     - run_tests -t k8s_smoke -p -r
 
@@ -57,7 +57,7 @@ xrally_kubernetes:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.19
+  image: opnfv/functest-kubernetes-smoke:v1.21
   script:
     - run_tests -t xrally_kubernetes -p -r
 
@@ -67,7 +67,7 @@ k8s_io:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.19
+  image: opnfv/functest-kubernetes-smoke:v1.21
   script:
     - run_tests -t k8s_io -p -r
 
@@ -77,7 +77,7 @@ k8s_conformance:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.19
+  image: opnfv/functest-kubernetes-smoke:v1.21
   script:
     - run_tests -t k8s_conformance -p -r
 
@@ -87,7 +87,7 @@ k8s_conformance_serial:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.19
+  image: opnfv/functest-kubernetes-smoke:v1.21
   script:
     - run_tests -t k8s_conformance_serial -p -r
 
@@ -97,7 +97,7 @@ sig_api_machinery:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.19
+  image: opnfv/functest-kubernetes-smoke:v1.21
   script:
     - run_tests -t sig_api_machinery -p -r
 
@@ -107,7 +107,7 @@ sig_api_machinery_serial:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.19
+  image: opnfv/functest-kubernetes-smoke:v1.21
   script:
     - run_tests -t sig_api_machinery_serial -p -r
 
@@ -117,7 +117,7 @@ sig_apps:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.19
+  image: opnfv/functest-kubernetes-smoke:v1.21
   script:
     - run_tests -t sig_apps -p -r
 
@@ -127,7 +127,7 @@ sig_apps_serial:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.19
+  image: opnfv/functest-kubernetes-smoke:v1.21
   script:
     - run_tests -t sig_apps_serial -p -r
 
@@ -137,7 +137,7 @@ sig_auth:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.19
+  image: opnfv/functest-kubernetes-smoke:v1.21
   script:
     - run_tests -t sig_auth -p -r
 
@@ -147,7 +147,7 @@ sig_cluster_lifecycle:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.19
+  image: opnfv/functest-kubernetes-smoke:v1.21
   script:
     - run_tests -t sig_cluster_lifecycle -p -r
 
@@ -157,7 +157,7 @@ sig_instrumentation:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.19
+  image: opnfv/functest-kubernetes-smoke:v1.21
   script:
     - run_tests -t sig_instrumentation -p -r
 
@@ -167,7 +167,7 @@ sig_network:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.19
+  image: opnfv/functest-kubernetes-smoke:v1.21
   script:
     - run_tests -t sig_network -p -r
 
@@ -177,7 +177,7 @@ sig_node:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.19
+  image: opnfv/functest-kubernetes-smoke:v1.21
   script:
     - run_tests -t sig_node -p -r
 
@@ -187,7 +187,7 @@ sig_scheduling_serial:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.19
+  image: opnfv/functest-kubernetes-smoke:v1.21
   script:
     - run_tests -t sig_scheduling_serial -p -r
 
@@ -197,7 +197,7 @@ sig_storage:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.19
+  image: opnfv/functest-kubernetes-smoke:v1.21
   script:
     - run_tests -t sig_storage -p -r
 
@@ -207,7 +207,7 @@ sig_storage_serial:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.19
+  image: opnfv/functest-kubernetes-smoke:v1.21
   script:
     - run_tests -t sig_storage_serial -p -r
 
@@ -217,7 +217,7 @@ kube_hunter:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-security
-  image: opnfv/functest-kubernetes-security:v1.19
+  image: opnfv/functest-kubernetes-security:v1.21
   script:
     - run_tests -t kube_hunter -p -r
 
@@ -227,7 +227,7 @@ kube_bench_master:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-security
-  image: opnfv/functest-kubernetes-security:v1.19
+  image: opnfv/functest-kubernetes-security:v1.21
   script:
     - run_tests -t kube_bench_master -p -r
 
@@ -237,7 +237,7 @@ kube_bench_node:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-security
-  image: opnfv/functest-kubernetes-security:v1.19
+  image: opnfv/functest-kubernetes-security:v1.21
   script:
     - run_tests -t kube_bench_node -p -r
 
@@ -247,7 +247,7 @@ xrally_kubernetes_full:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-benchmarking
-  image: opnfv/functest-kubernetes-benchmarking:v1.19
+  image: opnfv/functest-kubernetes-benchmarking:v1.21
   script:
     - run_tests -t xrally_kubernetes_full -p -r
 
@@ -257,7 +257,7 @@ netperf:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-benchmarking
-  image: opnfv/functest-kubernetes-benchmarking:v1.19
+  image: opnfv/functest-kubernetes-benchmarking:v1.21
   script:
     - run_tests -t netperf -p -r
 
@@ -267,7 +267,7 @@ k8s_vims:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-cnf
-  image: opnfv/functest-kubernetes-cnf:v1.19
+  image: opnfv/functest-kubernetes-cnf:v1.21
   script:
     - run_tests -t k8s_vims -p -r
 
@@ -277,7 +277,7 @@ helm_vims:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-cnf
-  image: opnfv/functest-kubernetes-cnf:v1.19
+  image: opnfv/functest-kubernetes-cnf:v1.21
   script:
     - run_tests -t helm_vims -p -r
 
@@ -287,7 +287,7 @@ cnf_testsuite:
   tags:
     - intel-pod19-docker
   stage: functest-kubernetes-cnf
-  image: opnfv/functest-kubernetes-cnf:v1.19
+  image: opnfv/functest-kubernetes-cnf:v1.21
   script:
     - run_tests -t cnf_testsuite -p -r
 
@@ -300,6 +300,6 @@ zip:
   variables:
     S3_DST_URL: s3://artifacts.opnfv.org/kuberef/
     HTTP_DST_URL: http://artifacts.opnfv.org/kuberef/
-  image: opnfv/functest-kubernetes-healthcheck:v1.19
+  image: opnfv/functest-kubernetes-healthcheck:v1.21
   script:
     - zip_campaign
