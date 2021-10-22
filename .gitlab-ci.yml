@@ -61,16 +61,6 @@ xrally_kubernetes:
   script:
     - run_tests -t xrally_kubernetes -p -r
 
-k8s_io:
-  only:
-    - schedules
-  tags:
-    - intel-pod19-docker
-  stage: functest-kubernetes-smoke
-  image: opnfv/functest-kubernetes-smoke:v1.21
-  script:
-    - run_tests -t k8s_io -p -r
-
 k8s_conformance:
   only:
     - schedules
