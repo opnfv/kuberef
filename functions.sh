@@ -310,6 +310,7 @@ copy_k8s_config() {
     # shellcheck disable=SC2087
     ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
 scp -o StrictHostKeyChecking=no -q root@"$MASTER_IP":/root/.kube/config "${PROJECT_ROOT}"/kubeconfig
+sed -i 's/127.0.0.1/$MASTER_IP/g' "${PROJECT_ROOT}"/kubeconfig
 EOF
 
 # Copy kubeconfig from Jump VM to appropriate location in Jump Host
