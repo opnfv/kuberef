@@ -256,6 +256,8 @@ cp "${PROJECT_ROOT}"/"${INSTALLER}"/patched_preflight.yml \
     "${PROJECT_ROOT}"/container-experience-kits/playbooks/preflight.yml
 cp "${PROJECT_ROOT}"/"${INSTALLER}"/patched_sriov_cni_install.yml \
     "${PROJECT_ROOT}"/container-experience-kits/roles/sriov_cni_install/tasks/main.yml
+cp "${PROJECT_ROOT}"/"${INSTALLER}"/patched_install_dpdk_meson.yml \
+    "${PROJECT_ROOT}"/container-experience-kits/roles/install_dpdk/tasks/install_dpdk_meson.yml
 
 sudo docker run --rm \
 -e ANSIBLE_CONFIG=/bmra/ansible.cfg \
@@ -291,6 +293,8 @@ cp "${CURRENTPATH}"/sw_config/"${INSTALLER}"/patched_preflight.yml \
     "${CURRENTPATH}"/container-experience-kits/playbooks/preflight.yml
 cp "${CURRENTPATH}"/sw_config/"${INSTALLER}"/patched_sriov_cni_install.yml \
     "${CURRENTPATH}"/container-experience-kits/roles/sriov_cni_install/tasks/main.yml
+cp "${CURRENTPATH}"/sw_config/"${INSTALLER}"/patched_install_dpdk_meson.yml \
+    "${CURRENTPATH}"/container-experience-kits/roles/install_dpdk/tasks/install_dpdk_meson.yml
 
 ansible-playbook -i "$CURRENTPATH"/sw_config/bmra/inventory.ini "$CURRENTPATH"/playbooks/pre-install.yaml
 
