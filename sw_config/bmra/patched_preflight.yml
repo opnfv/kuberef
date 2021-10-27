@@ -223,15 +223,6 @@
         with_items: "{{ isolcpus_list }}"
         when: isolcpus is defined
 
-      - name: Check isolcpus OS Reserved
-        assert:
-          that: "item not in isolcpus_list"
-          msg:
-            - Incorrect configuration pertaining isolcpus. Conflicting or improper values detected
-            - The CPU ID 0...{{ ansible_processor_count - 1 }} should NOT be set for isolcpus. Please correct the configuration
-        with_items: "{{ lookup('sequence','0-{{ ansible_processor_count - 1 }}').split(',') }}"
-        when: isolcpus is defined
-
 #TODO relationship between cmk shared/exclusive cores and isolcpus
 
       when:
