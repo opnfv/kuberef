@@ -2,10 +2,21 @@
 ..
 .. SPDX-License-Identifier: CC-BY-4.0
 
-Anuket Kali Release
-===================
+Anuket Kuberef Lakelse Release
+==============================
 
-This is the Kali release of the Anuket Kuberef Project.
+The following features were added during the Lakelse release:
+
+* Updated versions of Kubernetes components and add-ons
+* Support for deployment on multiple OS
+* Support for RI2 deployment on VMs
+* Updated CI pipeline
+
+Anuket Kuberef Kali Release
+===========================
+
+The Kali release is the first one since becoming part of Anuket, and the
+following features are offered:
 
 * Framework for e2e RI2 deployment on bare-metal hosts (using Bifrost)
   and on bare-metal hosts provided by Equinix Metal.
