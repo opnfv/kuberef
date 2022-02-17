@@ -281,12 +281,20 @@
       - pip==9.0.3
   when:
     - ansible_distribution == "CentOS"
-    - ansible_distribution_version < '7.9'
+    - ansible_distribution_version < '8'
 
-- name: Install pip3 required by dpdk
+- name: Remove older version of pip3 which causes dpdk setup tasks to fail
   yum:
     name: python3-pip
-    state: latest
+    state: absent
   when:
     - ansible_distribution == "CentOS"
-    - ansible_distribution_version < '7.9'
+    - ansible_distribution_version < '8'
+
+- name: Install new version of pip3 required by dpdk tasks
+  yum:
+    name: python3-pip
+    state: present
+  when:
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_version < '8'
