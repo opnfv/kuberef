@@ -46,6 +46,30 @@
       "revId": "1f809a0d56942ae56a806d21759b5b60ed0f8d30",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03b07cf5_46ea8e78",
+        "filename": "docs/release/installation/deployment-guide.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2022-02-22T13:58:14Z",
+      "side": 1,
+      "message": "We could use the readthedocs links, but I realized that the RC2 readthedocs links aren\u0027t working. We could either change the RI2 part now and update the RC2 one when the link is available, or for consistency change all the links once RC2 one is fixed.",
+      "parentUuid": "d217487e_6ec42779",
+      "range": {
+        "startLine": 25,
+        "startChar": 30,
+        "endLine": 25,
+        "endChar": 53
+      },
+      "revId": "1f809a0d56942ae56a806d21759b5b60ed0f8d30",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
