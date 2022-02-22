@@ -94,6 +94,30 @@
       "revId": "1f809a0d56942ae56a806d21759b5b60ed0f8d30",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c089b320_91625acd",
+        "filename": "docs/release/installation/deployment-guide.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2022-02-22T16:25:24Z",
+      "side": 1,
+      "message": "Thanks Georg for sharing the correct link. I was navigating through README so couldn\u0027t locate the correct one for RC-2. I will add these changes.",
+      "parentUuid": "3b00281e_1e3591fd",
+      "range": {
+        "startLine": 25,
+        "startChar": 30,
+        "endLine": 25,
+        "endChar": 53
+      },
+      "revId": "1f809a0d56942ae56a806d21759b5b60ed0f8d30",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
