@@ -10,19 +10,19 @@ Introduction
 ============
 
 Kuberef aims to develop and deliver a Kubernetes-based reference
-implementation according to CNTT RA-2 in close collaboration with the
-CNTT RI-2 workstream.
+implementation according to Anuket RA-2 in close collaboration with the
+Anuket RI-2 workstream.
 
 .. note::
 
     This is just an example of a possible RI-2 deployment. Kuberef aims to
     support and include other potential hardware and Kubernetes deployers as well. More
-    details can be found in the `Kuberef Wiki <https://wiki.opnfv.org/spaces/viewspace.action?key=KUB>`_.
+    details can be found in the `Kuberef Wiki <https://wiki.anuket.io/display/HOME/Kuberef>`_.
 
 Infrastructure Prerequisites
 =============================
 
-Please refer to Chapter 3 of `CNTT RI-2 Documentation <https://github.com/cntt-n/CNTT/blob/master/doc/ref_impl/cntt-ri2/chapters/chapter03.md>`_
+Please refer to Chapter 3 of `Anuket RI-2 Documentation <https://cntt.readthedocs.io/en/latest/ref_impl/cntt-ri2/chapters/chapter03.html>`_
 for detailed information on the server and network specifications.
 
 Additionally, please make note of the following:
@@ -107,7 +107,7 @@ Generate SSH keypair
 Deployment on Baremetal and Provider Infrastructure
 ===================================================
 
-Please refer to Chapter 4 of `CNTT RI-2 Documentation <https://github.com/cntt-n/CNTT/blob/master/doc/ref_impl/cntt-ri2/chapters/chapter04.md>`_
+Please refer to Chapter 4 of `Anuket RI-2 Documentation <https://cntt.readthedocs.io/en/latest/ref_impl/cntt-ri2/chapters/chapter04.html>`_
 for instructions to get started with the deployment.
 
 Deployment on Virtualized Infrastructure
@@ -128,5 +128,5 @@ Note that this feature is currently only supported on Ubuntu 18.04. For other OS
 Validation of the Reference Implementation
 ===========================================
 
-Kuberef has been validated by running test cases defined in CNTT RC2 Cookbook.
-For setting up RC2 Conformance toolchain, please refer to `CNTT RC-2 Chapter 03 <https://github.com/cntt-n/CNTT/blob/master/doc/ref_cert/RC2/chapters/chapter03.md>`_.
+Kuberef is validated by running test cases defined in Anuket RC-2 Cookbook.
+For setting up RC-2 Conformance toolchain, please refer to `Anuket RC-2 Chapter 03 <https://cntt.readthedocs.io/en/latest/ref_cert/RC2/chapters/chapter03.html>`_.
