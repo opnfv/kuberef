@@ -22,7 +22,7 @@ CNTT RI-2 workstream.
 Infrastructure Prerequisites
 =============================
 
-Please refer to Chapter 3 of `CNTT RI-2 Documentation <https://github.com/cntt-n/CNTT/blob/master/doc/ref_impl/cntt-ri2/chapters/chapter03.md>`_
+Please refer to Chapter 3 of `CNTT RI-2 Documentation <https://github.com/cntt-n/CNTT/blob/master/doc/ref_impl/cntt-ri2/chapters/chapter03.rst>`_
 for detailed information on the server and network specifications.
 
 Additionally, please make note of the following:
@@ -107,7 +107,7 @@ Generate SSH keypair
 Deployment on Baremetal and Provider Infrastructure
 ===================================================
 
-Please refer to Chapter 4 of `CNTT RI-2 Documentation <https://github.com/cntt-n/CNTT/blob/master/doc/ref_impl/cntt-ri2/chapters/chapter04.md>`_
+Please refer to Chapter 4 of `CNTT RI-2 Documentation <https://github.com/cntt-n/CNTT/blob/master/doc/ref_impl/cntt-ri2/chapters/chapter04.rst>`_
 for instructions to get started with the deployment.
 
 Deployment on Virtualized Infrastructure
@@ -129,4 +129,4 @@ Validation of the Reference Implementation
 ===========================================
 
 Kuberef has been validated by running test cases defined in CNTT RC2 Cookbook.
-For setting up RC2 Conformance toolchain, please refer to `CNTT RC-2 Chapter 03 <https://github.com/cntt-n/CNTT/blob/master/doc/ref_cert/RC2/chapters/chapter03.md>`_.
+For setting up RC2 Conformance toolchain, please refer to `CNTT RC-2 Chapter 03 <https://github.com/cntt-n/CNTT/blob/master/doc/ref_cert/RC2/chapters/chapter03.rst>`_.
