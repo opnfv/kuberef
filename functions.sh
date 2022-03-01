@@ -160,6 +160,12 @@ copy_files_jump() {
 
 # Host Provisioning
 provision_hosts_baremetal() {
+    if [ "${DEBUG:-false}" == "true" ]; then
+        DEBUG_FLAG="-v"
+    else
+        DEBUG_FLAG=""
+    fi
+
     # shellcheck disable=SC2087
     ssh -o StrictHostKeyChecking=no -tT "$USERNAME"@"$(get_vm_ip)" << EOF
 # Install and run cloud-infra
@@ -170,24 +176,29 @@ fi
 cp "${PROJECT_ROOT}"/"${VENDOR}"/{pdf.yaml,idf.yaml} \
 "${PROJECT_ROOT}"/engine/engine
 cd "${PROJECT_ROOT}"/engine/engine || return
-./deploy.sh -s ironic -d "${DISTRO}" \
+./deploy.sh -s ironic "${DEBUG_FLAG}" -d "${DISTRO}" \
 -p file:///"${PROJECT_ROOT}"/engine/engine/pdf.yaml \
 -i file:///"${PROJECT_ROOT}"/engine/engine/idf.yaml
 EOF
 }
 
 provision_hosts_vms() {
+    if [ "${DEBUG:-false}" == "true" ]; then
+        DEBUG_FLAG="-v"
+    else
+        DEBUG_FLAG=""
+    fi
+
     # shellcheck disable=SC2087
-# Install and run cloud-infra
-if [ ! -d "$CURRENTPATH/engine" ]; then
-    git clone https://gerrit.nordix.org/infra/engine.git "${CURRENTPATH}"/engine
-fi
-cp "$CURRENTPATH"/hw_config/"$VENDOR"/{pdf.yaml,idf.yaml} \
-"${CURRENTPATH}"/engine/engine
-cd "$CURRENTPATH"/engine/engine || return
-./deploy.sh -s ironic \
--p file:///"${CURRENTPATH}"/engine/engine/pdf.yaml \
--i file:///"${CURRENTPATH}"/engine/engine/idf.yaml
+    # Install and run cloud-infra
+    if [ ! -d "${CURRENTPATH}/engine" ]; then
+        git clone https://gerrit.nordix.org/infra/engine.git "${CURRENTPATH}"/engine
+    fi
+    cp "${CURRENTPATH}"/hw_config/"${VENDOR}"/{pdf.yaml,idf.yaml} "${CURRENTPATH}"/engine/engine
+    cd "${CURRENTPATH}"/engine/engine || return
+    ./deploy.sh -s ironic "${DEBUG_FLAG}" \
+    -p file:///"${CURRENTPATH}"/engine/engine/pdf.yaml \
+    -i file:///"${CURRENTPATH}"/engine/engine/idf.yaml
 }
 
 # Setup networking on provisioned hosts (Adapt setup_network.sh according to your network setup)
@@ -328,7 +339,7 @@ EOF
 # Creates a python virtual environment
 creates_virtualenv() {
     if [  ! -d "$CURRENTPATH/.venv" ]; then
-        virtualenv .venv
+        virtualenv "$CURRENTPATH/.venv"
     fi
     # shellcheck disable=SC1090
     source "$CURRENTPATH/.venv/bin/activate"
