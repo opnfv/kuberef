@@ -31,22 +31,28 @@ Additionally, please make note of the following:
    because the deployment will spin up a VM which will then carry out the host and
    Kubernetes installation.
 
-2. Generate SSH keypair.
+2. A non-root user and generate SSH keypair.
 
 3. Add user to the sudo and libvirt group and have passwordless sudo enabled.
 
-4. Install Ansible (tested with 2.9.14), yq (v3.4.1), jq and virtual-env.
+4. Install Python3 (tested with 3.6.9), Ansible (tested with 2.9.14), Docker, yq (v3.4.1), git, jq and virtual-env (16.2 or later).
 
-Installing and configuring the prerequisites will depend on the operating system installed on the jump server. Below are additional details for setting up some of the more popular distributions.
+Installing and configuring the prerequisites will depend on the operating system installed on the jump server.
+Below are additional details for setting up some of the more popular distributions.
 
-**Ubuntu 20.04 LTS**
+**Ubuntu 18.04 LTS**
+
+.. note::
+
+    Can not work on Ubuntu 20.04 because openstack ironic will install package libvirt-bin which
+    has been split into libvirt-daemon-system and libvirt-clients from Ubuntu 18.10.
 
 Install packages using Apt
 
-* ``apt-get install qemu-kvm libvirt-daemon-system libvirt-clients genisoimage virt-manager bridge-utils python3-libvirt git jq``
+* ``sudo apt-get install -y qemu-kvm libvirt-daemon-system libvirt-clients libvirt-dev genisoimage virt-manager bridge-utils python3-libvirt git jq``
 * Some of the packages might be installed already
-* Start libvirtd if it isn't running using ``service libvirtd start``
-* Add user to libvirt group using ``adduser `id -un` libvirt``
+* Start libvirtd if it isn't running using ``sudo service libvirtd start``
+* Add user to libvirt group using ``sudo adduser `id -un` libvirt``
 * Log out and in on the current user to update the groups
 
 If ``python`` isn't available in the path, consider adding a symlink for Python3
@@ -58,10 +64,18 @@ Install Ansible
 * ``apt-add-repository --yes --update ppa:ansible/ansible``
 * ``apt-get install ansible``
 
+Install Docker
+
+* ``sudo apt-get install docker.io``
+
 Install ``yq`` binary from Github
 
 * Find the correct build of version `v3.4.1 <https://github.com/mikefarah/yq/releases/tag/3.4.1>`_
 * Place the binary in ``/usr/bin/yq`` and make it executable ``chmod +x /usr/bin/yq``
+
+Install virtual-env
+
+* ``pip install --upgrade virtualenv``
 
 You might need to update the libvirt (QEMU) configuration if there are problems with user and group
 
@@ -115,9 +129,10 @@ Deployment on Virtualized Infrastructure
 
 Following are the steps to spin up a minimalistic Kuberef deployment on VMs aimed for development and testing use-cases:
 
+* Get kuberef code from gerrit ``git clone "https://gerrit.opnfv.org/gerrit/kuberef"``.
 * Set ``VENDOR=libvirt-vms``, ``DISTRO=ubuntu1804`` in ``deploy.env``. Additionally, ensure that other environmental variables defined in this file match your setup.
 * The hardware and network configurations for the VMs are defined under ``hw_config/libvirt-vms``. Currently, the configuration for one master and one worker VM is defined, but additional VM's can be added as desired. Additionally, the default values of hardware storage, CPU information, etc. can be adapted as per need.
-* Once ready, initiate the deployment by running ``dev/deploy_on_vms.sh`.
+* Once ready, initiate the deployment by running ``dev/deploy_on_vms.sh``.
 
 After the successful completion of the deployment, you can do ``virsh list`` to list the provisioned VM's and connect to them over SSH using user ``root``. The SSH public key of the user is already added by the installer in the VM's. The IP of the VMs can be found under ``hw_config/libvirt-vms/pdf.yaml``.
 
