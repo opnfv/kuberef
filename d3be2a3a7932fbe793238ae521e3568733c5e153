@@ -52,6 +52,24 @@
       "revId": "d3be2a3a7932fbe793238ae521e3568733c5e153",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7857559_1264881f",
+        "filename": "docs/release/installation/deployment-guide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2022-03-02T12:53:23Z",
+      "side": 1,
+      "message": "The Jumphost OS (on the physical server) should be fine with either Ubuntu 18.04 or 20.04 (with this section describing the steps for Ubuntu 20.04). The Ironic part happens in the kuberef-jump VM, which deploys Ubuntu 18.04 unless the Ansible role for the VM (kuberef/playbooks/roles/jump-vm/tasks) is modified to use a different image.\n\nMy local setup uses pre-provisioned servers, so Ironic isn\u0027t used. As a result I can\u0027t test this exact issue myself, but I just tried with the Jumphost (not VM) running Ubuntu 20.04 (as well as the two target servers), and the installation was successful",
+      "parentUuid": "ea9e9e57_8ce3a603",
+      "revId": "d3be2a3a7932fbe793238ae521e3568733c5e153",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
