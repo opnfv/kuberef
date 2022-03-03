@@ -88,6 +88,24 @@
       "revId": "d3be2a3a7932fbe793238ae521e3568733c5e153",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bb0a715_d627b7ed",
+        "filename": "docs/release/installation/deployment-guide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2022-03-03T10:27:40Z",
+      "side": 1,
+      "message": "Perhaps we can add these observations as a note below in the \"Deployment on Virtualized Infrastructure\" section that it has been tested on Ubuntu 18.04 and currently doesn\u0027t support Ubuntu 20.04, and try to keep/merge the previous section on Ubuntu 20.04, which I see is removed by this patch since Michael confirmed that it works on his Ubuntu 20.04 setup.",
+      "parentUuid": "7a8d7247_d6921eb1",
+      "revId": "d3be2a3a7932fbe793238ae521e3568733c5e153",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
