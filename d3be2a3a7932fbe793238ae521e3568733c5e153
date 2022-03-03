@@ -106,6 +106,24 @@
       "revId": "d3be2a3a7932fbe793238ae521e3568733c5e153",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dbe9f8e_9f7381ae",
+        "filename": "docs/release/installation/deployment-guide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7669
+      },
+      "writtenOn": "2022-03-03T14:32:59Z",
+      "side": 1,
+      "message": "Ah yes, I didn\u0027t realize you did were using /dev/deploy_on_vms.sh.\nI just tested this, and got the similar error with \u0027libvirt-bin\u0027\n\nI think this section should stay as it is (but we should make sure it is clear that this is for the non-VM deployment. We can add more details to the VM deployment including a comment about it only being supported on Ubuntu 18.04",
+      "parentUuid": "8bb0a715_d627b7ed",
+      "revId": "d3be2a3a7932fbe793238ae521e3568733c5e153",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
