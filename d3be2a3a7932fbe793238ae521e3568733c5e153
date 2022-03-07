@@ -194,6 +194,24 @@
       "revId": "d3be2a3a7932fbe793238ae521e3568733c5e153",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c420cda_02a30487",
+        "filename": "docs/release/installation/deployment-guide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5469
+      },
+      "writtenOn": "2022-03-07T02:25:19Z",
+      "side": 1,
+      "message": "totally agree. When I was trying to install, the most difficult thing is to edit my own PDF and IDF files. I propose to create another issue to guide how to prepare these 2 files for different cases (baremetal, virtual machines...).",
+      "parentUuid": "04b080bb_3d6e88e8",
+      "revId": "d3be2a3a7932fbe793238ae521e3568733c5e153",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
