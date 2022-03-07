@@ -127,6 +127,24 @@
     },
     {
       "key": {
+        "uuid": "a649e20f_398657fc",
+        "filename": "docs/release/installation/deployment-guide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5469
+      },
+      "writtenOn": "2022-03-07T06:17:56Z",
+      "side": 1,
+      "message": "Done. Revert to Ubuntu 20.04 and add a note for deploying on virtualization infrastructure.",
+      "parentUuid": "2dbe9f8e_9f7381ae",
+      "revId": "d3be2a3a7932fbe793238ae521e3568733c5e153",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42a55d33_ef6603cb",
         "filename": "docs/release/installation/deployment-guide.rst",
         "patchSetId": 4
@@ -159,6 +177,24 @@
       "revId": "d3be2a3a7932fbe793238ae521e3568733c5e153",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27fd98d6_9e2f1e30",
+        "filename": "docs/release/installation/deployment-guide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5469
+      },
+      "writtenOn": "2022-03-07T06:17:56Z",
+      "side": 1,
+      "message": "Done. Using the docker install link",
+      "parentUuid": "0a8e0c39_7fc4bfb9",
+      "revId": "d3be2a3a7932fbe793238ae521e3568733c5e153",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     },
     {
       "key": {
@@ -212,6 +248,24 @@
       "revId": "d3be2a3a7932fbe793238ae521e3568733c5e153",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e60c8cfe_38ab9b78",
+        "filename": "docs/release/installation/deployment-guide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5469
+      },
+      "writtenOn": "2022-03-07T06:17:56Z",
+      "side": 1,
+      "message": "Done. Have created a JIRA ticket https://jira.anuket.io/projects/KUB/issues/KUB-59",
+      "parentUuid": "3c420cda_02a30487",
+      "revId": "d3be2a3a7932fbe793238ae521e3568733c5e153",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
