@@ -1,0 +1,10 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Georg Kunz <georg.kunz@ericsson.com>
+Code-Review+1: Kanagaraj Manickam <kanagaraj.manickam@huawei.com>
+Code-Review+1: Rihab Banday <rihab.banday@ericsson.com>
+Code-Review+1: Michael Pedersen <michaelx.pedersen@intel.com>
+Submitted-by: Georg Kunz <georg.kunz@ericsson.com>
+Submitted-at: Tue, 15 Mar 2022 16:23:03 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/c/kuberef/+/73233
+Project: kuberef
+Branch: refs/heads/master
