@@ -160,10 +160,9 @@ copy_files_jump() {
 
 # Host Provisioning
 provision_hosts_baremetal() {
+    CMD="./deploy.sh -s ironic -d ${DISTRO} -p file:///${PROJECT_ROOT}/engine/engine/pdf.yaml -i file:///${PROJECT_ROOT}/engine/engine/idf.yaml"
     if [ "${DEBUG:-false}" == "true" ]; then
-        DEBUG_FLAG="-v"
-    else
-        DEBUG_FLAG=""
+        CMD+=" -v"
     fi
 
     # shellcheck disable=SC2087
@@ -176,19 +175,11 @@ fi
 cp "${PROJECT_ROOT}"/"${VENDOR}"/{pdf.yaml,idf.yaml} \
 "${PROJECT_ROOT}"/engine/engine
 cd "${PROJECT_ROOT}"/engine/engine || return
-./deploy.sh -s ironic "${DEBUG_FLAG}" -d "${DISTRO}" \
--p file:///"${PROJECT_ROOT}"/engine/engine/pdf.yaml \
--i file:///"${PROJECT_ROOT}"/engine/engine/idf.yaml
+${CMD}
 EOF
 }
 
 provision_hosts_vms() {
-    if [ "${DEBUG:-false}" == "true" ]; then
-        DEBUG_FLAG="-v"
-    else
-        DEBUG_FLAG=""
-    fi
-
     # shellcheck disable=SC2087
     # Install and run cloud-infra
     if [ ! -d "${CURRENTPATH}/engine" ]; then
@@ -196,9 +187,12 @@ provision_hosts_vms() {
     fi
     cp "${CURRENTPATH}"/hw_config/"${VENDOR}"/{pdf.yaml,idf.yaml} "${CURRENTPATH}"/engine/engine
     cd "${CURRENTPATH}"/engine/engine || return
-    ./deploy.sh -s ironic "${DEBUG_FLAG}" \
-    -p file:///"${CURRENTPATH}"/engine/engine/pdf.yaml \
-    -i file:///"${CURRENTPATH}"/engine/engine/idf.yaml
+    CMD="./deploy.sh -s ironic -p file:///${CURRENTPATH}/engine/engine/pdf.yaml -i file:///${CURRENTPATH}/engine/engine/idf.yaml"
+    if [ "${DEBUG:-false}" == "true" ]; then
+        CMD+=" -v"
+    fi
+
+    ${CMD}
 }
 
 # Setup networking on provisioned hosts (Adapt setup_network.sh according to your network setup)
