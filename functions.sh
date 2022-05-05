@@ -4,6 +4,8 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+OS_ID=$(grep '^ID=' /etc/os-release | cut -f2- -d= | sed -e 's/\"//g')
+
 info() {
     _print_msg "INFO" "$1"
 }
@@ -61,6 +63,90 @@ check_prerequisites() {
     # We are using sudo so we need to make sure that env_reset is not present
     #-------------------------------------------------------------------------------
     sudo sed -i "s/^Defaults.*env_reset/#&/" /etc/sudoers
+
+    #-------------------------------------------------------------------------------
+    # Installing prerequisites
+    #-------------------------------------------------------------------------------
+    if [ "$OS_ID" == "ubuntu" ]; then
+
+      apt update
+      ansible --version
+      RESULT=$?
+      if [ $RESULT -ne 0 ]; then
+        sudo apt-add-repository --yes --update ppa:ansible/ansible
+        sudo apt-get install -y ansible
+      fi
+
+      yq --version
+      RESULT=$?
+      if [ $RESULT -ne 0 ]; then
+        sudo wget https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 -O /usr/bin/yq
+        sudo chmod +x /usr/bin/yq
+      fi
+
+      virsh --version
+      RESULT=$?
+      if [ $RESULT -ne 0 ]; then
+        sudo apt-get install -y virsh
+      fi
+
+      jq --version
+      RESULT=$?
+      if [ $RESULT -ne 0 ]; then
+        sudo apt-get install -y jq
+      fi
+
+      virtualenv --version
+      RESULT=$?
+      if [ $RESULT -ne 0 ]; then
+        sudo apt-get install -y virtualenv
+      fi
+
+      pip --version
+      if [ $RESULT -ne 0 ]; then
+        sudo apt-get install -y pip
+      fi
+
+    elif [ "$OS_ID" == "centos" ]; then
+
+      yum update
+      ansible --version
+      RESULT=$?
+      if [ $RESULT -ne 0 ]; then
+        sudo dnf install epel-release
+        sudo dnf install ansible
+      fi
+
+      yq --version
+      RESULT=$?
+      if [ $RESULT -ne 0 ]; then
+        sudo wget https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 -O /usr/bin/yq
+        sudo chmod +x /usr/bin/yq
+      fi
+
+      virsh --version
+      RESULT=$?
+      if [ $RESULT -ne 0 ]; then
+        sudo yum install -y virsh
+      fi
+
+      jq --version
+      RESULT=$?
+      if [ $RESULT -ne 0 ]; then
+        sudo yum install -y jq
+      fi
+
+      virtualenv --version
+      RESULT=$?
+      if [ $RESULT -ne 0 ]; then
+        sudo yum install -y virtualenv
+      fi
+
+      pip --version
+      if [ $RESULT -ne 0 ]; then
+        sudo yum install -y pip
+      fi
+    fi
 
     #-------------------------------------------------------------------------------
     # Check if necessary tools are installed
