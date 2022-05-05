@@ -63,6 +63,11 @@ check_prerequisites() {
     sudo sed -i "s/^Defaults.*env_reset/#&/" /etc/sudoers
 
     #-------------------------------------------------------------------------------
+    # Installing prerequisites
+    #-------------------------------------------------------------------------------
+    apt-get install -y ansible yq virsh jq docker virtualenv pip
+
+    #-------------------------------------------------------------------------------
     # Check if necessary tools are installed
     #-------------------------------------------------------------------------------
     for tool in ansible yq virsh jq docker virtualenv pip; do
