@@ -4,6 +4,8 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+OS_ID=$(grep '^ID=' /etc/os-release | cut -f2- -d= | sed -e 's/\"//g')
+
 info() {
     _print_msg "INFO" "$1"
 }
@@ -61,6 +63,33 @@ check_prerequisites() {
     # We are using sudo so we need to make sure that env_reset is not present
     #-------------------------------------------------------------------------------
     sudo sed -i "s/^Defaults.*env_reset/#&/" /etc/sudoers
+
+    #-------------------------------------------------------------------------------
+    # Installing prerequisites
+    #-------------------------------------------------------------------------------
+    if [ "$OS_ID" == "ubuntu" ]; then
+      # Install Ansible
+      sudo apt-add-repository --yes --update ppa:ansible/ansible
+      sudo apt-get install -y ansible
+
+      # Install yq
+      sudo wget https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 -O /usr/bin/yq
+      sudo chmod +x /usr/bin/yq
+
+      # Install necessary tools
+      sudo apt-get install -y virsh jq virtualenv pip
+    elif [ "$OS_ID" == "centos" ]; then
+      # Install Ansible
+      sudo dnf install epel-release
+      sudo dnf install ansible
+
+      # Install yq
+      sudo wget https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 -O /usr/bin/yq
+      sudo chmod +x /usr/bin/yq
+
+      # Install necessary tools
+      sudo yum install -y virsh jq virtualenv pip
+    fi
 
     #-------------------------------------------------------------------------------
     # Check if necessary tools are installed
