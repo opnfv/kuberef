@@ -4,6 +4,8 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+OS_ID=$(grep '^ID=' /etc/os-release | cut -f2- -d= | sed -e 's/\"//g')
+
 info() {
     _print_msg "INFO" "$1"
 }
@@ -61,6 +63,25 @@ check_prerequisites() {
     # We are using sudo so we need to make sure that env_reset is not present
     #-------------------------------------------------------------------------------
     sudo sed -i "s/^Defaults.*env_reset/#&/" /etc/sudoers
+
+    #-------------------------------------------------------------------------------
+    # Installing prerequisites
+    #-------------------------------------------------------------------------------
+    if [ "$OS_ID" == "ubuntu" ]; then
+      # Install Ansible
+      apt-add-repository --yes --update ppa:ansible/ansible
+      apt-get install -y ansible
+
+      # Install necessary tools
+      apt-get install -y virsh jq virtualenv pip
+    elif [ "$OS_ID" == "centos" ]; then
+      # Install Ansible
+      dnf install epel-release
+      dnf install ansible
+
+      # Install necessary tools
+      yum install -y virsh jq virtualenv pip
+    fi
 
     #-------------------------------------------------------------------------------
     # Check if necessary tools are installed
