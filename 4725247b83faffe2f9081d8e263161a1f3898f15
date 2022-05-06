@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9caf9fbb_b84f571c",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5469
+      },
+      "writtenOn": "2022-05-06T02:46:46Z",
+      "side": 1,
+      "message": "Should check the OS before deciding which command used to install these tools.",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 20
+      },
+      "revId": "4725247b83faffe2f9081d8e263161a1f3898f15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
