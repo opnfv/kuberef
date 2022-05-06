@@ -22,6 +22,29 @@
       "revId": "4725247b83faffe2f9081d8e263161a1f3898f15",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e74b54e_c69efa97",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7638
+      },
+      "writtenOn": "2022-05-06T07:52:00Z",
+      "side": 1,
+      "message": "I think the latest version of yq might not work - the specific versions and pre requisites for each OS are documented under docs/release/installation/deployment-guide.rst.",
+      "range": {
+        "startLine": 68,
+        "startChar": 31,
+        "endLine": 68,
+        "endChar": 33
+      },
+      "revId": "4725247b83faffe2f9081d8e263161a1f3898f15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
