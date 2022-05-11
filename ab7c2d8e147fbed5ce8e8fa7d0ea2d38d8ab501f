@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71836702_4643982a",
+        "filename": "functions.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5469
+      },
+      "writtenOn": "2022-05-11T02:35:32Z",
+      "side": 1,
+      "message": "Still have a question here. Shouldn\u0027t we check the exists before installing them? Otherwise it may waste a lot of time to update or download here. Also it may override the existing verison.",
+      "revId": "ab7c2d8e147fbed5ce8e8fa7d0ea2d38d8ab501f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
