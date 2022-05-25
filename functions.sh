@@ -69,7 +69,7 @@ check_prerequisites() {
     #-------------------------------------------------------------------------------
     if [ "$OS_ID" == "ubuntu" ]; then
 
-      apt update
+      sudo apt update
       ansible --version
       RESULT=$?
       if [ $RESULT -ne 0 ]; then
@@ -109,7 +109,7 @@ check_prerequisites() {
 
     elif [ "$OS_ID" == "centos" ]; then
 
-      yum update
+      sudo yum update
       ansible --version
       RESULT=$?
       if [ $RESULT -ne 0 ]; then
