@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d96941fa_fa56e1e6",
+        "filename": "functions.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5469
+      },
+      "writtenOn": "2022-05-27T01:20:35Z",
+      "side": 1,
+      "message": "should be sudo yum update -y",
+      "revId": "ca859dfd770047577235d21a46d6cc7f179c3599",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
