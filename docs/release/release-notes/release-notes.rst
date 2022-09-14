@@ -2,6 +2,15 @@
 ..
 .. SPDX-License-Identifier: CC-BY-4.0
 
+Anuket Kuberef Moselle Release
+==============================
+
+The following features were added during the Moselle release:
+
+* Update scope of requirements based on RA2 Lakelse
+* Automate a few manual install steps
+* Some bug fixes
+
 Anuket Kuberef Lakelse Release
 ==============================
 
