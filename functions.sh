@@ -31,6 +31,8 @@ fi
 check_prerequisites() {
     info "Check prerequisites"
 
+    set -e
+
     #-------------------------------------------------------------------------------
     # Check for DEPLOYMENT type
     #-------------------------------------------------------------------------------
@@ -70,18 +72,24 @@ check_prerequisites() {
     if [ "$OS_ID" == "ubuntu" ]; then
 
       sudo apt update -y
+
+      python3 --version
+      RESULT=$?
+      if [ $RESULT -ne 0 ]; then
+        sudo ln -s /usr/bin/python3 /usr/bin/python
+      fi
+
+      pip --version
+      RESULT=$?
+      if [ $RESULT -ne 0 ]; then
+        sudo apt-get install -y python3-pip
+      fi
+
       ansible --version
       RESULT=$?
       if [ $RESULT -ne 0 ]; then
         sudo apt-add-repository --yes --update ppa:ansible/ansible
         sudo apt-get install -y ansible
-      fi
-
-      yq --version
-      RESULT=$?
-      if [ $RESULT -ne 0 ]; then
-        sudo wget https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 -O /usr/bin/yq
-        sudo chmod +x /usr/bin/yq
       fi
 
       virsh --version
@@ -99,29 +107,29 @@ check_prerequisites() {
       virtualenv --version
       RESULT=$?
       if [ $RESULT -ne 0 ]; then
-        sudo apt-get install -y virtualenv
+        sudo apt install -y python3-virtualenv
       fi
 
-      pip --version
+      docker --version
+      RESULT=$?
       if [ $RESULT -ne 0 ]; then
-        sudo apt-get install -y pip
+        sudo apt install -y docker.io
       fi
 
     elif [ "$OS_ID" == "centos" ]; then
 
       sudo yum update -y
+
+      pip --version
+      if [ $RESULT -ne 0 ]; then
+        sudo yum install -y python3-pip
+      fi
+
       ansible --version
       RESULT=$?
       if [ $RESULT -ne 0 ]; then
         sudo dnf install epel-release
         sudo dnf install ansible
-      fi
-
-      yq --version
-      RESULT=$?
-      if [ $RESULT -ne 0 ]; then
-        sudo wget https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 -O /usr/bin/yq
-        sudo chmod +x /usr/bin/yq
       fi
 
       virsh --version
@@ -139,13 +147,9 @@ check_prerequisites() {
       virtualenv --version
       RESULT=$?
       if [ $RESULT -ne 0 ]; then
-        sudo yum install -y virtualenv
+        pip3 install virtualenv
       fi
 
-      pip --version
-      if [ $RESULT -ne 0 ]; then
-        sudo yum install -y pip
-      fi
     fi
 
     #-------------------------------------------------------------------------------
@@ -166,9 +170,12 @@ check_prerequisites() {
     if [ "${ID,,}" == "ubuntu" ] && [ "$VERSION_ID" == "16.04" ]; then
         libvirt_group+="d"
     fi
-    if ! groups | grep "$libvirt_group"; then
+    if ! groups $(id -nu) | grep "$libvirt_group"; then
         error "$(id -nu) user doesn't belong to $libvirt_group group."
     fi
+
+    set +e
+
 }
 
 # Get jumphost VM PXE IP
@@ -350,7 +357,7 @@ cp "${PROJECT_ROOT}"/"${INSTALLER}"/patched_sriov_cni_install.yml \
 cp "${PROJECT_ROOT}"/"${INSTALLER}"/patched_install_dpdk_meson.yml \
     "${PROJECT_ROOT}"/container-experience-kits/roles/install_dpdk/tasks/install_dpdk_meson.yml
 
-sudo docker run --rm \
+sudo docker run --rm --name "$USERNAME"\
 -e ANSIBLE_CONFIG=/bmra/ansible.cfg \
 -e PROFILE="${BMRA_PROFILE}" \
 -v "${PROJECT_ROOT}"/container-experience-kits:/bmra \
@@ -390,7 +397,7 @@ cp "${CURRENTPATH}"/sw_config/"${INSTALLER}"/patched_install_dpdk_meson.yml \
 ansible-playbook -i "$CURRENTPATH"/sw_config/bmra/inventory.ini "$CURRENTPATH"/playbooks/pre-install.yaml
 
 # Ansible upgrade below can be removed once image is updated
-sudo docker run --rm \
+sudo docker run --rm --name "$USERNAME"\
 -e ANSIBLE_CONFIG=/bmra/ansible.cfg \
 -e PROFILE="${BMRA_PROFILE}" \
 -v "${CURRENTPATH}"/container-experience-kits:/bmra \
@@ -434,3 +441,4 @@ run_playbook() {
     fi
     eval "$ansible_cmd $CURRENTPATH/playbooks/${1}.yaml"
 }
+
