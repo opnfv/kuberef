@@ -20,7 +20,7 @@
   any_errors_fatal: true
 
 - hosts: all
-  gather_facts: false
+  gather_facts: true
   tasks:
     - name: prepare additional kubespray facts
       set_fact:
