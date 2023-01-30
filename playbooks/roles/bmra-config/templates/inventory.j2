@@ -4,19 +4,16 @@ SPDX-FileCopyrightText: 2021 Anuket contributors
 SPDX-License-Identifier: Apache-2.0
 #}
 
-[all]
-{% for node in nodes %}
-{{ idf.kubespray.hostnames[node.name] }}   ansible_host={{ node.interfaces[idf.net_config[engine.pxe_network].interface].address }} ip={{ node.interfaces[idf.net_config[engine.pxe_network].interface].address }} {% if vendor|lower == 'libvirt-vms' %} ansible_user=root {% endif %}{{''}}
-{% endfor %}
-localhost ansible_connection=local ansible_python_interpreter=/usr/bin/python2
-
 {% for role in ['kube-master', 'etcd', 'kube-node'] %}
 [{{ role }}]
 {% for node in nodes %}
 {% if role in idf.kubespray.nodes_roles[node.name] %}
-{{ idf.kubespray.hostnames[node.name] }}
+{{ node.interfaces[idf.net_config[engine.pxe_network].interface].address }}
 {% endif %}
 {% endfor %}
+[{{ role }}:vars]
+ansible_ssh_user=ri2
+
 {% endfor %}
 
 [k8s-cluster:children]
