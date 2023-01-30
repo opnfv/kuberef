@@ -53,38 +53,24 @@ Below are additional details for setting up some of the more popular distributio
 
 Install packages using Apt
 
-* ``sudo apt-get install -y qemu-kvm libvirt-daemon-system libvirt-clients libvirt-dev genisoimage virt-manager bridge-utils python3-libvirt git jq``
+* ``sudo apt-get update``
+* ``sudo apt-get install -y qemu-kvm libvirt-daemon-system libvirt-clients libvirt-dev genisoimage virt-manager bridge-utils python3-libvirt git``
 * Some of the packages might be installed already
 * Start libvirtd if it isn't running using ``sudo service libvirtd start``
-* Add user to libvirt group using ``sudo adduser `id -un` libvirt``
+* Add user to libvirt group using ``sudo adduser `USERNAME` libvirt``
 * Log out and in on the current user to update the groups
-
-If ``python`` isn't available in the path, consider adding a symlink for Python3
-
-* ``ln -s /usr/bin/python3 /usr/bin/python``
-
-Install Ansible
-
-* ``apt-add-repository --yes --update ppa:ansible/ansible``
-* ``apt-get install ansible``
-
-Install Docker
-
-* Follow the official doc `Install Docker Engine <https://docs.docker.com/engine/install/>`_
 
 Install ``yq`` binary from Github
 
 * Find the correct build of version `v3.4.1 <https://github.com/mikefarah/yq/releases/tag/3.4.1>`_
 * Place the binary in ``/usr/bin/yq`` and make it executable ``chmod +x /usr/bin/yq``
-
-Install virtual-env
-
-* ``pip install --upgrade virtualenv``
+* `sudo wget https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 -O /usr/bin/yq`
+* `sudo chmod +x /usr/bin/yq`
 
 You might need to update the libvirt (QEMU) configuration if there are problems with user and group
 
 * You can set the user and group to "root" by uncommenting `user` and `group` in ``/etc/libvirt/qemu.conf``
-* If the configuration is changed, finish by restarting libvirtd through ``service libvirtd restart``
+* If the configuration is changed, finish by restarting libvirtd through ``sudo service libvirtd restart``
 
 Generate SSH keypair
 
