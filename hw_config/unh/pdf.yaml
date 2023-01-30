@@ -1,0 +1,248 @@
+version: 1.0
+details:
+  pod_owner: UNH IOL
+  contact: null
+  lab: UNH IOL LaaS
+  location: Durham, NH, USA
+  type: baremetal
+  link: https://wiki.anuket.io/pages/viewpage.action?pageId=36569490
+jumphost:
+  name: kuberef-jump
+  node:
+    type: baremetal
+    vendor: HPE
+    model: pc
+    arch: x86_64
+    cpus: 88
+    cpu_cflags: haswell
+    cores: 44
+    memory: 512G
+  disks:
+  - name: PDNLH0BRh913CZ
+    disk_capacity: 894G
+    disk_type: ssd
+    disk_interface: scsi
+  - name: PDNLH0BRh913CZ
+    disk_capacity: 931G
+    disk_type: ssd
+    disk_interface: scsi
+  - name: PDNLH0BRh913CZ
+    disk_capacity: 931G
+    disk_type: ssd
+    disk_interface: scsi
+  - name: PDNLH0BRh913CZ
+    disk_capacity: 931G
+    disk_type: ssd
+    disk_interface: scsi
+  os: ubuntu1804
+  remote_params: null
+  interfaces:
+    - name: 'ens4'
+      address: 10.200.120.211
+      mac_address: "52:54:00:4a:e8:2d"
+      vlan: native
+    - name: 'ens3'
+      address: 192.168.122.113
+      mac_address: "52:54:00:74:b4:66"
+      vlan: native
+nodes:
+- name: node1
+  node: '*nodeparas'
+  disks: '*disks'
+  remote_management:
+    type:
+    - ipmi
+    user: RI2
+    pass: RI2ADMIN
+    address: ilomxq749039t.opnfv.iol.unh.edu
+  interfaces:
+  - name: ens1f0
+    speed: 25gb
+    address: 10.200.120.11
+    features: dpdk|sriov
+    mac_address: 3c:fd:fe:ef:14:c8
+    vlan: native
+  - name: ens1f1
+    speed: 25gb
+    address: 10.200.120.11
+    features: dpdk|sriov
+    mac_address: 3c:fd:fe:ef:14:c9
+    vlan: native
+  - name: eno49
+    speed: 10gb
+    address: 127.0.102.11
+    features: dpdk|sriov
+    mac_address: 48:df:37:1d:45:20
+    vlan: native
+  - name: eno50
+    speed: 10gb
+    address: 127.0.103.11
+    features: dpdk|sriov
+    mac_address: 48:df:37:1d:45:28
+    vlan: native
+  - name: ens4f0
+    speed: 25gb
+    address: 127.0.104.11
+    features: dpdk|sriov
+    mac_address: 3c:fd:fe:ef:14:a0
+    vlan: native
+- name: node2
+  node: '*nodeparas'
+  disks: '*disks'
+  remote_management:
+    type:
+    - ipmi
+    user: RI2
+    pass: RI2ADMIN
+    address: ILOMXQ74903BN.opnfv.iol.unh.edu
+  interfaces:
+  - name: ens1f0
+    speed: 25gb
+    address: 10.200.120.12
+    features: dpdk|sriov
+    mac_address: 3c:fd:fe:ef:0f:dc
+    vlan: native
+  - name: ens1f1
+    speed: 25gb
+    address: 10.200.120.12
+    features: dpdk|sriov
+    mac_address: 3c:fd:fe:ef:0f:dd
+    vlan: native
+  - name: eno49
+    speed: 10gb
+    address: 127.0.102.12
+    features: dpdk|sriov
+    mac_address: 48:df:37:22:c4:10
+    vlan: native
+  - name: eno50
+    speed: 10gb
+    address: 127.0.103.12
+    features: dpdk|sriov
+    mac_address: 48:df:37:22:c4:18
+    vlan: native
+  - name: ens4f0
+    speed: 25gb
+    address: 127.0.104.12
+    features: dpdk|sriov
+    mac_address: 3c:fd:fe:ee:47:a4
+    vlan: native
+- name: node3
+  node: '*nodeparas'
+  disks: '*disks'
+  remote_management:
+    type:
+    - ipmi
+    user: RI2
+    pass: RI2ADMIN
+    address: ILOMXQ74903B3.opnfv.iol.unh.edu
+  interfaces:
+  - name: ens1f0
+    speed: 25gb
+    address: 10.200.120.13
+    features: dpdk|sriov
+    mac_address: 3c:fd:fe:ef:0e:d8
+    vlan: native
+  - name: ens1f1
+    speed: 25gb
+    address: 10.200.120.13
+    features: dpdk|sriov
+    mac_address: 3c:fd:fe:ef:0e:d9
+    vlan: native
+  - name: eno49
+    speed: 10gb
+    address: 127.0.102.13
+    features: dpdk|sriov
+    mac_address: 48:df:37:1d:54:40
+    vlan: native
+  - name: eno50
+    speed: 10gb
+    address: 127.0.103.13
+    features: dpdk|sriov
+    mac_address: 48:df:37:1d:54:48
+    vlan: native
+  - name: ens4f0
+    speed: 25gb
+    address: 127.0.104.13
+    features: dpdk|sriov
+    mac_address: 3c:fd:fe:ef:13:7c
+    vlan: native
+- name: node4
+  node: '*nodeparas'
+  disks: '*disks'
+  remote_management:
+    type:
+    - ipmi
+    user: RI2
+    pass: RI2ADMIN
+    address: ILOMXQ74903B5.opnfv.iol.unh.edu
+  interfaces:
+  - name: ens1f0
+    speed: 25gb
+    address: 10.200.120.14
+    features: dpdk|sriov
+    mac_address: 3c:fd:fe:ef:0f:20
+    vlan: native
+  - name: ens1f1
+    speed: 25gb
+    address: 10.200.120.14
+    features: dpdk|sriov
+    mac_address: 3c:fd:fe:ef:0f:21
+    vlan: native
+  - name: eno49
+    speed: 10gb
+    address: 127.0.102.14
+    features: dpdk|sriov
+    mac_address: 48:df:37:1d:46:f0
+    vlan: native
+  - name: eno50
+    speed: 10gb
+    address: 127.0.103.14
+    features: dpdk|sriov
+    mac_address: 48:df:37:1d:46:f8
+    vlan: native
+  - name: ens4f0
+    speed: 25gb
+    address: 127.0.104.14
+    features: dpdk|sriov
+    mac_address: 3c:fd:fe:ef:10:14
+    vlan: native
+- name: node5
+  node: '*nodeparas'
+  disks: '*disks'
+  remote_management:
+    type:
+    - ipmi
+    user: RI2
+    pass: RI2ADMIN
+    address: ilomxq74903bc.opnfv.iol.unh.edu
+  interfaces:
+  - name: ens1f0
+    speed: 25gb
+    address: 10.200.120.15
+    features: dpdk|sriov
+    mac_address: 3c:fd:fe:ef:10:2c
+    vlan: native
+  - name: ens1f1
+    speed: 25gb
+    address: 10.200.120.15
+    features: dpdk|sriov
+    mac_address: 3c:fd:fe:ef:10:2d
+    vlan: native
+  - name: eno49
+    speed: 10gb
+    address: 127.0.102.15
+    features: dpdk|sriov
+    mac_address: 48:df:37:22:c6:00
+    vlan: native
+  - name: eno50
+    speed: 10gb
+    address: 127.0.103.15
+    features: dpdk|sriov
+    mac_address: 48:df:37:22:c6:08
+    vlan: native
+  - name: ens4f0
+    speed: 25gb
+    address: 127.0.104.15
+    features: dpdk|sriov
+    mac_address: 3c:fd:fe:ef:10:10
+    vlan: native
