@@ -99,7 +99,7 @@ check_prerequisites() {
       virtualenv --version
       RESULT=$?
       if [ $RESULT -ne 0 ]; then
-        sudo apt-get install -y virtualenv
+        pip3 install virtualenv
       fi
 
       pip --version
