@@ -74,12 +74,12 @@ bmra:
         pf_driver: virtio_net
         vf_driver: virtio_net
   device_roles:
-#    qat:
-#      - name: crypto01
-#        pci: "0000:ab:00.0"
-#        pci_type: c6xx
-#        vfs: 4
-  runtime: docker # 'docker' and 'containerd' supported
+    # qat:
+    #   - name: crypto01
+    #     pci: "0000:ab:00.0"
+    #     pci_type: c6xx
+    #     vfs: 4
+  runtime: docker    # 'docker' and 'containerd' supported
   features:
     sriov:
       enable: false
@@ -94,7 +94,7 @@ bmra:
     isolcpus:
       enable: true
       autogenerate: false
-      cpus: "2-5" # Not used when autogenerate is true
+      cpus: "2-5"    # Not used when autogenerate is true
     nfd: true
     cmk:
       enable: true
