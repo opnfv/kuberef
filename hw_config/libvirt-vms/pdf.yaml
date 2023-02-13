@@ -30,13 +30,13 @@ jumphost:
       disk_rotation:
   os: ubuntu1804
   interfaces:
-      # NOTE (fdegir): The IPs listed below actually belong to the libvirt bridges
-      # we create & configure since this is virtual POD and its real IP has nothing
-      # to do with the deployment itself.
-      # interface connected to admin/pxe network
-      - address: 10.1.0.1
-      # interface connected to public network
-      - address: 10.2.0.1
+    # NOTE (fdegir): The IPs listed below actually belong to the libvirt bridges
+    # we create & configure since this is virtual POD and its real IP has nothing
+    # to do with the deployment itself.
+    # interface connected to admin/pxe network
+    - address: 10.1.0.1
+    # interface connected to public network
+    - address: 10.2.0.1
 ##############################################################################
 nodes:
   - name: node1

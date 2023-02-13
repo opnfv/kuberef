@@ -69,83 +69,83 @@ check_prerequisites() {
     #-------------------------------------------------------------------------------
     if [ "$OS_ID" == "ubuntu" ]; then
 
-      sudo apt update -y
-      ansible --version
-      RESULT=$?
-      if [ $RESULT -ne 0 ]; then
-        sudo apt-add-repository --yes --update ppa:ansible/ansible
-        sudo apt-get install -y ansible
-      fi
+        sudo apt update -y
+        ansible --version
+        RESULT=$?
+        if [ $RESULT -ne 0 ]; then
+            sudo apt-add-repository --yes --update ppa:ansible/ansible
+            sudo apt-get install -y ansible
+        fi
 
-      yq --version
-      RESULT=$?
-      if [ $RESULT -ne 0 ]; then
-        sudo wget https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 -O /usr/bin/yq
-        sudo chmod +x /usr/bin/yq
-      fi
+        yq --version
+        RESULT=$?
+        if [ $RESULT -ne 0 ]; then
+            sudo wget https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 -O /usr/bin/yq
+            sudo chmod +x /usr/bin/yq
+        fi
 
-      virsh --version
-      RESULT=$?
-      if [ $RESULT -ne 0 ]; then
-        sudo apt-get install -y virsh
-      fi
+        virsh --version
+        RESULT=$?
+        if [ $RESULT -ne 0 ]; then
+            sudo apt-get install -y virsh
+        fi
 
-      jq --version
-      RESULT=$?
-      if [ $RESULT -ne 0 ]; then
-        sudo apt-get install -y jq
-      fi
+        jq --version
+        RESULT=$?
+        if [ $RESULT -ne 0 ]; then
+            sudo apt-get install -y jq
+        fi
 
-      virtualenv --version
-      RESULT=$?
-      if [ $RESULT -ne 0 ]; then
-        sudo apt-get install -y virtualenv
-      fi
+        virtualenv --version
+        RESULT=$?
+        if [ $RESULT -ne 0 ]; then
+            sudo apt-get install -y virtualenv
+        fi
 
-      pip --version
-      if [ $RESULT -ne 0 ]; then
-        sudo apt-get install -y pip
-      fi
+        pip --version
+        if [ $RESULT -ne 0 ]; then
+            sudo apt-get install -y pip
+        fi
 
     elif [ "$OS_ID" == "centos" ]; then
 
-      sudo yum update -y
-      ansible --version
-      RESULT=$?
-      if [ $RESULT -ne 0 ]; then
-        sudo dnf install epel-release
-        sudo dnf install ansible
-      fi
+        sudo yum update -y
+        ansible --version
+        RESULT=$?
+        if [ $RESULT -ne 0 ]; then
+            sudo dnf install epel-release
+            sudo dnf install ansible
+        fi
 
-      yq --version
-      RESULT=$?
-      if [ $RESULT -ne 0 ]; then
-        sudo wget https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 -O /usr/bin/yq
-        sudo chmod +x /usr/bin/yq
-      fi
+        yq --version
+        RESULT=$?
+        if [ $RESULT -ne 0 ]; then
+            sudo wget https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64 -O /usr/bin/yq
+            sudo chmod +x /usr/bin/yq
+        fi
 
-      virsh --version
-      RESULT=$?
-      if [ $RESULT -ne 0 ]; then
-        sudo yum install -y virsh
-      fi
+        virsh --version
+        RESULT=$?
+        if [ $RESULT -ne 0 ]; then
+            sudo yum install -y virsh
+        fi
 
-      jq --version
-      RESULT=$?
-      if [ $RESULT -ne 0 ]; then
-        sudo yum install -y jq
-      fi
+        jq --version
+        RESULT=$?
+        if [ $RESULT -ne 0 ]; then
+            sudo yum install -y jq
+        fi
 
-      virtualenv --version
-      RESULT=$?
-      if [ $RESULT -ne 0 ]; then
-        sudo yum install -y virtualenv
-      fi
+        virtualenv --version
+        RESULT=$?
+        if [ $RESULT -ne 0 ]; then
+            sudo yum install -y virtualenv
+        fi
 
-      pip --version
-      if [ $RESULT -ne 0 ]; then
-        sudo yum install -y pip
-      fi
+        pip --version
+        if [ $RESULT -ne 0 ]; then
+            sudo yum install -y pip
+        fi
     fi
 
     #-------------------------------------------------------------------------------
