@@ -22,7 +22,7 @@ Anuket RI-2 workstream.
 Infrastructure Prerequisites
 =============================
 
-Please refer to Chapter 3 of `Anuket RI-2 Documentation <https://cntt.readthedocs.io/en/latest/ref_impl/cntt-ri2/chapters/chapter03.html>`_
+Please refer to Chapter 3 of `Anuket RI-2 Chapter 03 Documentation <https://cntt.readthedocs.io/projects/ri2/en/latest/chapters/chapter03.html>`_
 for detailed information on the server and network specifications.
 
 Additionally, please make note of the following:
@@ -125,7 +125,7 @@ Generate SSH keypair
 Deployment on Baremetal and Provider Infrastructure
 ===================================================
 
-Please refer to Chapter 4 of `Anuket RI-2 Documentation <https://cntt.readthedocs.io/en/latest/ref_impl/cntt-ri2/chapters/chapter04.html>`_
+Please refer to Chapter 4 of `Anuket RI-2 Chapter 04 Documentation <https://cntt.readthedocs.io/projects/ri2/en/latest/chapters/chapter04.html>`_
 for instructions to get started with the deployment.
 
 Deployment on Virtualized Infrastructure
@@ -148,4 +148,4 @@ Validation of the Reference Implementation
 ===========================================
 
 Kuberef is validated by running test cases defined in Anuket RC-2 Cookbook.
-For setting up RC-2 Conformance toolchain, please refer to `Anuket RC-2 Chapter 03 <https://cntt.readthedocs.io/en/latest/ref_cert/RC2/chapters/chapter03.html>`_.
+For setting up RC-2 Conformance toolchain, please refer to `Anuket RC-2 Chapter 03 <https://cntt.readthedocs.io/projects/rc2/en/latest/chapters/chapter03.html>`_.

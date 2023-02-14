@@ -7,7 +7,7 @@
   connection: local
   tasks: []
   roles:
-    - { role: kubespray_install }
+    - {role: kubespray_install}
   environment: "{{ proxy_env | d({}) }}"
   any_errors_fatal: true
 
@@ -77,7 +77,7 @@
     kubelet_node_custom_flags: "{{ kubelet_node_custom_flags_prepare | from_yaml }}"
     kube_api_anonymous_auth: true
     kube_feature_gates:
-      - CPUManager=true # feature gate can be enabled by default, default policy is none in Kubernetes
+      - CPUManager=true    # feature gate can be enabled by default, default policy is none in Kubernetes
       - TopologyManager={{ topology_manager_enabled | default(true) }}
       - RotateKubeletServerCertificate=true
     # Kubernetes cluster hardening
