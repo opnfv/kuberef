@@ -175,8 +175,8 @@
 - name: update to the latest kernel and kernel headers on the Red Hat OS family
   package:
     name:
-    - kernel
-    - kernel-devel
+      - kernel
+      - kernel-devel
     state: latest # noqa 403
   notify:
     - reboot server
@@ -188,15 +188,15 @@
 - name: ensure selinux is installed on CentOS/RHEL 7
   package:
     name:
-    - policycoreutils
-    - policycoreutils-python
-    - selinux-policy
-    - selinux-policy-targeted
-    - libselinux-utils
-    - setools
-    - setools-console
-    - shtool
-    - lshw
+      - policycoreutils
+      - policycoreutils-python
+      - selinux-policy
+      - selinux-policy-targeted
+      - libselinux-utils
+      - setools
+      - setools-console
+      - shtool
+      - lshw
     state: present
   when:
     - ansible_distribution in ["RedHat", "CentOS"]
@@ -224,36 +224,36 @@
 - name: install command line tools to collect hardware details
   package:
     name:
-     - hwinfo
-     - inxi
-     - jq
+      - hwinfo
+      - inxi
+      - jq
     state: present
   when: ansible_distribution in ["RedHat", "CentOS"]
 
 - name: Add kubic yum repo and install updated version of podman
   block:
-  - name: disable container-tools module
-    # noqa 305 - shell is used intentionally here
-    shell: dnf -y module disable container-tools
-  - name: enable rhcontainerbot/container-selinux repository
-    # noqa 305 - shell is used intentionally here
-    shell: dnf -y copr enable rhcontainerbot/container-selinux
-  - name: Add kubic yum repo
-    yum_repository:
-      name: devel_kubic_libcontainers_stable
-      description: Stable Releases of Upstream github.com/containers packages (CentOS_$releasever)
-      baseurl: https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/CentOS_$releasever/
-      gpgcheck: yes
-      gpgkey: https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/CentOS_$releasever/repodata/repomd.xml.key
-      keepcache: '0'
-  - name: install runc
-    dnf:
-      name: runc
-      state: present
-  - name: install podman package
-    package:
-      name: podman
-      state: present
+    - name: disable container-tools module
+      # noqa 305 - shell is used intentionally here
+      shell: dnf -y module disable container-tools
+    - name: enable rhcontainerbot/container-selinux repository
+      # noqa 305 - shell is used intentionally here
+      shell: dnf -y copr enable rhcontainerbot/container-selinux
+    - name: Add kubic yum repo
+      yum_repository:
+        name: devel_kubic_libcontainers_stable
+        description: Stable Releases of Upstream github.com/containers packages (CentOS_$releasever)
+        baseurl: https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/CentOS_$releasever/
+        gpgcheck: yes
+        gpgkey: https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/CentOS_$releasever/repodata/repomd.xml.key
+        keepcache: '0'
+    - name: install runc
+      dnf:
+        name: runc
+        state: present
+    - name: install podman package
+      package:
+        name: podman
+        state: present
   when:
     - ansible_os_family == "RedHat" and ansible_distribution_version >= '8.2'
     - '"docker" not in container_runtime'
