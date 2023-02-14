@@ -35,7 +35,7 @@
   loop_control:
     loop_var: vf
     extended: yes
-  when:  ansible_loop.index < (item.sriov_numvfs | default(0) | int )
+  when: ansible_loop.index < (item.sriov_numvfs | default(0) | int )
 
 # get a list of VFs PCI addresses and save the configuration
 - name: attach VFs driver

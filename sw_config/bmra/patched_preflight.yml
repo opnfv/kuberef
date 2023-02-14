@@ -130,98 +130,98 @@
 
 # Early check if SELinux is configured properly
     - block:
-      - name: "Collect packages facts"
-        package_facts:
-      - debug:
-          msg:
-            - "Current SELinux status:"
-            - "status: {{ ansible_selinux.status | default('') }}"
-            - "policy version:  {{ ansible_selinux.policyvers | default('') }}"
-            - "type: {{ ansible_selinux.type | default('') }}"
-            - "mode: {{ ansible_selinux.mode | default('') }}"
-            - "config_mode: {{ ansible_selinux.config_mode | default('') }}"
+        - name: "Collect packages facts"
+          package_facts:
+        - debug:
+            msg:
+              - "Current SELinux status:"
+              - "status: {{ ansible_selinux.status | default('') }}"
+              - "policy version:  {{ ansible_selinux.policyvers | default('') }}"
+              - "type: {{ ansible_selinux.type | default('') }}"
+              - "mode: {{ ansible_selinux.mode | default('') }}"
+              - "config_mode: {{ ansible_selinux.config_mode | default('') }}"
 
-      - name: check selinux condition possibly causing system boot failure
-        debug:
-          msg:
-            - "Current SELinux setup might cause the system possibly will not boot up on next reboot."
-            - "Please, check SELinux settings and set it up according to the documentation."
-        when:
-          - "'selinux-policy' not in ansible_facts.packages"
-          - "'selinux-policy-targeted' not in ansible_facts.packages"
+        - name: check selinux condition possibly causing system boot failure
+          debug:
+            msg:
+              - "Current SELinux setup might cause the system possibly will not boot up on next reboot."
+              - "Please, check SELinux settings and set it up according to the documentation."
+          when:
+            - "'selinux-policy' not in ansible_facts.packages"
+            - "'selinux-policy-targeted' not in ansible_facts.packages"
       when:
         - ansible_os_family == "RedHat"
 
 # STORY: "cmk requires isolcpus to be configured"
     - block:
-      - debug:
-          msg:
-            - cmk_enabled = {{ cmk_enabled }} (group_vars/all.yml)
-            - cmk_use_all_hosts = {{ cmk_use_all_hosts }} (group_vars/all.yml)
-            - cmk_hosts_list = {{ cmk_hosts_list | default('') }} (group_vars/all.yml)
-            - cmk_shared_num_cores = {{ cmk_shared_num_cores }} (group_vars/all.yml)
-            - cmk_exclusive_num_cores = {{ cmk_exclusive_num_cores }} (group_vars/all.yml)
-            - isolcpus_enabled = {{ isolcpus_enabled }} (host_vars)
-            - isolcpus = {{ isolcpus }} (host_vars)
-            - ansible_processor_count = {{ ansible_processor_count }}
-            - ansible_processor_cores = {{ ansible_processor_cores }}
-            - ansible_processor_threads_per_core = {{ ansible_processor_threads_per_core }}
-            - ansible_processor_vcpus = {{ ansible_processor_vcpus }}
-            - CPUs Reserved for OS = 0...{{ ansible_processor_count - 1 }}
-#            - CPUs Reserved for OS = {{ lookup('sequence','0-{{ ansible_processor_count - 1 }}').split(',') }} # [E207] Nested jinja pattern
+        - debug:
+            msg:
+              - cmk_enabled = {{ cmk_enabled }} (group_vars/all.yml)
+              - cmk_use_all_hosts = {{ cmk_use_all_hosts }} (group_vars/all.yml)
+              - cmk_hosts_list = {{ cmk_hosts_list | default('') }} (group_vars/all.yml)
+              - cmk_shared_num_cores = {{ cmk_shared_num_cores }} (group_vars/all.yml)
+              - cmk_exclusive_num_cores = {{ cmk_exclusive_num_cores }} (group_vars/all.yml)
+              - isolcpus_enabled = {{ isolcpus_enabled }} (host_vars)
+              - isolcpus = {{ isolcpus }} (host_vars)
+              - ansible_processor_count = {{ ansible_processor_count }}
+              - ansible_processor_cores = {{ ansible_processor_cores }}
+              - ansible_processor_threads_per_core = {{ ansible_processor_threads_per_core }}
+              - ansible_processor_vcpus = {{ ansible_processor_vcpus }}
+              - CPUs Reserved for OS = 0...{{ ansible_processor_count - 1 }}
+#              - CPUs Reserved for OS = {{ lookup('sequence','0-{{ ansible_processor_count - 1 }}').split(',') }} # [E207] Nested jinja pattern
 
-      - name: Check Intel CMK Config
-        assert:
-          that: ({{ cmk_enabled }} and {{ isolcpus_enabled }} and "{{ isolcpus }}" | length > 0)
-          msg:
-            - Incorrect configuration pertaining Intel CMK. Conflicting or improper values detected
-            - When Intel CMK is enabled, CPUs isolation ('isolcpus') must be set according to the example file for host_vars. Please correct the configuration
+        - name: Check Intel CMK Config
+          assert:
+            that: ({{ cmk_enabled }} and {{ isolcpus_enabled }} and "{{ isolcpus }}" | length > 0)
+            msg:
+              - Incorrect configuration pertaining Intel CMK. Conflicting or improper values detected
+              - When Intel CMK is enabled, CPUs isolation ('isolcpus') must be set according to the example file for host_vars. Please correct the configuration
 
-      - name: Split isolcpus Groups
-        set_fact:
-          isolcpus_groups: "{{ isolcpus.split(',') }}"
+        - name: Split isolcpus Groups
+          set_fact:
+            isolcpus_groups: "{{ isolcpus.split(',') }}"
 
-      - debug: msg="isolcpus_groups = {{ isolcpus_groups }}"
+        - debug: msg="isolcpus_groups = {{ isolcpus_groups }}"
 
-      - name: Filter isolcpus Ranges
-        set_fact:
-          isolcpus_ranges: "{{ isolcpus_ranges + [item] }}"
-        with_items: "{{ isolcpus_groups }}"
-        when: ("-" in item)
+        - name: Filter isolcpus Ranges
+          set_fact:
+            isolcpus_ranges: "{{ isolcpus_ranges + [item] }}"
+          with_items: "{{ isolcpus_groups }}"
+          when: ("-" in item)
 
-      - debug: msg="isolcpus_ranges = {{ isolcpus_ranges }}"
+        - debug: msg="isolcpus_ranges = {{ isolcpus_ranges }}"
 
-      - name: Filter isolcpus Discretes
-        set_fact:
-          isolcpus_discretes: "{{ isolcpus_discretes + [item] }}"
-        with_items: "{{ isolcpus_groups }}"
-        when: ("-" not in item)
+        - name: Filter isolcpus Discretes
+          set_fact:
+            isolcpus_discretes: "{{ isolcpus_discretes + [item] }}"
+          with_items: "{{ isolcpus_groups }}"
+          when: ("-" not in item)
 
-      - debug: msg="isolcpus_discretes = {{ isolcpus_discretes }}"
+        - debug: msg="isolcpus_discretes = {{ isolcpus_discretes }}"
 
-      - name: Build isolcpus List
-        set_fact:
-          isolcpus_list: "{{ isolcpus_list | default([]) | union(isolcpus_discretes) | union([item]) }}"
-        with_sequence: "{{ isolcpus_ranges }}"
+        - name: Build isolcpus List
+          set_fact:
+            isolcpus_list: "{{ isolcpus_list | default([]) | union(isolcpus_discretes) | union([item]) }}"
+          with_sequence: "{{ isolcpus_ranges }}"
 
-      - debug: msg="isolcpus_list = {{ isolcpus_list }}"
+        - debug: msg="isolcpus_list = {{ isolcpus_list }}"
 
-      - name: Check isolcpus Total
-        assert:
-          that: "{{ isolcpus_list | length }} <= ansible_processor_vcpus"
-          msg:
-            - Incorrect configuration pertaining isolcpus. Conflicting or improper values detected
-            - The number of isolcpus {{ isolcpus_list | length }}, exceeds total CPUs on target {{ ansible_processor_vcpus }}. Please correct the configuration
-        when: isolcpus is defined
+        - name: Check isolcpus Total
+          assert:
+            that: "{{ isolcpus_list | length }} <= ansible_processor_vcpus"
+            msg:
+              - Incorrect configuration pertaining isolcpus. Conflicting or improper values detected
+              - The number of isolcpus {{ isolcpus_list | length }}, exceeds total CPUs on target {{ ansible_processor_vcpus }}. Please correct the configuration
+          when: isolcpus is defined
 
-      - name: Check isolcpus IDs
-        assert:
-          that: "item | int <= ansible_processor_vcpus"
-          msg:
-            - Incorrect configuration pertaining isolcpus. Conflicting or improper values detected
-            - The CPU ID {{ item }} set for isolcpus is NOT actually present on target. Please correct the configuration
-        with_items: "{{ isolcpus_list }}"
-        when: isolcpus is defined
+        - name: Check isolcpus IDs
+          assert:
+            that: "item | int <= ansible_processor_vcpus"
+            msg:
+              - Incorrect configuration pertaining isolcpus. Conflicting or improper values detected
+              - The CPU ID {{ item }} set for isolcpus is NOT actually present on target. Please correct the configuration
+          with_items: "{{ isolcpus_list }}"
+          when: isolcpus is defined
 
 #TODO relationship between cmk shared/exclusive cores and isolcpus
 
