@@ -7,6 +7,10 @@ extends: default
 
 ignore: |
   deployment.yaml
+  .tox/
 
 rules:
   line-length: disable
+  truthy: disable
+  comments-indentation: disable
+  comments: disable
