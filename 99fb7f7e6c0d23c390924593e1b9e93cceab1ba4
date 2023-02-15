@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d06c38c_54fbd8a6",
+        "filename": "docs/release/installation/deployment-guide.rst",
+        "patchSetId": 11
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5469
+      },
+      "writtenOn": "2023-02-15T03:21:14Z",
+      "side": 0,
+      "message": "why remove installation of virtualenv?",
+      "revId": "99fb7f7e6c0d23c390924593e1b9e93cceab1ba4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44432139_f4ac03e3",
+        "filename": "functions.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5469
+      },
+      "writtenOn": "2023-02-15T03:21:14Z",
+      "side": 0,
+      "message": "why remove this automatically install and choose the manually install?",
+      "revId": "99fb7f7e6c0d23c390924593e1b9e93cceab1ba4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d0e9b0a_2b0052b0",
+        "filename": "functions.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5469
+      },
+      "writtenOn": "2023-02-15T03:21:14Z",
+      "side": 0,
+      "message": "why remove pip installation?",
+      "revId": "99fb7f7e6c0d23c390924593e1b9e93cceab1ba4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
