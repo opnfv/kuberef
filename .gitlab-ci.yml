@@ -30,7 +30,7 @@ stages:
 
 deploy:
   tags:
-    - intel-pod19-shell
+    - unh-ri2-pod1
   stage: deploy_platform
   script:
     - bash deploy.sh
