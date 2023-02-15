@@ -13,7 +13,7 @@ variables:
   HTTP_DST_URL: http://artifacts.opnfv.org/kuberef/${CI_COMMIT_SHORT_SHA}/${CI_JOB_NAME}-${CI_JOB_ID}
   TEST_DB_URL: http://testresults.opnfv.org/test/api/v1/results
   TEST_DB_EXT_URL: http://testresults.opnfv.org/test/api/v1/results
-  NODE_NAME: intel-pod19
+  NODE_NAME: unh-ri2-pod1
   BUILD_TAG: ${CI_COMMIT_SHORT_SHA}
   DEPLOY_SCENARIO: k8-nosdn-nofeature-noha
 
@@ -30,14 +30,14 @@ stages:
 
 deploy:
   tags:
-    - intel-pod19-shell
+    - unh-ri2-pod1-shell
   stage: deploy_platform
   script:
     - bash deploy.sh
 
 k8s_quick:
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-healthcheck
   image: opnfv/functest-kubernetes-healthcheck:v1.21
   script:
@@ -45,7 +45,7 @@ k8s_quick:
 
 k8s_smoke:
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-healthcheck
   image: opnfv/functest-kubernetes-healthcheck:v1.21
   script:
@@ -55,7 +55,7 @@ xrally_kubernetes:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-smoke
   image: opnfv/functest-kubernetes-smoke:v1.21
   script:
@@ -65,7 +65,7 @@ k8s_conformance:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-smoke
   image: opnfv/functest-kubernetes-smoke:v1.21
   script:
@@ -75,7 +75,7 @@ k8s_conformance_serial:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-smoke
   image: opnfv/functest-kubernetes-smoke:v1.21
   script:
@@ -85,7 +85,7 @@ sig_api_machinery:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-smoke
   image: opnfv/functest-kubernetes-smoke:v1.21
   script:
@@ -95,7 +95,7 @@ sig_api_machinery_serial:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-smoke
   image: opnfv/functest-kubernetes-smoke:v1.21
   script:
@@ -105,7 +105,7 @@ sig_apps:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-smoke
   image: opnfv/functest-kubernetes-smoke:v1.21
   script:
@@ -115,7 +115,7 @@ sig_apps_serial:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-smoke
   image: opnfv/functest-kubernetes-smoke:v1.21
   script:
@@ -125,7 +125,7 @@ sig_auth:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-smoke
   image: opnfv/functest-kubernetes-smoke:v1.21
   script:
@@ -135,7 +135,7 @@ sig_cluster_lifecycle:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-smoke
   image: opnfv/functest-kubernetes-smoke:v1.21
   script:
@@ -145,7 +145,7 @@ sig_instrumentation:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-smoke
   image: opnfv/functest-kubernetes-smoke:v1.21
   script:
@@ -155,7 +155,7 @@ sig_network:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-smoke
   image: opnfv/functest-kubernetes-smoke:v1.21
   script:
@@ -165,7 +165,7 @@ sig_node:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-smoke
   image: opnfv/functest-kubernetes-smoke:v1.21
   script:
@@ -175,7 +175,7 @@ sig_scheduling_serial:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-smoke
   image: opnfv/functest-kubernetes-smoke:v1.21
   script:
@@ -185,7 +185,7 @@ sig_storage:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-smoke
   image: opnfv/functest-kubernetes-smoke:v1.21
   script:
@@ -195,7 +195,7 @@ sig_storage_serial:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-smoke
   image: opnfv/functest-kubernetes-smoke:v1.21
   script:
@@ -205,7 +205,7 @@ kube_hunter:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-security
   image: opnfv/functest-kubernetes-security:v1.21
   script:
@@ -215,7 +215,7 @@ kube_bench_master:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-security
   image: opnfv/functest-kubernetes-security:v1.21
   script:
@@ -225,7 +225,7 @@ kube_bench_node:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-security
   image: opnfv/functest-kubernetes-security:v1.21
   script:
@@ -235,7 +235,7 @@ xrally_kubernetes_full:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-benchmarking
   image: opnfv/functest-kubernetes-benchmarking:v1.21
   script:
@@ -245,7 +245,7 @@ netperf:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-benchmarking
   image: opnfv/functest-kubernetes-benchmarking:v1.21
   script:
@@ -255,7 +255,7 @@ k8s_vims:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-cnf
   image: opnfv/functest-kubernetes-cnf:v1.21
   script:
@@ -265,7 +265,7 @@ helm_vims:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-cnf
   image: opnfv/functest-kubernetes-cnf:v1.21
   script:
@@ -275,7 +275,7 @@ cnf_testsuite:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: functest-kubernetes-cnf
   image: opnfv/functest-kubernetes-cnf:v1.21
   script:
@@ -285,7 +285,7 @@ zip:
   only:
     - schedules
   tags:
-    - intel-pod19-docker
+    - unh-ri2-pod1-docker
   stage: zip
   variables:
     S3_DST_URL: s3://artifacts.opnfv.org/kuberef/
