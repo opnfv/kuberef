@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "6dd3871e_8f4ae12a",
         "filename": "docs/release/installation/deployment-guide.rst",
@@ -14,8 +15,8 @@
       "side": 1,
       "message": "why use \u0027USENAME\u0027 instead of command \u0027id -un\u0027?",
       "revId": "da69fd1b9f18388404726780661d6287744b25c2",
-      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
-      "unresolved": true
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5"
     }
-  ]
+  ],
+  "submitRequirementResults": []
 }
